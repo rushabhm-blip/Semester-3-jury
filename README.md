@@ -8,7 +8,9 @@ A zoomable, Prezi-style jury presentation on a dot-grid canvas, covering three p
 
 ## View it
 
-Open `jury-presentation.html` from a local web server (images load by relative path), for example:
+Live: https://rushabhm-blip.github.io/Semester-3-jury/
+
+Locally, open `index.html` from a web server (images load by relative path), for example:
 
 ```
 npx serve .
