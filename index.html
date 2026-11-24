@@ -67,6 +67,7 @@ body.infs #hud,body.infs #hint{display:none}
 .tw .slide{position:absolute;border-radius:8px;overflow:hidden;border:1px solid #2a241c}
 .tw .slide img{width:100%;height:100%;object-fit:cover}
 .rg{position:absolute;border-radius:50%;border:2px solid rgba(244,234,216,.35);display:grid;justify-items:center}
+.rg[data-b]{transform:scale(.8)}.rg[data-b].on{transform:none}
 .rg span{font-size:18px;letter-spacing:.14em;color:var(--acc);font-weight:700;margin-top:10px}
 .bub{position:absolute;background:#f4ead8;color:#111;border-radius:28px;padding:22px 28px;font-size:28px;line-height:1.2;font-weight:600}
 .bub:after{content:"";position:absolute;left:44px;bottom:-18px;border:18px solid transparent;border-top-color:#f4ead8;border-bottom:0}
@@ -166,9 +167,9 @@ body.infs #hud,body.infs #hint{display:none}
   <p class="lab abs" style="left:90px;top:90px">Problem</p>
   <h2 class="abs" style="left:90px;top:130px;width:620px;font-size:62px">Children meet history as isolated facts.</h2>
   <p class="abs" style="left:90px;top:330px;font-size:40px;line-height:1.15;font-weight:700;width:600px">The gap is not information.<br><span style="color:var(--acc)">The gap is context.</span></p>
-  <p class="lab abs" style="left:90px;top:500px">What children told us</p>
-  <div class="bub" style="left:90px;top:550px;width:520px;font-size:24px">“When I go to museums, I want to touch it.”<div class="port" id="p-touch" style="left:360px;top:8px;width:140px;height:79px"></div></div>
-  <div class="bub" style="left:240px;top:700px;width:560px;font-size:24px">“I sleep when my teacher talks about history in class.”</div>
+  <p class="lab abs" data-b="6" style="left:90px;top:500px">What children told us</p>
+  <div class="bub" data-b="6" style="left:90px;top:550px;width:520px;font-size:24px">“When I go to museums, I want to touch it.”<div class="port" id="p-touch" style="left:360px;top:8px;width:140px;height:79px"></div></div>
+  <div class="bub" data-b="7" style="left:240px;top:700px;width:560px;font-size:24px">“I sleep when my teacher talks about history in class.”</div>
   <div id="rings"></div>
 </section>
 
@@ -376,7 +377,7 @@ body.infs #hud,body.infs #hint{display:none}
 /* ---------- drawn content ---------- */
 // rings: object → world
 {const R=['OBJECT','PEOPLE','PLACE','CULTURE','SOCIETY','WORLD'];
- document.getElementById('rings').innerHTML=R.map((r,i)=>{const d=150+i*130;return`<div class="rg" style="left:${1170-d/2}px;top:${460-d/2}px;width:${d}px;height:${d}px;${i==0?'background:#d9a25b;border:0;place-items:center':''}"><span style="${i==0?'color:#000;margin:0':''}">${r}</span></div>`}).join('')}
+ document.getElementById('rings').innerHTML=R.map((r,i)=>{const d=150+i*130;return`<div class="rg" ${i?`data-b="${i}"`:''} style="left:${1170-d/2}px;top:${460-d/2}px;width:${d}px;height:${d}px;${i==0?'background:#d9a25b;border:0;place-items:center':''}"><span style="${i==0?'color:#000;margin:0':''}">${r}</span></div>`}).join('')}
 // information architecture: 11 scenes in 4 chapters; two thumbnails open the walkthrough
 {const CH=[['AT HOME','home1','p-home',['Booking','Packing']],['GETTING THERE','getting1','p-getting',['Cab','Kerb']],['TERMINAL','terminal1','p-terminal',['Entrance','Check-in','Security']],['GATE & AIRCRAFT','gate2','p-gate',['Departures','Gate change','Boarding','Seat 14A']]];
  let h=`<div class="abs" style="left:80px;top:568px;width:1440px;height:4px;background:#1d4fa3;border-radius:2px"></div><div class="port" id="p-open" style="left:60px;top:540px;width:110px;height:62px;display:grid;place-items:center;background:#2e8b84;color:#fff;border-radius:31px;font-size:18px;font-weight:700">Open Saath</div>`;
