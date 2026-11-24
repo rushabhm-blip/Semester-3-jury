@@ -40,9 +40,11 @@ img{display:block}
 .dots{display:flex;gap:34px;align-items:center;justify-content:center}
 .dots i{width:70px;height:70px;border-radius:50%}
 .c1{background:#163a28}.c2{background:#111}.c3{background:#2456c8}
-.q{position:absolute;top:150px;width:420px;text-align:center}
-.q .ring{width:300px;height:300px;border-radius:50%;margin:0 auto;position:relative}
-.q .ring .port{left:45px;top:99px;width:210px;height:118px}
+.q{position:absolute;top:90px;width:440px;text-align:center}
+.q .ring{width:370px;height:370px;border-radius:50%;margin:0 auto;position:relative;overflow:hidden;box-shadow:0 0 0 8px #fbfbf7,0 0 0 11px var(--rc),0 30px 60px -30px rgba(0,0,0,.5);cursor:zoom-in}
+.q .ring img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.q .ring:hover img{transform:scale(1.06)}
+.q .ring .port{left:55px;top:133px;width:260px;height:146px}
 .q p{font-size:36px;line-height:1.15;font-weight:700;margin-top:44px;text-wrap:balance}
 .q small{display:block;font-size:22px;color:#6b6b66;margin-top:14px;font-weight:500}
 /* ---------- fear (forest + serif) ---------- */
@@ -95,9 +97,9 @@ img{display:block}
 </section>
 
 <section class="scr op" id="s02" data-in="s01 p-dots" data-name="Three questions">
-  <div class="q" style="left:110px"><div class="ring c1"><div class="port" id="p-q1" data-peek></div></div><p>Why do we fear what we don't understand?<small>The Fear Between Us</small></p></div>
-  <div class="q" style="left:590px"><div class="ring c2"><div class="port" id="p-q2" data-peek></div></div><p>How do children meet history?<small>Time Wanderers</small></p></div>
-  <div class="q" style="left:1070px"><div class="ring c3"><div class="port" id="p-q3" data-peek></div></div><p>How do you prepare for a place you've never been?<small>Saath</small></p></div>
+  <div class="q" style="left:100px"><div class="ring c1" style="--rc:#163a28" data-go-to="f1"><img src="img/v/f-diversity.jpg" alt="" style="object-position:62% 50%"><div class="port" id="p-q1"></div></div><p>Why do we fear what we don't understand?<small>The Fear Between Us</small></p></div>
+  <div class="q" style="left:580px"><div class="ring c2" style="--rc:#111" data-go-to="t1"><img src="img/v/tw13.jpg" alt="" style="transform-origin:50% 45%"><div class="port" id="p-q2"></div></div><p>How do children meet history?<small>Time Wanderers</small></p></div>
+  <div class="q" style="left:1060px"><div class="ring c3" style="--rc:#2456c8" data-go-to="a1"><img src="img/v/room.jpg" alt="" style="object-position:55% 50%"><div class="port" id="p-q3"></div></div><p>How do you prepare for a place you've never been?<small>Saath</small></p></div>
 </section>
 
 <!-- =================== 1 · THE FEAR BETWEEN US =================== -->
@@ -490,7 +492,7 @@ addEventListener('pointermove',e=>{if(!down)return;const dx=e.clientX-down.x,dy=
   if(moved){const k=cam.w/innerWidth;cam={x:down.c.x-dx*k,y:down.c.y-dy*k,w:cam.w};render()}});
 addEventListener('pointerup',e=>{stage.classList.remove('drag');const was=moved;down=null;if(was||!e.target.closest)return;
   if(e.target.closest('a'))return;
-  const g=e.target.closest('[data-go]');if(g){toScreen(g.dataset.go);return}
+  const g=e.target.closest('[data-go],[data-go-to]');if(g){toScreen(g.dataset.go||g.dataset.goTo);return}
   // click an image to look closer; click it again (or Esc) to step back
   const im=e.target.closest('.slide,.shot,.fig'),scr=im&&im.closest('.scr');
   if(im&&scr&&scr.id==path[idx].id){if(focused===im){focused=null;fly(viewOf(scr.id))}else{focused=im;fly(viewOf(scr.id,im))}hint.style.opacity=0}
