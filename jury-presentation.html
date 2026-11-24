@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jury Presentation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&display=swap">
+<style>
+/* VOICE: a designer's own board — few words, big pictures, calm.
+   IDEA: a Figma board you zoom into, Prezi-style: board → project → card → picture.
+   PICTURE: every frame is led by a real visual from the work; text is a caption, not a slide.
+   COLOUR and TYPE: white board, near-black ink; one accent per project (forest green, bronze, airport blue); Schibsted Grotesk.
+   LAYOUT: intro on top, three projects left to right in talk order, closing below; control bar at the bottom. */
+:root{color-scheme:light dark;
+  --bg:light-dark(#f6f6f3,#121314);--dot:light-dark(#cfcfc9,#33353a);--dot2:light-dark(#a8a8a2,#4b4e54);
+  --card:light-dark(#ffffff,#1b1c1e);--ink:light-dark(#141414,#ededeb);--mute:light-dark(#62625d,#a3a39e);
+  --line:light-dark(#e2e2dc,#2d2f32);--green:light-dark(#1f7a4d,#5fd39a);--bronze:light-dark(#a3651b,#e0a65a);
+  --blue:light-dark(#2952e3,#7d9bff);--bar:light-dark(rgba(255,255,255,.93),rgba(27,28,30,.93));--forest:#0e2419}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Schibsted Grotesk",system-ui,sans-serif;overflow:hidden;user-select:none;touch-action:none}
+#stage{position:fixed;inset:0;cursor:grab}#stage.drag{cursor:grabbing}
+#world{position:absolute;left:0;top:0;transform-origin:0 0}#world.moving{will-change:transform}
+.f{position:absolute;cursor:zoom-in;border-radius:14px;outline:2px solid transparent;outline-offset:5px;transition:outline-color .25s}
+.f.cur{cursor:default}.f:hover:not(.cur){outline-color:var(--acc,var(--ink))}
+.s1{--acc:var(--green)}.s2{--acc:var(--bronze)}.s3{--acc:var(--blue)}
+/* pictures */
+.g{margin:0;overflow:hidden;background:var(--line)}
+.g img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;pointer-events:none}
+.g.fit img{object-fit:contain;object-position:center}
+.g.cur img{object-fit:contain;object-position:center}
+.g.gen{border:2px dashed var(--mute);background:var(--bg)}
+.g.gen::after{content:attr(data-gen);position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:10%;color:var(--mute);font-size:30px;pointer-events:none}
+.g.gen.ok{border:0}.g.gen.ok::after{display:none}
+/* intro */
+.title{left:-1300px;top:-1320px;width:2600px;height:900px;display:grid;grid-template-columns:1.15fr 1fr;gap:90px;align-items:center;padding:0 20px}
+.title .who{font-size:32px;color:var(--mute);margin:0 0 20px}
+.title h1{font-size:150px;line-height:.98;margin:0;font-weight:800;letter-spacing:-4px}
+.title .k{display:flex;flex-direction:column;gap:16px;margin-top:50px}
+.title .k span{font-size:34px;display:flex;align-items:center;gap:18px}
+.title .k i{width:22px;height:22px;border-radius:50%;background:var(--acc)}
+.title .g{position:relative;height:820px;border-radius:24px}
+/* project */
+.p{width:2600px;height:1600px;top:0;background:var(--card);border:3px solid var(--line);box-shadow:0 30px 80px -40px rgba(0,0,0,.25)}
+.p .hd{position:absolute;left:100px;top:100px;width:820px}
+.p .tag{font-size:28px;font-weight:700;color:var(--acc)}
+.p h2{font-size:120px;line-height:.98;margin:18px 0 0;font-weight:800;letter-spacing:-3px;text-wrap:balance}
+.p .line{font-size:46px;line-height:1.15;margin:30px 0 0;font-weight:500;text-wrap:balance}
+.p .meta{display:flex;flex-wrap:wrap;gap:12px;margin-top:40px}
+.p .meta span{font-size:24px;padding:8px 18px;border-radius:999px;border:2px solid var(--line)}
+.p>.g{position:absolute;left:1000px;top:100px;width:1500px;height:880px;border-radius:20px}
+.p .kids{position:absolute;left:100px;right:100px;top:1040px;height:460px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:30px}
+/* cards: picture first, one line of words */
+.c{position:relative;height:100%;background:var(--bg);border:2px solid var(--line);overflow:hidden;display:grid;grid-template-rows:62% 1fr}
+.c>.g{position:relative;border-radius:0;outline-offset:-4px}
+.c .tx{padding:14px 18px 0}
+.c .l{font-size:12px;font-weight:700;color:var(--acc);margin:0}
+.c h3{font-size:24px;line-height:1.05;margin:3px 0 6px;font-weight:800;letter-spacing:-.4px;text-wrap:balance}
+.c p{font-size:12.5px;line-height:1.35;margin:0;color:var(--mute)}
+/* drawn visuals for the data story */
+.v{position:relative;background:var(--forest);color:#e9f1ea;overflow:hidden}
+.v svg{position:absolute;inset:0;width:100%;height:100%}
+.v .ov{position:absolute;left:14px;bottom:10px;font-size:44px;font-weight:800;line-height:1;text-shadow:0 2px 12px rgba(0,0,0,.6)}
+.v .ov small{display:block;font-size:12px;font-weight:500;margin-top:4px}
+.deck{display:grid;place-items:center}
+.deck div{position:absolute;width:34%;aspect-ratio:2.5/3.5;background:#f4efe2;border-radius:8px;box-shadow:0 8px 20px rgba(0,0,0,.45);display:grid;place-items:center;padding:6px;border:2px solid #d8cfb6}
+.deck div:nth-child(1){transform:translateX(-30%) rotate(-10deg)}.deck div:nth-child(2){transform:translateX(30%) rotate(8deg)}
+.deck img{width:100%;height:70%;object-fit:contain}
+.deck b{position:absolute;bottom:8px;font-size:8px;color:#3a2f1c;letter-spacing:.5px}
+/* closing */
+.end{left:-1300px;top:1950px;width:2600px;height:1200px;padding:100px;background:var(--card);border:3px solid var(--line)}
+.end h2{font-size:100px;line-height:1.02;margin:0;font-weight:800;letter-spacing:-3px;text-wrap:balance;max-width:2000px}
+.end .three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:50px;margin-top:60px}
+.end .three .g{position:relative;height:420px;border-radius:16px}
+.end h4{font-size:40px;margin:22px 0 0;line-height:1.1;color:var(--acc)}
+.end .ty{font-size:64px;font-weight:800;margin:56px 0 0}
+/* HUD */
+#hud{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);display:flex;align-items:center;gap:6px;padding:6px;border-radius:14px;background:var(--bar);border:1px solid var(--line);backdrop-filter:blur(10px);box-shadow:0 10px 30px -12px rgba(0,0,0,.3);max-width:calc(100vw - 32px)}
+#hud button{all:unset;cursor:pointer;min-width:44px;height:44px;display:grid;place-items:center;border-radius:10px;font:600 15px "Schibsted Grotesk",sans-serif;color:var(--ink);padding:0 12px}
+#hud button:hover{background:var(--line)}#hud button:focus-visible{outline:2px solid var(--blue)}
+#where{font-size:14px;color:var(--mute);padding:0 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:38vw}
+#prog{position:fixed;left:0;top:0;height:3px;background:var(--ink);transition:width .5s}
+#hint{position:fixed;top:16px;left:50%;transform:translateX(-50%);font-size:14px;color:var(--mute);background:var(--bar);border:1px solid var(--line);padding:8px 16px;border-radius:999px;transition:opacity .6s;pointer-events:none;white-space:nowrap}
+@media(max-width:600px){#where{display:none}#hint{font-size:12px;white-space:normal;text-align:center;width:calc(100vw - 32px)}}
+</style>
+</head>
+<body>
+<div id="stage"><div id="world">
+
+<section class="f title" data-stop="Introduction">
+  <div>
+    <p class="who">Rushabh Mahore · Interaction Design, NID Bengaluru</p>
+    <h1>Build it to understand it.</h1>
+    <div class="k"><span class="s1"><i></i>The Fear Between Us</span><span class="s2"><i></i>Time Wanderers</span><span class="s3"><i></i>Saath — Design Project 2</span></div>
+  </div>
+  <figure class="f g gen" data-gen="ChatGPT image → img/gen-intro.png"><img src="img/gen-intro.png" alt="Illustration of the three projects" onload="this.parentNode.classList.add('ok')" onerror="this.remove()"></figure>
+</section>
+
+<!-- ============ 1 · THE FEAR BETWEEN US ============ -->
+<section class="f p s1" style="left:-4250px" data-stop="The Fear Between Us">
+  <div class="hd">
+    <div class="tag">Data storytelling</div>
+    <h2>The Fear Between Us</h2>
+    <p class="line">A story told through data, and the lives it leaves uncounted.</p>
+    <div class="meta"><span>Scroll story</span><span>307 species</span><span>33,408 sightings</span></div>
+  </div>
+  <figure class="f g"><img src="img/c/fear-diversity.jpg" alt="Panorama of India's snake diversity"></figure>
+  <div class="kids">
+    <article class="f c" data-stop="Fear · Problem">
+      <figure class="f g v"><img src="img/fear-paddy.webp" alt="A snakebite encounter in a monsoon paddy field"><div class="ov">1 in 2<small>snakebite deaths worldwide happen in India</small></div></figure>
+      <div class="tx"><p class="l">Problem</p><h3>Fear does more harm than venom.</h3><p>Myths delay antivenom. Snakes are killed and never counted.</p></div>
+    </article>
+    <article class="f c" data-stop="Fear · Process">
+      <figure class="f g v" id="arc"></figure>
+      <div class="tx"><p class="l">Process</p><h3>A story that turns halfway.</h3><p>First the human cost, then the snakes' side.</p></div>
+    </article>
+    <article class="f c" data-stop="Fear · Tools">
+      <figure class="f g v" id="dots"></figure>
+      <div class="tx"><p class="l">Tools</p><h3>Open data, coded by hand.</h3><p>iNaturalist data · Leaflet maps · HTML, CSS, JS</p></div>
+    </article>
+    <article class="f c" data-stop="Fear · Outcome">
+      <figure class="f g v deck"><div><img src="img/fear-krait.png" alt="Common krait"><b>COMMON KRAIT</b></div><div><img src="img/fear-cobra.png" alt="Indian cobra"><b>INDIAN COBRA</b></div></figure>
+      <div class="tx"><p class="l">Outcome</p><h3>Draw a card. Search your street.</h3><p>Big Four card deck, species chart, 5 km sightings map.</p></div>
+    </article>
+    <article class="f c" data-stop="Fear · Learnings">
+      <figure class="f g v"><svg viewBox="0 0 460 285" id="clock"></svg><div class="ov">6<small>lives every hour</small></div></figure>
+      <div class="tx"><p class="l">Learnings</p><h3>Numbers need a human scale.</h3><p>"Every hour" lands harder than a yearly total.</p></div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ 2 · TIME WANDERERS ============ -->
+<section class="f p s2" style="left:-1300px" data-stop="Time Wanderers">
+  <div class="hd">
+    <div class="tag">Multimodal interaction · Group</div>
+    <h2>Time Wanderers</h2>
+    <p class="line">Discover the object. Travel through its history.</p>
+    <div class="meta"><span>With Sharvani &amp; Ankit</span><span>Gesture + voice</span><span>Ages 8–16</span></div>
+  </div>
+  <figure class="f g"><img src="img/tw-13.png" alt="Introducing Time Wanderers"></figure>
+  <div class="kids">
+    <article class="f c" data-stop="Time Wanderers · Problem">
+      <figure class="f g"><img src="img/tw-03.png" alt="Problem slide"></figure>
+      <div class="tx"><p class="l">Problem</p><h3>The gap is context, not facts.</h3><p>Children see the artifact, never its world.</p></div>
+    </article>
+    <article class="f c" data-stop="Time Wanderers · Process">
+      <figure class="f g"><img src="img/tw-20.png" alt="Storyboard"></figure>
+      <div class="tx"><p class="l">Process</p><h3>Research → flow → storyboard.</h3><p>"I found something. What is it?"</p></div>
+    </article>
+    <article class="f c" data-stop="Time Wanderers · Tools">
+      <figure class="f g"><img src="img/tw-29.png" alt="Tools used"></figure>
+      <div class="tx"><p class="l">Tools</p><h3>From mockups to code.</h3><p>VS Code · AI assets, video and audio.</p></div>
+    </article>
+    <article class="f c" data-stop="Time Wanderers · Outcome">
+      <figure class="f g"><img src="img/tw-21.png" alt="Storyboard of the gestures"></figure>
+      <div class="tx"><p class="l">Outcome</p><h3>Clench, zoom, blow, roll back.</h3><p>A museum you move through with your hands.</p></div>
+    </article>
+    <article class="f c" data-stop="Time Wanderers · Learnings">
+      <figure class="f g"><img src="img/tw-30.png" alt="User testing"></figure>
+      <div class="tx"><p class="l">Learnings</p><h3>Natural movement beats clever input.</h3><p>Testing made us strip gestures back to everyday ones.</p></div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ 3 · SAATH ============ -->
+<section class="f p s3" style="left:1650px" data-stop="Saath">
+  <div class="hd">
+    <div class="tag">Design Project 2 · Mixed reality</div>
+    <h2>Saath</h2>
+    <p class="line">Practise the airport, before the airport.</p>
+    <div class="meta"><span>Solo</span><span>Meta Quest 3</span><span>11 scenes</span></div>
+  </div>
+  <figure class="f g"><img src="img/c/saath-room.jpg" alt="Saath running in a living room, booking card beside a phone"></figure>
+  <div class="kids">
+    <article class="f c" data-stop="Saath · Problem">
+      <figure class="f g"><img src="img/c/saath-story.jpg" alt="Kamala's first solo flight, sketched"></figure>
+      <div class="tx"><p class="l">Problem</p><h3>Kamala, 68, flying alone.</h3><p>Airports assume you already know them.</p></div>
+    </article>
+    <article class="f c" data-stop="Saath · Process">
+      <figure class="f g"><img src="img/c/saath-iceberg.jpg" alt="Iceberg model"></figure>
+      <div class="tx"><p class="l">Process</p><h3>Loops, iceberg, one path.</h3><p>Systems map → interviews → 11-scene journey.</p></div>
+    </article>
+    <article class="f c" data-stop="Saath · Tools">
+      <figure class="f g fit"><img src="img/c/saath-start.jpg" alt="Start screen with headset"></figure>
+      <div class="tx"><p class="l">Tools</p><h3>Built for the headset.</h3><p>three.js · WebXR · Blender · Figma · recorded voice</p></div>
+    </article>
+    <article class="f c" data-stop="Saath · Outcome">
+      <figure class="f g"><img src="img/c/saath-gatechange.jpg" alt="A practised gate change in the terminal"></figure>
+      <div class="tx"><p class="l">Outcome</p><h3>Home to seat 14A.</h3><p>Show me · Ask for help · Read aloud, on every step.</p></div>
+    </article>
+    <article class="f c" data-stop="Saath · Learnings">
+      <figure class="f g"><img src="img/c/saath-cab.jpg" alt="The cab driver greets you"></figure>
+      <div class="tx"><p class="l">Learnings</p><h3>Design for confidence.</h3><p>No timers, private mistakes, one step at a time.</p></div>
+    </article>
+  </div>
+</section>
+
+<section class="f end" data-stop="Thank you">
+  <h2>Map the system. Then build it to learn.</h2>
+  <div class="three">
+    <div class="s1"><figure class="f g v deck"><div><img src="img/fear-cobra.png" alt="Indian cobra"><b>INDIAN COBRA</b></div><div><img src="img/fear-krait.png" alt="Common krait"><b>COMMON KRAIT</b></div></figure><h4>From fear to understanding</h4></div>
+    <div class="s2"><figure class="f g"><img src="img/tw-21.png" alt="Time Wanderers storyboard"></figure><h4>From object to world</h4></div>
+    <div class="s3"><figure class="f g"><img src="img/c/saath-gatechange.jpg" alt="Saath gate change"></figure><h4>From anxiety to confidence</h4></div>
+  </div>
+  <p class="ty">Thank you.</p>
+</section>
+
+</div></div>
+
+<div id="prog"></div>
+<div id="hint">Click anything to zoom in · ← → to step · Esc for overview</div>
+<nav id="hud" aria-label="Presentation controls">
+  <button id="bPrev" aria-label="Previous">←</button>
+  <button id="bAll" aria-label="Overview">Overview</button>
+  <span id="where">Overview</span>
+  <button id="bNext" aria-label="Next">→</button>
+</nav>
+
+<script>
+{
+// drawn visuals for the data story
+const NS='http://www.w3.org/2000/svg';
+const arcPts=[['Fear',.08,.78],['Scale',.22,.7],['Myths',.36,.62],['Antivenom',.5,.48],['Uncounted',.62,.4],['300+ species',.73,.3],['Your street',.9,.2]];
+document.getElementById('arc').innerHTML=`<svg viewBox="0 0 460 285" preserveAspectRatio="xMidYMid slice"><path d="M${arcPts.map(p=>[p[1]*460,p[2]*285].join(' ')).join(' L')}" fill="none" stroke="#e9f1ea" stroke-opacity=".35" stroke-width="2" stroke-dasharray="4 5"/>${arcPts.map((p,i)=>`<circle cx="${p[1]*460}" cy="${p[2]*285}" r="${i==0||i==6?9:6}" fill="${i<4?'#e0553f':'#5fd39a'}"/><text x="${p[1]*460}" y="${p[2]*285+(i%2?-14:24)}" fill="#e9f1ea" font-size="12" text-anchor="middle" font-family="Schibsted Grotesk,sans-serif">${p[0]}</text>`).join('')}<text x="20" y="30" fill="#e0553f" font-size="15" font-weight="700" font-family="Schibsted Grotesk,sans-serif">Fear</text><text x="440" y="30" fill="#5fd39a" font-size="15" font-weight="700" text-anchor="end" font-family="Schibsted Grotesk,sans-serif">Understanding</text></svg>`;
+// 307 species: 73 venomous, 57 mildly venomous, 177 non-venomous
+{const cols=26,r=4.2,gap=12.4,x0=(460-(cols-1)*gap)/2,y0=40;let s='';
+ for(let i=0;i<307;i++){const c=i<73?'#e0553f':i<130?'#e8b04a':'#5fd39a';s+=`<circle cx="${x0+(i%cols)*gap}" cy="${y0+Math.floor(i/cols)*gap}" r="${r}" fill="${c}"/>`}
+ const lg=[['#e0553f','23.8% venomous'],['#e8b04a','18.6% mild'],['#5fd39a','57.7% harmless']].map((l,i)=>`<circle cx="${30+i*145}" cy="${y0+12*gap+16}" r="5" fill="${l[0]}"/><text x="${40+i*145}" y="${y0+12*gap+20}" fill="#e9f1ea" font-size="12" font-family="Schibsted Grotesk,sans-serif">${l[1]}</text>`).join('');
+ document.getElementById('dots').innerHTML=`<svg viewBox="0 0 460 285"><text x="230" y="24" fill="#e9f1ea" font-size="13" text-anchor="middle" font-family="Schibsted Grotesk,sans-serif">Each dot is one of 307 species</text>${s}${lg}</svg>`}
+// a 60-minute ring with six marks
+{let s='';for(let i=0;i<60;i++){const a=i/60*Math.PI*2-Math.PI/2,on=i%10==0,R=on?100:104;s+=`<line x1="${300+Math.cos(a)*R}" y1="${142+Math.sin(a)*R}" x2="${300+Math.cos(a)*112}" y2="${142+Math.sin(a)*112}" stroke="${on?'#e0553f':'#e9f1ea'}" stroke-opacity="${on?1:.3}" stroke-width="${on?6:2}" stroke-linecap="round"/>`}
+ document.getElementById('clock').innerHTML=s+`<text x="300" y="148" fill="#e9f1ea" font-size="14" text-anchor="middle" font-family="Schibsted Grotesk,sans-serif">one hour</text>`}
+
+const stage=document.getElementById('stage'),world=document.getElementById('world'),hint=document.getElementById('hint');
+const frames=[...document.querySelectorAll('.f')];
+const path=[null,document.querySelector('.title')];
+for(const p of document.querySelectorAll('.p')){path.push(p,...p.querySelectorAll('.c'),null)}
+path.push(document.querySelector('.end'));
+let idx=0,cur=null;const cam={x:0,y:0,s:.2};let anim=null;
+
+function box(el){let x=0,y=0,e=el;while(e&&e!==world){x+=e.offsetLeft;y+=e.offsetTop;e=e.offsetParent}return{x,y,w:el.offsetWidth,h:el.offsetHeight}}
+function bounds(){let a=1e9,b=1e9,c=-1e9,d=-1e9;for(const f of document.querySelectorAll('#world>.f')){const r=box(f);a=Math.min(a,r.x);b=Math.min(b,r.y);c=Math.max(c,r.x+r.w);d=Math.max(d,r.y+r.h)}return{x:a,y:b,w:c-a,h:d-b}}
+function fit(r,pad){const W=innerWidth,H=innerHeight-90;return{x:r.x+r.w/2,y:r.y+r.h/2,s:Math.min(W/r.w,H/r.h)*(pad||.9)}}
+function render(){
+  const W=innerWidth,H=innerHeight-60;
+  world.style.transform=`translate(${W/2}px,${H/2}px) scale(${cam.s}) translate(${-cam.x}px,${-cam.y}px)`;
+  // infinite dot grid: spacing wraps by powers of 4
+  let g=40*cam.s;while(g>160)g/=4;while(g<40)g*=4;
+  const t=Math.log(g/40)/Math.log(4),ox=W/2-cam.x*cam.s,oy=H/2-cam.y*cam.s,r1=1+t*.6;
+  const bs=document.body.style;
+  bs.backgroundImage=`radial-gradient(circle,var(--dot) ${r1}px,transparent ${r1+.6}px),radial-gradient(circle,var(--dot2) 1.6px,transparent 2.2px)`;
+  bs.backgroundSize=`${g/4}px ${g/4}px,${g}px ${g}px`;bs.backgroundPosition=`${ox}px ${oy}px,${ox}px ${oy}px`;
+}
+const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+const still=matchMedia('(prefers-reduced-motion: reduce)');
+function fly(to){
+  cancelAnimationFrame(anim);
+  const from={...cam},d=Math.hypot(to.x-from.x,to.y-from.y),view=Math.max(innerWidth,innerHeight);
+  const ls0=Math.log(from.s),ls1=Math.log(to.s),dip=Math.max(0,Math.min(ls0,ls1)-Math.log(view/(d+1)*.9))*.9;
+  const dur=Math.min(1700,750+d*from.s*.25+Math.abs(ls1-ls0)*130),t0=performance.now();
+  world.classList.add('moving');
+  const step=now=>{let t=Math.min(1,(now-t0)/dur);if(still.matches)t=1;const e=ease(t);
+    cam.x=from.x+(to.x-from.x)*e;cam.y=from.y+(to.y-from.y)*e;cam.s=Math.exp(ls0+(ls1-ls0)*e-dip*Math.sin(Math.PI*e));render();
+    if(t<1)anim=requestAnimationFrame(step);else world.classList.remove('moving')};
+  anim=requestAnimationFrame(step);
+}
+function label(f){if(!f)return'Overview';if(f.dataset.stop)return f.dataset.stop;const a=f.closest('[data-stop]');return a?a.dataset.stop+' · picture':''}
+function go(f,fromPath){
+  cur=f;frames.forEach(x=>x.classList.toggle('cur',x===f));
+  fly(fit(f?box(f):bounds(),f&&f.classList.contains('g')?.97:f&&f.classList.contains('c')?.94:.9));
+  document.getElementById('where').textContent=label(f);
+  if(!fromPath){const i=path.indexOf(f);if(i>=0)idx=i}
+  document.getElementById('prog').style.width=(idx/(path.length-1)*100)+'%';
+}
+function step(n){idx=Math.max(0,Math.min(path.length-1,idx+n));go(path[idx],true)}
+function parent(f){return f&&f.parentElement.closest('.f')}
+// open the next level down from where we are: board → project → card → picture
+function target(f){let t=f;while(parent(t)&&!(cur&&parent(t).contains(cur)))t=parent(t);return t}
+
+let down=null,moved=false;
+stage.addEventListener('pointerdown',e=>{down={x:e.clientX,y:e.clientY,cx:cam.x,cy:cam.y};moved=false;stage.setPointerCapture(e.pointerId)});
+stage.addEventListener('pointermove',e=>{if(!down)return;const dx=e.clientX-down.x,dy=e.clientY-down.y;
+  if(!moved&&Math.hypot(dx,dy)>5){moved=true;stage.classList.add('drag');cancelAnimationFrame(anim)}
+  if(moved){cam.x=down.cx-dx/cam.s;cam.y=down.cy-dy/cam.s;render()}});
+stage.addEventListener('pointerup',e=>{stage.classList.remove('drag');const was=moved;down=null;if(was)return;
+  const hit=document.elementFromPoint(e.clientX,e.clientY),f=hit&&hit.closest('.f');
+  if(!f||f===cur)go(parent(cur)||null);else go(target(f));hint.style.opacity=0});
+stage.addEventListener('wheel',e=>{e.preventDefault();cancelAnimationFrame(anim);
+  const W=innerWidth,H=innerHeight-60,k=Math.exp(-e.deltaY*.0015);
+  const wx=cam.x+(e.clientX-W/2)/cam.s,wy=cam.y+(e.clientY-H/2)/cam.s;
+  cam.s=Math.max(.02,Math.min(40,cam.s*k));cam.x=wx-(e.clientX-W/2)/cam.s;cam.y=wy-(e.clientY-H/2)/cam.s;render()},{passive:false});
+addEventListener('keydown',e=>{
+  if(['ArrowRight',' ','PageDown','Enter'].includes(e.key)){e.preventDefault();step(1);hint.style.opacity=0}
+  else if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){e.preventDefault();step(-1)}
+  else if(e.key==='Escape'||e.key==='o')go(null);
+  else if(e.key==='Home'){idx=0;go(path[0],true)}
+  else if(e.key==='f')document.documentElement.requestFullscreen?.().catch(()=>{});
+});
+document.getElementById('bPrev').onclick=()=>step(-1);
+document.getElementById('bNext').onclick=()=>step(1);
+document.getElementById('bAll').onclick=()=>go(null);
+addEventListener('resize',()=>go(cur,true));
+const o=fit(bounds());cam.x=o.x;cam.y=o.y;cam.s=o.s*.6;render();
+setTimeout(()=>go(null,true),150);
+}
+</script>
+</body>
+</html>
