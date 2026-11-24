@@ -1,16 +1,6 @@
 # local editor / tool settings
 .claude/
 
-# raw downloads not used by the page (the page uses img/c/ crops and the files listed in git)
+# raw downloads and older drafts; the deck only uses img/v/
 img/*
-!img/c/
-!img/fear-paddy.webp
-!img/fear-krait.png
-!img/fear-cobra.png
-!img/tw-03.png
-!img/tw-13.png
-!img/tw-20.png
-!img/tw-21.png
-!img/tw-29.png
-!img/tw-30.png
-!img/gen-*.png
+!img/v/

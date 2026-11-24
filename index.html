@@ -5,305 +5,598 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Jury Presentation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Figtree:ital,wght@0,400;0,600;0,800;1,400&family=Schibsted+Grotesk:wght@400;500;700;800&display=swap">
 <style>
-/* VOICE: a designer's own board — few words, big pictures, calm.
-   IDEA: a Figma board you zoom into, Prezi-style: board → project → card → picture.
-   PICTURE: every frame is led by a real visual from the work; text is a caption, not a slide.
-   COLOUR and TYPE: white board, near-black ink; one accent per project (forest green, bronze, airport blue); Schibsted Grotesk.
-   LAYOUT: intro on top, three projects left to right in talk order, closing below; control bar at the bottom. */
-:root{color-scheme:light dark;
-  --bg:light-dark(#f6f6f3,#121314);--dot:light-dark(#cfcfc9,#33353a);--dot2:light-dark(#a8a8a2,#4b4e54);
-  --card:light-dark(#ffffff,#1b1c1e);--ink:light-dark(#141414,#ededeb);--mute:light-dark(#62625d,#a3a39e);
-  --line:light-dark(#e2e2dc,#2d2f32);--green:light-dark(#1f7a4d,#5fd39a);--bronze:light-dark(#a3651b,#e0a65a);
-  --blue:light-dark(#2952e3,#7d9bff);--bar:light-dark(rgba(255,255,255,.93),rgba(27,28,30,.93));--forest:#0e2419}
-:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+/* VOICE: a spoken jury talk — one idea per screen, the work carries it.
+   IDEA: one continuous canvas; every next screen hides inside a detail of the one before (a digit, a sketch, a node) and the camera dives in.
+   PICTURE: full screens built from the real work — the data story's own drawings, the Time Wanderers slides, the Saath renders and sketches.
+   COLOUR and TYPE: each project keeps its own world — forest + serif (Fear), black + cream (Time Wanderers), airport blue + Figtree (Saath); the board between is paper with dots.
+   LAYOUT: 1600×900 screens placed on a zoomable board; a thin control bar; arrow keys step through screens and builds. */
+:root{--paper:#f4f3ee;--ink:#141414;--dotc:rgba(20,20,20,.16);--dotc2:rgba(20,20,20,.28)}
 *{box-sizing:border-box;min-width:0}
 html,body{height:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Schibsted Grotesk",system-ui,sans-serif;overflow:hidden;user-select:none;touch-action:none}
-#stage{position:fixed;inset:0;cursor:grab}#stage.drag{cursor:grabbing}
-#world{position:absolute;left:0;top:0;transform-origin:0 0}#world.moving{will-change:transform}
-.f{position:absolute;cursor:zoom-in;border-radius:14px;outline:2px solid transparent;outline-offset:5px;transition:outline-color .25s}
-.f.cur{cursor:default}.f:hover:not(.cur){outline-color:var(--acc,var(--ink))}
-.s1{--acc:var(--green)}.s2{--acc:var(--bronze)}.s3{--acc:var(--blue)}
-/* pictures */
-.g{margin:0;overflow:hidden;background:var(--line)}
-.g img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;pointer-events:none}
-.g.fit img{object-fit:contain;object-position:center}
-.g.cur img{object-fit:contain;object-position:center}
-.g.gen{border:2px dashed var(--mute);background:var(--bg)}
-.g.gen::after{content:attr(data-gen);position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:10%;color:var(--mute);font-size:30px;pointer-events:none}
-.g.gen.ok{border:0}.g.gen.ok::after{display:none}
-/* intro */
-.title{left:-1300px;top:-1320px;width:2600px;height:900px;display:grid;grid-template-columns:1.15fr 1fr;gap:90px;align-items:center;padding:0 20px}
-.title .who{font-size:32px;color:var(--mute);margin:0 0 20px}
-.title h1{font-size:150px;line-height:.98;margin:0;font-weight:800;letter-spacing:-4px}
-.title .k{display:flex;flex-direction:column;gap:16px;margin-top:50px}
-.title .k span{font-size:34px;display:flex;align-items:center;gap:18px}
-.title .k i{width:22px;height:22px;border-radius:50%;background:var(--acc)}
-.title .g{position:relative;height:820px;border-radius:24px}
-/* project */
-.p{width:2600px;height:1600px;top:0;background:var(--card);border:3px solid var(--line);box-shadow:0 30px 80px -40px rgba(0,0,0,.25)}
-.p .hd{position:absolute;left:100px;top:100px;width:820px}
-.p .tag{font-size:28px;font-weight:700;color:var(--acc)}
-.p h2{font-size:120px;line-height:.98;margin:18px 0 0;font-weight:800;letter-spacing:-3px;text-wrap:balance}
-.p .line{font-size:46px;line-height:1.15;margin:30px 0 0;font-weight:500;text-wrap:balance}
-.p .meta{display:flex;flex-wrap:wrap;gap:12px;margin-top:40px}
-.p .meta span{font-size:24px;padding:8px 18px;border-radius:999px;border:2px solid var(--line)}
-.p>.g{position:absolute;left:1000px;top:100px;width:1500px;height:880px;border-radius:20px}
-.p .kids{position:absolute;left:100px;right:100px;top:1040px;height:460px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:30px}
-/* cards: picture first, one line of words */
-.c{position:relative;height:100%;background:var(--bg);border:2px solid var(--line);overflow:hidden;display:grid;grid-template-rows:62% 1fr}
-.c>.g{position:relative;border-radius:0;outline-offset:-4px}
-.c .tx{padding:14px 18px 0}
-.c .l{font-size:12px;font-weight:700;color:var(--acc);margin:0}
-.c h3{font-size:24px;line-height:1.05;margin:3px 0 6px;font-weight:800;letter-spacing:-.4px;text-wrap:balance}
-.c p{font-size:12.5px;line-height:1.35;margin:0;color:var(--mute)}
-/* drawn visuals for the data story */
-.v{position:relative;background:var(--forest);color:#e9f1ea;overflow:hidden}
-.v svg{position:absolute;inset:0;width:100%;height:100%}
-.v .ov{position:absolute;left:14px;bottom:10px;font-size:44px;font-weight:800;line-height:1;text-shadow:0 2px 12px rgba(0,0,0,.6)}
-.v .ov small{display:block;font-size:12px;font-weight:500;margin-top:4px}
-.deck{display:grid;place-items:center}
-.deck div{position:absolute;width:34%;aspect-ratio:2.5/3.5;background:#f4efe2;border-radius:8px;box-shadow:0 8px 20px rgba(0,0,0,.45);display:grid;place-items:center;padding:6px;border:2px solid #d8cfb6}
-.deck div:nth-child(1){transform:translateX(-30%) rotate(-10deg)}.deck div:nth-child(2){transform:translateX(30%) rotate(8deg)}
-.deck img{width:100%;height:70%;object-fit:contain}
-.deck b{position:absolute;bottom:8px;font-size:8px;color:#3a2f1c;letter-spacing:.5px}
-/* closing */
-.end{left:-1300px;top:1950px;width:2600px;height:1200px;padding:100px;background:var(--card);border:3px solid var(--line)}
-.end h2{font-size:100px;line-height:1.02;margin:0;font-weight:800;letter-spacing:-3px;text-wrap:balance;max-width:2000px}
-.end .three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:50px;margin-top:60px}
-.end .three .g{position:relative;height:420px;border-radius:16px}
-.end h4{font-size:40px;margin:22px 0 0;line-height:1.1;color:var(--acc)}
-.end .ty{font-size:64px;font-weight:800;margin:56px 0 0}
-/* HUD */
-#hud{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);display:flex;align-items:center;gap:6px;padding:6px;border-radius:14px;background:var(--bar);border:1px solid var(--line);backdrop-filter:blur(10px);box-shadow:0 10px 30px -12px rgba(0,0,0,.3);max-width:calc(100vw - 32px)}
-#hud button{all:unset;cursor:pointer;min-width:44px;height:44px;display:grid;place-items:center;border-radius:10px;font:600 15px "Schibsted Grotesk",sans-serif;color:var(--ink);padding:0 12px}
-#hud button:hover{background:var(--line)}#hud button:focus-visible{outline:2px solid var(--blue)}
-#where{font-size:14px;color:var(--mute);padding:0 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:38vw}
-#prog{position:fixed;left:0;top:0;height:3px;background:var(--ink);transition:width .5s}
-#hint{position:fixed;top:16px;left:50%;transform:translateX(-50%);font-size:14px;color:var(--mute);background:var(--bar);border:1px solid var(--line);padding:8px 16px;border-radius:999px;transition:opacity .6s;pointer-events:none;white-space:nowrap}
-@media(max-width:600px){#where{display:none}#hint{font-size:12px;white-space:normal;text-align:center;width:calc(100vw - 32px)}}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 "Schibsted Grotesk",system-ui,sans-serif;overflow:hidden;user-select:none;touch-action:none;transition:background-color .9s}
+body.dark{--dotc:rgba(255,255,255,.10);--dotc2:rgba(255,255,255,.2)}
+#stage{position:fixed;inset:0;cursor:grab;overflow:hidden}#stage.drag{cursor:grabbing}
+.scr{position:absolute;left:0;top:0;width:1600px;height:900px;transform-origin:0 0;overflow:hidden;display:none;background:var(--bg);color:var(--fg)}
+.scr *{margin:0}
+.abs{position:absolute}
+img{display:block}
+.cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.port{position:absolute;cursor:zoom-in}
+[data-b]{opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s}
+[data-b].on,[data-b].keep,.slide[data-b],.shot[data-b],.fig[data-b]:not(.deal){opacity:1;transform:none}
+.shot{position:absolute;border-radius:10px;overflow:hidden;box-shadow:0 18px 50px -20px rgba(0,0,0,.45)}
+.shot img{width:100%;height:100%;object-fit:cover}
+/* ---------- opening (paper) ---------- */
+.op{--bg:#fbfbf7;--fg:#141414}
+.op .kick{font-size:28px;color:#6b6b66}
+.op h1{font-size:150px;line-height:.95;font-weight:800;letter-spacing:-5px}
+.dots{display:flex;gap:34px;align-items:center;justify-content:center}
+.dots i{width:70px;height:70px;border-radius:50%}
+.c1{background:#163a28}.c2{background:#111}.c3{background:#2456c8}
+.q{position:absolute;top:150px;width:420px;text-align:center}
+.q .ring{width:300px;height:300px;border-radius:50%;margin:0 auto;position:relative}
+.q .ring .port{left:45px;top:99px;width:210px;height:118px}
+.q p{font-size:36px;line-height:1.15;font-weight:700;margin-top:44px;text-wrap:balance}
+.q small{display:block;font-size:22px;color:#6b6b66;margin-top:14px;font-weight:500}
+/* ---------- fear (forest + serif) ---------- */
+.fe{--bg:#0b1a12;--fg:#e8efe4;--red:#e0553f;--grn:#6fd39f;--amb:#e8b04a;background:radial-gradient(ellipse at 70% 30%,#14301f,#0b1a12 70%)}
+.fe .serif{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600}
+.fe .lab{font-size:20px;letter-spacing:.12em;text-transform:uppercase;color:var(--grn);font-weight:700}
+.fe .mute{color:#a9b8a8}
+.chip{display:inline-block;font-size:24px;padding:10px 22px;border-radius:999px;border:2px solid currentColor;margin:0 10px 12px 0}
+.card4{position:absolute;top:260px;width:320px;height:520px;background:#f4efe2;color:#2b2416;border-radius:16px;border:3px solid #d8cfb6;padding:22px 24px;box-shadow:0 24px 50px -18px rgba(0,0,0,.7)}
+.card4 .su{font-size:34px;line-height:1}.card4 h4{font-family:"Cormorant Garamond",serif;font-size:34px;line-height:1;margin-top:10px;text-align:center;letter-spacing:.04em}
+.card4 img{width:100%;height:150px;object-fit:contain;margin:14px 0}
+.card4 dl{display:grid;grid-template-columns:1fr auto;gap:8px 10px;font-size:19px;border-top:1px solid #cfc4a8;padding-top:12px}
+.card4 dd{font-weight:700;text-align:right}
+.card4 .tox{font-size:16px;letter-spacing:.08em;text-align:center;margin-top:16px;color:#2f6b47;font-weight:800}
+/* ---------- time wanderers (black + cream) ---------- */
+.tw{--bg:#000;--fg:#f4ead8;--acc:#d9a25b}
+.tw .lab{font-size:20px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);font-weight:700}
+.tw h2{font-size:72px;line-height:1.05;font-weight:700;letter-spacing:-1px;text-wrap:balance}
+.tw .mute{color:#b9ad99}
+.tw .slide{position:absolute;border-radius:8px;overflow:hidden;border:1px solid #2a241c}
+.tw .slide img{width:100%;height:100%;object-fit:cover}
+.rg{position:absolute;border-radius:50%;border:2px solid rgba(244,234,216,.35);display:grid;justify-items:center}
+.rg span{font-size:18px;letter-spacing:.14em;color:var(--acc);font-weight:700;margin-top:10px}
+.bub{position:absolute;background:#f4ead8;color:#111;border-radius:28px;padding:26px 30px;font-size:30px;line-height:1.2;font-weight:600}
+.bub:after{content:"";position:absolute;left:44px;bottom:-18px;border:18px solid transparent;border-top-color:#f4ead8;border-bottom:0}
+/* ---------- saath (airport blue) ---------- */
+.sa{--bg:#f3f7fd;--fg:#0f1f3d;--blue:#1d4fa3;--teal:#2e8b84;font-family:Figtree,system-ui,sans-serif}
+.sa .lab{font-size:20px;letter-spacing:.14em;text-transform:uppercase;color:#4a8fd6;font-weight:600}
+.sa h2{font-size:68px;line-height:1.04;font-weight:800;color:var(--blue);letter-spacing:-1px;text-wrap:balance}
+.sa h2 em{font-weight:400;font-style:italic}
+.sa .t{font-size:26px;line-height:1.4;color:#33415c}
+.sa .fig{position:absolute;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px -30px rgba(15,31,61,.45)}
+.sa .fig img{width:100%;height:100%;object-fit:contain}
+.sa .cap{position:absolute;font-size:22px;color:#33415c;text-align:center}
+.node{position:absolute;width:26px;height:26px;border-radius:50%;background:var(--blue);border:5px solid #f3f7fd;box-shadow:0 0 0 2px var(--blue)}
+.nl{position:absolute;font-size:19px;color:#33415c;width:130px;text-align:center;line-height:1.2}
+/* ---------- HUD ---------- */
+#hud{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);display:flex;align-items:center;gap:4px;padding:5px;border-radius:14px;background:rgba(255,255,255,.9);border:1px solid rgba(0,0,0,.08);backdrop-filter:blur(10px);box-shadow:0 10px 30px -12px rgba(0,0,0,.35);opacity:.25;transition:opacity .3s;z-index:5}
+#hud:hover,#hud:focus-within{opacity:1}
+#hud button{all:unset;cursor:pointer;min-width:44px;height:44px;display:grid;place-items:center;border-radius:10px;font:600 15px "Schibsted Grotesk",sans-serif;color:#141414;padding:0 12px}
+#hud button:hover{background:rgba(0,0,0,.07)}#hud button:focus-visible{outline:2px solid #2456c8}
+#where{font-size:14px;color:#555;padding:0 8px;white-space:nowrap;min-width:150px;text-align:center}
+#prog{position:fixed;left:0;top:0;height:3px;background:#e0553f;transition:width .5s;z-index:5}
+#hint{position:fixed;top:14px;left:50%;transform:translateX(-50%);font-size:14px;color:#555;background:rgba(255,255,255,.9);padding:8px 16px;border-radius:999px;transition:opacity .6s;pointer-events:none;white-space:nowrap;z-index:5}
+@media (prefers-reduced-motion:reduce){[data-b]{transition:none}}
 </style>
 </head>
 <body>
-<div id="stage"><div id="world">
+<div id="stage">
 
-<section class="f title" data-stop="Introduction">
-  <div>
-    <p class="who">Rushabh Mahore · Interaction Design, NID Bengaluru</p>
-    <h1>Build it to understand it.</h1>
-    <div class="k"><span class="s1"><i></i>The Fear Between Us</span><span class="s2"><i></i>Time Wanderers</span><span class="s3"><i></i>Saath — Design Project 2</span></div>
-  </div>
-  <figure class="f g gen" data-gen="ChatGPT image → img/gen-intro.png"><img src="img/gen-intro.png" alt="Illustration of the three projects" onload="this.parentNode.classList.add('ok')" onerror="this.remove()"></figure>
+<!-- =================== OPENING =================== -->
+<section class="scr op" id="s01" data-at="0 0 1" data-name="Introduction">
+  <p class="kick abs" style="left:110px;top:110px">Semester 3 · Jury</p>
+  <h1 class="abs" style="left:104px;top:400px">Rushabh<br>Mahore</h1>
+  <p class="kick abs" style="left:110px;top:720px">Interaction Design · NID Bengaluru</p>
+  <div class="port dots" id="p-dots" style="left:1010px;top:357px;width:330px;height:186px"><i class="c1"></i><i class="c2"></i><i class="c3"></i></div>
 </section>
 
-<!-- ============ 1 · THE FEAR BETWEEN US ============ -->
-<section class="f p s1" style="left:-4250px" data-stop="The Fear Between Us">
-  <div class="hd">
-    <div class="tag">Data storytelling</div>
-    <h2>The Fear Between Us</h2>
-    <p class="line">A story told through data, and the lives it leaves uncounted.</p>
-    <div class="meta"><span>Scroll story</span><span>307 species</span><span>33,408 sightings</span></div>
-  </div>
-  <figure class="f g"><img src="img/c/fear-diversity.jpg" alt="Panorama of India's snake diversity"></figure>
-  <div class="kids">
-    <article class="f c" data-stop="Fear · Problem">
-      <figure class="f g v"><img src="img/fear-paddy.webp" alt="A snakebite encounter in a monsoon paddy field"><div class="ov">1 in 2<small>snakebite deaths worldwide happen in India</small></div></figure>
-      <div class="tx"><p class="l">Problem</p><h3>Fear does more harm than venom.</h3><p>Myths delay antivenom. Snakes are killed and never counted.</p></div>
-    </article>
-    <article class="f c" data-stop="Fear · Process">
-      <figure class="f g v" id="arc"></figure>
-      <div class="tx"><p class="l">Process</p><h3>A story that turns halfway.</h3><p>First the human cost, then the snakes' side.</p></div>
-    </article>
-    <article class="f c" data-stop="Fear · Tools">
-      <figure class="f g v" id="dots"></figure>
-      <div class="tx"><p class="l">Tools</p><h3>Open data, coded by hand.</h3><p>iNaturalist data · Leaflet maps · HTML, CSS, JS</p></div>
-    </article>
-    <article class="f c" data-stop="Fear · Outcome">
-      <figure class="f g v deck"><div><img src="img/fear-krait.png" alt="Common krait"><b>COMMON KRAIT</b></div><div><img src="img/fear-cobra.png" alt="Indian cobra"><b>INDIAN COBRA</b></div></figure>
-      <div class="tx"><p class="l">Outcome</p><h3>Draw a card. Search your street.</h3><p>Big Four card deck, species chart, 5 km sightings map.</p></div>
-    </article>
-    <article class="f c" data-stop="Fear · Learnings">
-      <figure class="f g v"><svg viewBox="0 0 460 285" id="clock"></svg><div class="ov">6<small>lives every hour</small></div></figure>
-      <div class="tx"><p class="l">Learnings</p><h3>Numbers need a human scale.</h3><p>"Every hour" lands harder than a yearly total.</p></div>
-    </article>
-  </div>
+<section class="scr op" id="s02" data-in="s01 p-dots" data-name="Three questions">
+  <div class="q" style="left:110px"><div class="ring c1"><div class="port" id="p-q1" data-peek></div></div><p>Why do we fear what we don't understand?<small>The Fear Between Us</small></p></div>
+  <div class="q" style="left:590px"><div class="ring c2"><div class="port" id="p-q2" data-peek></div></div><p>How do children meet history?<small>Time Wanderers</small></p></div>
+  <div class="q" style="left:1070px"><div class="ring c3"><div class="port" id="p-q3" data-peek></div></div><p>How do you prepare for a place you've never been?<small>Saath</small></p></div>
 </section>
 
-<!-- ============ 2 · TIME WANDERERS ============ -->
-<section class="f p s2" style="left:-1300px" data-stop="Time Wanderers">
-  <div class="hd">
-    <div class="tag">Multimodal interaction · Group</div>
-    <h2>Time Wanderers</h2>
-    <p class="line">Discover the object. Travel through its history.</p>
-    <div class="meta"><span>With Sharvani &amp; Ankit</span><span>Gesture + voice</span><span>Ages 8–16</span></div>
-  </div>
-  <figure class="f g"><img src="img/tw-13.png" alt="Introducing Time Wanderers"></figure>
-  <div class="kids">
-    <article class="f c" data-stop="Time Wanderers · Problem">
-      <figure class="f g"><img src="img/tw-03.png" alt="Problem slide"></figure>
-      <div class="tx"><p class="l">Problem</p><h3>The gap is context, not facts.</h3><p>Children see the artifact, never its world.</p></div>
-    </article>
-    <article class="f c" data-stop="Time Wanderers · Process">
-      <figure class="f g"><img src="img/tw-20.png" alt="Storyboard"></figure>
-      <div class="tx"><p class="l">Process</p><h3>Research → flow → storyboard.</h3><p>"I found something. What is it?"</p></div>
-    </article>
-    <article class="f c" data-stop="Time Wanderers · Tools">
-      <figure class="f g"><img src="img/tw-29.png" alt="Tools used"></figure>
-      <div class="tx"><p class="l">Tools</p><h3>From mockups to code.</h3><p>VS Code · AI assets, video and audio.</p></div>
-    </article>
-    <article class="f c" data-stop="Time Wanderers · Outcome">
-      <figure class="f g"><img src="img/tw-21.png" alt="Storyboard of the gestures"></figure>
-      <div class="tx"><p class="l">Outcome</p><h3>Clench, zoom, blow, roll back.</h3><p>A museum you move through with your hands.</p></div>
-    </article>
-    <article class="f c" data-stop="Time Wanderers · Learnings">
-      <figure class="f g"><img src="img/tw-30.png" alt="User testing"></figure>
-      <div class="tx"><p class="l">Learnings</p><h3>Natural movement beats clever input.</h3><p>Testing made us strip gestures back to everyday ones.</p></div>
-    </article>
-  </div>
+<!-- =================== 1 · THE FEAR BETWEEN US =================== -->
+<section class="scr fe" id="f1" data-in="s02 p-q1" data-name="The Fear Between Us">
+  <img class="cover" src="img/v/f-diversity.jpg" alt="Panorama of India's snakes in their habitats">
+  <div class="abs" style="inset:0;background:linear-gradient(90deg,rgba(6,16,10,.92) 0%,rgba(6,16,10,.6) 45%,rgba(6,16,10,0) 75%)"></div>
+  <p class="lab abs" style="left:110px;top:150px">Data storytelling · Interactive scroll story</p>
+  <h2 class="serif abs" style="left:104px;top:220px;font-size:150px;line-height:.92;width:900px">The Fear Between Us</h2>
+  <p class="abs serif" style="left:110px;top:560px;font-size:48px;font-style:italic;font-weight:500">Understanding beyond fear.</p>
+  <p class="abs mute" style="left:110px;top:650px;font-size:24px;width:640px">A story told through data, and the lives it leaves uncounted.</p>
+  <div class="port" id="p-india" style="left:1180px;top:380px;width:240px;height:135px"></div>
 </section>
 
-<!-- ============ 3 · SAATH ============ -->
-<section class="f p s3" style="left:1650px" data-stop="Saath">
-  <div class="hd">
-    <div class="tag">Design Project 2 · Mixed reality</div>
-    <h2>Saath</h2>
-    <p class="line">Practise the airport, before the airport.</p>
-    <div class="meta"><span>Solo</span><span>Meta Quest 3</span><span>11 scenes</span></div>
-  </div>
-  <figure class="f g"><img src="img/c/saath-room.jpg" alt="Saath running in a living room, booking card beside a phone"></figure>
-  <div class="kids">
-    <article class="f c" data-stop="Saath · Problem">
-      <figure class="f g"><img src="img/c/saath-story.jpg" alt="Kamala's first solo flight, sketched"></figure>
-      <div class="tx"><p class="l">Problem</p><h3>Kamala, 68, flying alone.</h3><p>Airports assume you already know them.</p></div>
-    </article>
-    <article class="f c" data-stop="Saath · Process">
-      <figure class="f g"><img src="img/c/saath-iceberg.jpg" alt="Iceberg model"></figure>
-      <div class="tx"><p class="l">Process</p><h3>Loops, iceberg, one path.</h3><p>Systems map → interviews → 11-scene journey.</p></div>
-    </article>
-    <article class="f c" data-stop="Saath · Tools">
-      <figure class="f g fit"><img src="img/c/saath-start.jpg" alt="Start screen with headset"></figure>
-      <div class="tx"><p class="l">Tools</p><h3>Built for the headset.</h3><p>three.js · WebXR · Blender · Figma · recorded voice</p></div>
-    </article>
-    <article class="f c" data-stop="Saath · Outcome">
-      <figure class="f g"><img src="img/c/saath-gatechange.jpg" alt="A practised gate change in the terminal"></figure>
-      <div class="tx"><p class="l">Outcome</p><h3>Home to seat 14A.</h3><p>Show me · Ask for help · Read aloud, on every step.</p></div>
-    </article>
-    <article class="f c" data-stop="Saath · Learnings">
-      <figure class="f g"><img src="img/c/saath-cab.jpg" alt="The cab driver greets you"></figure>
-      <div class="tx"><p class="l">Learnings</p><h3>Design for confidence.</h3><p>No timers, private mistakes, one step at a time.</p></div>
-    </article>
+<section class="scr fe" id="f2" data-in="f1 p-india" data-name="Fear · Hook">
+  <p class="serif abs" style="left:110px;top:200px;font-size:76px;line-height:1.02;width:640px">India is the snakebite capital of the world.</p>
+  <p class="abs mute" style="left:110px;top:560px;font-size:26px;width:560px" data-b="1">The crisis is not the venom alone. It is the fear that surrounds it.</p>
+  <div class="abs" style="left:820px;top:150px;font-size:330px;font-weight:800;line-height:1;color:var(--red);letter-spacing:-10px"><span id="p-one" class="port" style="position:relative;display:inline-block">1</span> in 2</div>
+  <p class="abs" style="left:830px;top:560px;font-size:34px;width:640px;line-height:1.25">of the world's snakebite deaths happen in India.</p>
+</section>
+
+<section class="scr fe" id="f3" data-in="f2 p-one" data-name="Fear · Scale">
+  <svg class="abs" id="ring60" style="left:500px;top:150px;width:600px;height:600px" viewBox="0 0 600 600"></svg>
+  <div class="abs" style="left:500px;top:300px;width:600px;text-align:center"><div style="font-size:200px;font-weight:800;line-height:1;color:var(--red)">6+</div><p style="font-size:26px">lives lost, every hour</p></div>
+  <div class="port" id="p-ring" style="left:720px;top:600px;width:160px;height:90px"></div>
+  <p class="abs serif" style="left:90px;top:330px;font-size:44px;line-height:1.1;width:380px" data-b="1">Every hour, in India, on average.</p>
+  <p class="abs mute" style="left:1150px;top:330px;font-size:28px;line-height:1.35;width:380px" data-b="1">Snakebites kill more people here than almost any natural disaster, and stay largely invisible.</p>
+</section>
+
+<section class="scr fe" id="f4" data-in="f3 p-ring" data-name="Fear · The turn">
+  <p class="abs" style="left:110px;top:150px;font-size:44px;color:var(--red)">We count the lives lost to snakebite.</p>
+  <p class="serif abs" style="left:104px;top:260px;font-size:104px;line-height:.98;width:880px;color:var(--grn)" data-b="1">But who counts the snakes killed out of fear?</p>
+  <p class="abs" style="left:110px;top:720px;font-size:24px;letter-spacing:.3em;color:#a9b8a8" data-b="2">UNREPORTED · UNCOUNTED · UNSEEN</p>
+  <img class="abs" src="img/v/f-cobra.png" alt="Indian cobra" style="left:930px;top:280px;width:640px">
+  <div class="port" id="p-snake" style="left:1130px;top:420px;width:200px;height:112px"></div>
+</section>
+
+<section class="scr fe" id="f5" data-in="f4 p-snake" data-name="Fear · Problem & intent">
+  <img class="cover" src="img/v/f-paddy.webp" alt="" style="opacity:.22">
+  <p class="lab abs" style="left:110px;top:110px">Problem</p>
+  <h2 class="serif abs" style="left:104px;top:160px;font-size:78px;line-height:1;width:1300px">The crisis is not the venom alone. It is the fear around it.</h2>
+  <div class="abs" style="left:110px;top:430px;width:410px" data-b="1"><p style="font-size:34px;font-weight:700;color:var(--red)">Panic and myths</p><p class="mute" style="font-size:24px;margin-top:10px">delay the one thing that works: timely antivenom.</p></div>
+  <div class="abs" style="left:590px;top:430px;width:410px" data-b="2"><p style="font-size:34px;font-weight:700;color:var(--amb)">Killed on sight</p><p class="mute" style="font-size:24px;margin-top:10px">snakes are killed out of fear, and nobody counts them.</p></div>
+  <div class="abs" style="left:1070px;top:430px;width:410px" data-b="3"><p style="font-size:34px;font-weight:700;color:var(--grn)">One shared home</p><p class="mute" style="font-size:24px;margin-top:10px">where habitats overlap, fear turns an encounter into conflict.</p></div>
+  <p class="abs serif" style="left:110px;top:690px;font-size:46px;font-style:italic;width:1380px" data-b="4">Intent: replace fear with understanding. Show the scale honestly, then show the other side.</p>
+</section>
+
+<section class="scr fe" id="f6" data-right="f5" data-name="Fear · Process">
+  <p class="lab abs" style="left:110px;top:90px">Process</p>
+  <h2 class="serif abs" style="left:104px;top:130px;font-size:72px;line-height:1">A story that turns halfway.</h2>
+  <p class="abs mute" style="left:110px;top:230px;font-size:24px;width:760px">Nine scroll chapters, written to move the reader from fear to understanding.</p>
+  <svg class="abs" id="arcsvg" style="left:0;top:0;width:1600px;height:900px" viewBox="0 0 1600 900"></svg>
+  <div id="arcnodes"></div>
+  <div class="abs" style="left:980px;top:700px;width:500px;border-left:3px solid var(--grn);padding-left:20px" data-b="3"><p style="font-size:22px;font-weight:700">Data</p><p class="mute" style="font-size:21px;line-height:1.4">iNaturalist open data: 33,408 sightings across 307 species · published venom figures (LD₅₀, yield)</p></div>
+</section>
+
+<section class="scr fe" id="f7" data-in="f6 p-n5" data-name="Fear · 307 species">
+  <p class="lab abs" style="left:90px;top:90px">Beyond the fear</p>
+  <h2 class="serif abs" style="left:84px;top:130px;font-size:72px;line-height:1">One country. A spectrum of snakes.</h2>
+  <svg class="abs" id="dots307" style="left:90px;top:270px;width:720px;height:440px" viewBox="0 0 720 440"></svg>
+  <div class="port" id="p-red" style="left:96px;top:276px;width:230px;height:129px"></div>
+  <p class="abs mute" style="left:90px;top:740px;font-size:22px">Each dot is one species, from a 307-species breakdown.</p>
+  <div class="abs" style="left:930px;top:300px;width:560px" data-b="1">
+    <p style="font-size:30px"><b style="color:var(--red);font-size:60px">23.8%</b>  venomous</p>
+    <p style="font-size:30px;margin-top:6px"><b style="color:var(--amb);font-size:60px">18.6%</b>  mildly venomous</p>
+    <p style="font-size:30px;margin-top:6px"><b style="color:var(--grn);font-size:60px">57.7%</b>  non-venomous</p>
+    <p class="serif" style="font-size:40px;font-style:italic;margin-top:30px">Around 75% are harmless to a human being.</p>
   </div>
 </section>
 
-<section class="f end" data-stop="Thank you">
-  <h2>Map the system. Then build it to learn.</h2>
-  <div class="three">
-    <div class="s1"><figure class="f g v deck"><div><img src="img/fear-cobra.png" alt="Indian cobra"><b>INDIAN COBRA</b></div><div><img src="img/fear-krait.png" alt="Common krait"><b>COMMON KRAIT</b></div></figure><h4>From fear to understanding</h4></div>
-    <div class="s2"><figure class="f g"><img src="img/tw-21.png" alt="Time Wanderers storyboard"></figure><h4>From object to world</h4></div>
-    <div class="s3"><figure class="f g"><img src="img/c/saath-gatechange.jpg" alt="Saath gate change"></figure><h4>From anxiety to confidence</h4></div>
-  </div>
-  <p class="ty">Thank you.</p>
+<section class="scr fe" id="f8" data-in="f7 p-red" data-name="Fear · The Big Four">
+  <p class="lab abs" style="left:110px;top:80px">Outcome · Deadliest Draw</p>
+  <h2 class="serif abs" style="left:104px;top:120px;font-size:68px;line-height:1">Which snakes cause most deaths? Meet the Big Four.</h2>
+  <div id="cards4"></div>
 </section>
 
-</div></div>
+<section class="scr fe" id="f9" data-right="f8" data-name="Fear · Your neighbourhood">
+  <p class="lab abs" style="left:110px;top:120px">Outcome · Explore the observations</p>
+  <h2 class="serif abs" style="left:104px;top:170px;font-size:84px;line-height:.98;width:560px">Who shares your neighbourhood?</h2>
+  <p class="abs mute" style="left:110px;top:420px;font-size:25px;line-height:1.4;width:520px">Search your area to see the species recorded within 5 km. Records show past sightings, not real-time presence.</p>
+  <p class="abs" style="left:110px;top:600px;font-size:24px;width:520px"><b style="font-size:44px;color:var(--grn)">33,408</b><br>recorded observations · 307 taxa</p>
+  <div class="abs" id="map" style="left:720px;top:110px;width:790px;height:680px;border-radius:14px;overflow:hidden;background:#13251b;border:2px solid #24402f"></div>
+</section>
+
+<section class="scr fe" id="f10" data-right="f9" data-name="Fear · Tools & learnings">
+  <p class="lab abs" style="left:110px;top:110px">Tools</p>
+  <div class="abs" style="left:110px;top:160px;width:600px;color:#e8efe4"><span class="chip">iNaturalist open data</span><span class="chip">Leaflet maps</span><span class="chip">HTML · CSS · JavaScript</span></div>
+  <p class="lab abs" style="left:110px;top:400px">Learnings</p>
+  <div class="abs" style="left:110px;top:450px;width:640px">
+    <p style="font-size:30px;line-height:1.3" data-b="1">Numbers need a human scale: “every hour” lands harder than a yearly total.</p>
+    <p style="font-size:30px;line-height:1.3;margin-top:22px" data-b="2">Interaction turns a fact into a discovery: drawing a card beats reading a table.</p>
+    <p style="font-size:30px;line-height:1.3;margin-top:22px" data-b="3">Local data makes a national problem personal.</p>
+  </div>
+  <img class="abs" src="img/v/f-krait.png" alt="" style="left:860px;top:120px;width:680px;opacity:.9">
+  <p class="serif abs" style="left:860px;top:560px;font-size:70px;line-height:1;width:640px" data-b="4">Less fear. More understanding. <i style="color:var(--grn)">Room for both.</i></p>
+</section>
+
+<!-- =================== 2 · TIME WANDERERS =================== -->
+<section class="scr tw" id="t1" data-in="s02 p-q2" data-name="Time Wanderers">
+  <img class="cover" src="img/v/tw13.jpg" alt="Introducing Time Wanderers">
+  <p class="abs mute" style="left:0;right:0;bottom:84px;text-align:center;font-size:22px">Multimodal Interactions · with Sharvani &amp; Ankit · guided by Prof. Mamata Rao &amp; Prof. Athul Dinesh</p>
+  <div class="port" id="p-t1" style="left:700px;top:380px;width:200px;height:112px"></div>
+</section>
+
+<section class="scr tw" id="t2" data-in="t1 p-t1" data-name="Time Wanderers · Hook">
+  <img class="cover" src="img/v/tw02.jpg" alt="What if history could be experienced and not just studied?">
+  <div class="port" id="p-book" style="left:530px;top:380px;width:216px;height:122px"></div>
+</section>
+
+<section class="scr tw" id="t3" data-in="t2 p-book" data-name="Time Wanderers · Problem">
+  <p class="lab abs" style="left:110px;top:130px">Problem</p>
+  <h2 class="abs" style="left:110px;top:180px;width:620px">Children meet history as isolated facts.</h2>
+  <p class="abs mute" style="left:110px;top:400px;font-size:26px;line-height:1.4;width:560px">They learn what an object is, but not who made it, how they lived, or how it connects to today.</p>
+  <p class="abs" style="left:110px;top:600px;font-size:44px;line-height:1.15;font-weight:700;width:600px">The gap is not information.<br><span style="color:var(--acc)">The gap is context.</span></p>
+  <div id="rings"></div>
+</section>
+
+<section class="scr tw" id="t4" data-right="t3" data-name="Time Wanderers · Research">
+  <p class="lab abs" style="left:110px;top:100px">What research says</p>
+  <div class="abs" style="left:110px;top:150px;width:560px;font-size:25px;line-height:1.35">
+    <p><b style="color:var(--acc)">Curiosity</b> grows through active observation and questioning.</p>
+    <p style="margin-top:22px"><b style="color:var(--acc)">Deeper thinking</b> comes from conversation during the experience.</p>
+    <p style="margin-top:22px"><b style="color:var(--acc)">Memory</b> is stronger when curiosity is higher.</p>
+    <p style="margin-top:22px"><b style="color:var(--acc)">Exploration</b>, excitement and discussion support learning in museums.</p>
+  </div>
+  <p class="lab abs" style="left:790px;top:100px">What children told us</p>
+  <div class="bub" style="left:790px;top:160px;width:520px" data-b="1">“I want to explore the artifact myself.”</div>
+  <div class="bub" style="left:950px;top:330px;width:560px" data-b="2">“I search on YouTube when I want to know more.”</div>
+  <div class="bub" style="left:790px;top:500px;width:560px" data-b="3">“When I go to museums, I want to touch it.”<div class="port" id="p-touch" style="left:380px;top:12px;width:150px;height:84px"></div></div>
+  <div class="bub" style="left:950px;top:680px;width:560px" data-b="4">“I sleep when my teacher talks about history in class.”</div>
+</section>
+
+<section class="scr tw" id="t5" data-in="t4 p-touch" data-name="Time Wanderers · Concept">
+  <p class="lab abs" style="left:110px;top:110px">How might we</p>
+  <h2 class="abs" style="left:110px;top:160px;width:900px;font-size:58px">make learning about civilisations and artifacts more immersive, engaging and contextual for children?</h2>
+  <p class="abs mute" style="left:110px;top:430px;font-size:26px;width:820px">Without replacing the teacher, the history or the museum. Instead, add an experiential layer.</p>
+  <div class="abs" style="left:110px;top:560px;width:860px" data-b="1"><p style="font-size:62px;font-weight:800;line-height:1">Time Wanderers</p><p style="font-size:34px;color:var(--acc);margin-top:12px">Discover the object. Travel through its history.</p></div>
+  <div class="abs" style="left:110px;top:760px;width:900px;color:var(--fg)" data-b="2"><span class="chip" style="font-size:20px">Learning</span><span class="chip" style="font-size:20px">Roleplay</span><span class="chip" style="font-size:20px">Exploration</span><span class="chip" style="font-size:20px">Interaction</span></div>
+  <div class="slide port" id="p-scr" style="left:1080px;top:330px;width:420px;height:236px;border:6px solid #3a3226"><img src="img/v/tw17.jpg" alt="Experience metaphor"></div>
+</section>
+
+<section class="scr tw" id="t6" data-in="t5 p-scr" data-name="Time Wanderers · Set-up & flow">
+  <div class="slide" style="left:40px;top:20px;width:750px;height:422px" data-b="1" data-z><img src="img/v/tw17.jpg" alt="Experience metaphor"></div>
+  <div class="slide" style="left:810px;top:20px;width:750px;height:422px" data-b="2" data-z><img src="img/v/tw18.jpg" alt="Spatial set-up"></div>
+  <div class="slide" style="left:425px;top:460px;width:750px;height:422px" data-b="3" data-z><img src="img/v/tw19.jpg" alt="User flow"></div>
+</section>
+
+<section class="scr tw" id="t7" data-right="t6" data-name="Time Wanderers · Storyboard">
+  <p class="lab abs" style="left:40px;top:150px">Storyboard</p>
+  <div class="slide" style="left:40px;top:220px;width:750px;height:422px" data-b="1" data-z><img src="img/v/tw20.jpg" alt="Storyboard part one"></div>
+  <div class="slide" style="left:810px;top:220px;width:750px;height:422px" data-b="2" data-z><img src="img/v/tw21.jpg" alt="Storyboard part two"><div class="port" id="p-hand" style="left:280px;top:150px;width:190px;height:107px"></div></div>
+</section>
+
+<section class="scr tw" id="t8" data-in="t7 p-hand" data-name="Time Wanderers · Gestures">
+  <div class="slide" style="left:20px;top:20px;width:510px;height:287px" data-b="1" data-z><img src="img/v/tw22.jpg" alt="Modalities of interaction"></div>
+  <div class="slide" style="left:545px;top:20px;width:510px;height:287px" data-b="2" data-z><img src="img/v/tw23.jpg" alt="Hover and clench"></div>
+  <div class="slide" style="left:1070px;top:20px;width:510px;height:287px" data-b="3" data-z><img src="img/v/tw24.jpg" alt="Zoom in"></div>
+  <div class="slide" style="left:20px;top:322px;width:510px;height:287px" data-b="4" data-z><img src="img/v/tw25.jpg" alt="Blow away"></div>
+  <div class="slide" style="left:545px;top:322px;width:510px;height:287px" data-b="5" data-z><img src="img/v/tw26.jpg" alt="Roll your hands"></div>
+  <div class="slide" style="left:1070px;top:322px;width:510px;height:287px" data-b="6" data-z><img src="img/v/tw27.jpg" alt="Ask a question"></div>
+  <p class="abs" style="left:20px;top:660px;font-size:52px;font-weight:700;width:1500px;line-height:1.1">Clench to choose · hands apart to zoom · walk to explore · <span style="color:var(--acc)">blow to uncover</span> · roll back in time · ask with a mic gesture.</p>
+</section>
+
+<section class="scr tw" id="t9" data-right="t8" data-name="Time Wanderers · Demo">
+  <p class="lab abs" style="left:160px;top:40px">Prototype demo</p>
+  <div class="abs" style="left:160px;top:90px;width:1280px;height:720px;background:#111;border-radius:10px;overflow:hidden">
+    <iframe id="yt" data-src="https://www.youtube-nocookie.com/embed/Yj909EQGlDs?rel=0&amp;playsinline=1" title="Time Wanderers prototype demo" style="width:100%;height:100%;border:0" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
+  </div>
+  <p class="abs mute" style="left:160px;top:830px;font-size:20px">Touchless gesture sensing, clench selection, spatial zoom, artifact interaction and real-time narrative.</p>
+</section>
+
+<section class="scr tw" id="t10" data-right="t9" data-name="Time Wanderers · Visual system & tools">
+  <div class="slide" style="left:40px;top:239px;width:750px;height:422px" data-b="1" data-z><img src="img/v/tw28.jpg" alt="Visual and graphic system"></div>
+  <div class="slide" style="left:810px;top:239px;width:750px;height:422px" data-b="2" data-z><img src="img/v/tw29.jpg" alt="Tools used"></div>
+  <p class="lab abs" style="left:40px;top:170px">Visual system &amp; tools</p>
+</section>
+
+<section class="scr tw" id="t11" data-right="t10" data-name="Time Wanderers · User testing">
+  <img class="cover" src="img/v/tw30.jpg" alt="User testing with people aged 12 to 26">
+</section>
+
+<section class="scr tw" id="t12" data-right="t11" data-name="Time Wanderers · Learnings">
+  <p class="lab abs" style="left:110px;top:120px">Learnings</p>
+  <div class="abs" style="left:110px;top:170px;width:680px;font-size:27px;line-height:1.4">
+    <p data-b="1"><b style="color:var(--acc)">From mockups to code.</b> We built the flow in VS Code by layering assets, video, audio and interaction.</p>
+    <p style="margin-top:26px" data-b="2"><b style="color:var(--acc)">Natural beats clever.</b> Testing taught us to strip complex inputs back to everyday movements with clear signifiers.</p>
+    <p style="margin-top:26px" data-b="3"><b style="color:var(--acc)">Roles and decisions.</b> Splitting asset creation, flow design and assembly kept a tight timeline; decisions stayed collective.</p>
+  </div>
+  <p class="abs" style="left:880px;top:200px;width:620px;font-family:'Cormorant Garamond',serif;font-size:50px;line-height:1.15;font-style:italic" data-b="4">“Every artifact holds a narrative. Connecting people to those hidden stories turns a museum visit into something special.”</p>
+</section>
+
+<!-- =================== 3 · SAATH =================== -->
+<section class="scr sa" id="a1" data-in="s02 p-q3" data-name="Saath">
+  <p class="lab abs" style="left:110px;top:100px">Design Project 2 · Mixed reality · Accessibility</p>
+  <p class="abs" style="left:100px;top:140px;font-size:200px;font-weight:800;color:var(--blue);letter-spacing:-6px;line-height:1">Saath</p>
+  <p class="abs" style="left:110px;top:360px;font-size:46px;font-style:italic;color:var(--blue)">Practise the airport, before the airport.</p>
+  <div class="abs t" style="left:110px;top:470px;width:420px;font-size:22px"><p><b>Platform</b><br>Meta Quest 3 (WebXR) + desktop preview</p><p style="margin-top:16px"><b>Journey</b><br>11 practice scenes, home to seat 14A</p><p style="margin-top:16px"><b>Solo project</b></p></div>
+  <div class="fig" style="left:560px;top:470px;width:960px;height:328px"><img src="img/v/room.jpg" alt="Saath in a living room: a booking card beside a phone"></div>
+  <div class="port" id="p-phone" style="left:1088px;top:620px;width:72px;height:40px"></div>
+</section>
+
+<section class="scr sa" id="a2" data-in="a1 p-phone" data-name="Saath · Kamala's story">
+  <div class="fig deal" style="left:90px;top:30px;width:330px;height:350px" data-b="1" data-z><img src="img/v/k1.jpg" alt="The ticket arrives"></div>
+  <div class="fig deal" style="left:635px;top:30px;width:330px;height:350px" data-b="2" data-z><img src="img/v/k2.jpg" alt="The night before"></div>
+  <div class="fig deal" style="left:1180px;top:30px;width:330px;height:350px" data-b="3" data-z><img src="img/v/k3.jpg" alt="At the terminal"></div>
+  <div class="fig deal" style="left:1180px;top:520px;width:330px;height:350px" data-b="4" data-z><img src="img/v/k4.jpg" alt="Security"></div>
+  <div class="fig deal" style="left:635px;top:520px;width:330px;height:350px" data-b="5" data-z><img src="img/v/k5.jpg" alt="The gate changes"></div>
+  <div class="fig deal" style="left:90px;top:520px;width:330px;height:350px" data-b="6" data-z><img src="img/v/k6.jpg" alt="Never again alone"></div>
+  <div class="abs" style="left:440px;top:395px;width:720px;text-align:center"><p style="font-size:34px;font-weight:800;color:var(--blue)">Kamala, 68, flying alone for the first time.</p><p class="t" style="font-size:22px">Every unknown step pushes her back towards needing someone with her.</p></div>
+  <div class="port" id="p-loop" style="left:1180px;top:410px;width:150px;height:84px;display:grid;place-items:center;font-size:20px;color:var(--blue);font-weight:700;border:2px solid var(--blue);border-radius:999px" data-b="7">↻ the loop</div>
+</section>
+
+<section class="scr sa" id="a3" data-in="a2 p-loop" data-name="Saath · Vicious loops">
+  <p class="lab abs" style="left:110px;top:120px">Systems thinking</p>
+  <h2 class="abs" style="left:110px;top:160px;width:460px">Three <em>vicious</em> loops</h2>
+  <div class="abs t" style="left:110px;top:360px;width:430px;font-size:23px">
+    <p data-b="1"><b style="color:#e8605f">Stress</b> — not knowing what comes next makes every step stressful.</p>
+    <p style="margin-top:20px" data-b="2"><b style="color:#a65fe8">Dependence</b> — asking for help feels like a burden, so they depend on family.</p>
+    <p style="margin-top:20px" data-b="3"><b style="color:#4f6ef0">Avoidance</b> — without practice, one bad trip confirms flying is not for them.</p>
+  </div>
+  <div class="fig" style="left:590px;top:60px;width:940px;height:780px"><img src="img/v/loops.jpg" alt="Stress, dependence and avoidance loops" style="object-fit:cover;object-position:50% 85%"></div>
+  <div class="port" id="p-avoid" style="left:1000px;top:640px;width:140px;height:79px"></div>
+</section>
+
+<section class="scr sa" id="a4" data-in="a3 p-avoid" data-name="Saath · Iceberg">
+  <p class="lab abs" style="left:110px;top:140px">Beneath the surface</p>
+  <h2 class="abs" style="left:110px;top:180px;width:560px">What we see at the airport, and <em>what sits underneath.</em></h2>
+  <p class="abs t" style="left:110px;top:480px;width:520px">Events → patterns → system structures → mental models: “If I get it wrong, I hold everyone up.”</p>
+  <div class="fig" style="left:790px;top:20px;width:760px;height:860px"><img src="img/v/iceberg.jpg" alt="Iceberg model"></div>
+  <div class="abs" style="left:790px;top:420px;width:760px;height:460px" data-b="1" data-z></div>
+  <div class="port" id="p-nopractise" style="left:1316px;top:578px;width:150px;height:30px"></div>
+</section>
+
+<section class="scr sa" id="a5" data-in="a4 p-nopractise" data-name="Saath · Leverage & brief">
+  <p class="lab abs" style="left:40px;top:40px">Where a small change can break the loops</p>
+  <div class="fig" style="left:40px;top:100px;width:760px;height:668px" data-b="1" data-z><img src="img/v/leverage.jpg" alt="Leverage points"></div>
+  <div class="fig" style="left:820px;top:160px;width:740px;height:533px" data-b="2" data-z><img src="img/v/brief.jpg" alt="Design brief"></div>
+</section>
+
+<section class="scr sa" id="a6" data-right="a5" data-name="Saath · Three ideas">
+  <div class="fig" style="left:250px;top:15px;width:1100px;height:870px"><img src="img/v/ideas.jpg" alt="Three ideas compared: video, checklist, rehearse at home"></div>
+  <div class="abs" style="left:972px;top:225px;width:268px;height:372px" data-b="1" data-z></div>
+  <div class="port" id="p-chosen" style="left:1000px;top:330px;width:210px;height:118px"></div>
+</section>
+
+<section class="scr sa" id="a7" data-in="a6 p-chosen" data-name="Saath · Interviews & gaps">
+  <p class="lab abs" style="left:40px;top:40px">5 conversations → 3 gaps</p>
+  <div class="fig" style="left:40px;top:90px;width:690px;height:782px" data-b="1" data-z><img src="img/v/interviews.jpg" alt="Interviews with five travellers"></div>
+  <div class="fig" style="left:750px;top:190px;width:810px;height:555px" data-b="2" data-z><img src="img/v/core.jpg" alt="Repeated patterns into core problems"></div>
+</section>
+
+<section class="scr sa" id="a8" data-right="a7" data-name="Saath · Persona & empathy">
+  <div class="fig" style="left:40px;top:220px;width:760px;height:467px" data-b="1" data-z><img src="img/v/persona.jpg" alt="Persona: Kamala, 68"></div>
+  <div class="fig" style="left:830px;top:15px;width:730px;height:866px" data-b="2" data-z><img src="img/v/empathy.jpg" alt="Empathy map"></div>
+</section>
+
+<section class="scr sa" id="a9" data-right="a8" data-name="Saath · Patterns → possibilities">
+  <p class="lab abs" style="left:110px;top:150px">Patterns → possibilities</p>
+  <h2 class="abs" style="left:110px;top:190px;width:600px">Every problem gets an <em>answer inside Saath.</em></h2>
+  <div class="abs t" style="left:110px;top:470px;width:560px;font-size:24px"><p>One step, one card, one action · no timers · a calm voice, repeat any time · gentle retry, never a failure screen · <b>Show me</b> and <b>Ask for help</b> on every step.</p></div>
+  <div class="fig" style="left:850px;top:10px;width:690px;height:880px"><img src="img/v/patterns.jpg" alt="Observed patterns and design responses"></div>
+  <div class="abs" style="left:850px;top:10px;width:690px;height:440px" data-b="1" data-z></div>
+  <div class="abs" style="left:850px;top:450px;width:690px;height:440px" data-b="2" data-z></div>
+</section>
+
+<section class="scr sa" id="a10" data-right="a9" data-name="Saath · One path">
+  <p class="lab abs" style="left:80px;top:70px">Information architecture</p>
+  <h2 class="abs" style="left:80px;top:110px;width:1300px">One path, <em>in the same order as a real airport.</em></h2>
+  <div id="ia"></div>
+  <p class="abs t" style="left:80px;top:800px;font-size:22px">Available on every step: <b>Show me</b> · <b>Ask for help</b> · <b>Read aloud</b></p>
+</section>
+
+<section class="scr sa" id="a11" data-in="a10 p-open" data-name="Saath · Start screen">
+  <p class="lab abs" style="left:110px;top:150px">The start screen</p>
+  <h2 class="abs" style="left:110px;top:190px;width:640px">One screen, <em>no scrolling.</em></h2>
+  <div class="abs t" style="left:110px;top:400px;width:620px;font-size:24px">
+    <p><b>Your name</b> — printed on the booking, pass and ID; greeted aloud.</p>
+    <p style="margin-top:14px"><b>Start in mixed reality</b> — the main path, in your own room.</p>
+    <p style="margin-top:14px"><b>Full VR · Webcam · Desktop preview</b> — when the room is small, or there's no headset.</p>
+    <p style="margin-top:14px"><b>Watch the journey</b> — a narrated tour of all eleven scenes.</p>
+  </div>
+  <div class="fig" style="left:900px;top:60px;width:620px;height:780px;background:#7fa3a6"><img src="img/v/start.jpg" alt="Saath start screen"></div>
+</section>
+
+<section class="scr sa" id="a12" data-in="a10 p-home" data-name="Saath · At home">
+  <p class="lab abs" style="left:80px;top:90px">At home</p>
+  <h2 class="abs" style="left:80px;top:130px;width:1300px">Prepare at home, <em>in your own room.</em></h2>
+  <div class="shot" style="left:80px;top:300px;width:700px;height:438px" data-b="1" data-z><img src="img/v/home1.jpg" alt="Booking on a familiar phone"></div>
+  <div class="shot" style="left:820px;top:300px;width:700px;height:438px" data-b="2" data-z><img src="img/v/home2.jpg" alt="Packing by dragging, with limits in view"></div>
+  <p class="cap" style="left:80px;top:760px;width:700px">Read your booking on a familiar phone</p>
+  <p class="cap" style="left:820px;top:760px;width:700px">Pack by dragging, with the limits in view</p>
+</section>
+
+<section class="scr sa" id="a13" data-in="a10 p-getting" data-name="Saath · Getting there">
+  <p class="lab abs" style="left:60px;top:90px">Getting there</p>
+  <h2 class="abs" style="left:60px;top:130px;width:1300px">Arrive, <em>the way you will on the day.</em></h2>
+  <div class="shot" style="left:60px;top:320px;width:480px;height:300px" data-b="1" data-z><img src="img/v/getting1.jpg" alt="The cab driver greets you"></div>
+  <div class="shot" style="left:560px;top:320px;width:480px;height:300px" data-b="2" data-z><img src="img/v/getting2.jpg" alt="Step out at Terminal 2"></div>
+  <div class="shot" style="left:1060px;top:320px;width:480px;height:300px" data-b="3" data-z><img src="img/v/getting3.jpg" alt="Show ticket and ID at the door"></div>
+  <p class="cap" style="left:60px;top:640px;width:480px">The cab driver greets you</p>
+  <p class="cap" style="left:560px;top:640px;width:480px">Step out at Terminal 2</p>
+  <p class="cap" style="left:1060px;top:640px;width:480px">Ticket and ID at the door</p>
+</section>
+
+<section class="scr sa" id="a14" data-in="a10 p-terminal" data-name="Saath · Terminal">
+  <p class="lab abs" style="left:80px;top:90px">Terminal</p>
+  <h2 class="abs" style="left:80px;top:130px;width:1300px">Check-in and security, <em>without the rush.</em></h2>
+  <div class="shot" style="left:80px;top:300px;width:700px;height:438px" data-b="1" data-z><img src="img/v/terminal1.jpg" alt="Walk to the check-in counter"></div>
+  <div class="shot" style="left:820px;top:300px;width:700px;height:438px" data-b="2" data-z><img src="img/v/terminal2.jpg" alt="The security lane in the real order"></div>
+  <p class="cap" style="left:80px;top:760px;width:700px">Follow the yellow line to check-in</p>
+  <p class="cap" style="left:820px;top:760px;width:700px">The security lane, in the real order</p>
+</section>
+
+<section class="scr sa" id="a15" data-in="a10 p-gate" data-name="Saath · Gate & seat 14A">
+  <p class="lab abs" style="left:60px;top:200px">Gate &amp; aircraft</p>
+  <h2 class="abs" style="left:60px;top:240px;width:380px">Find the gate, <em>even when it changes.</em></h2>
+  <p class="abs t" style="left:60px;top:560px;width:360px;font-size:22px">The board shows gate 18; the pass still says 12. Trust the screen, follow the signs, then down the jet bridge to seat 14A.</p>
+  <div class="shot" style="left:470px;top:40px;width:530px;height:332px" data-b="1" data-z><img src="img/v/gate1.jpg" alt="Departures board"></div>
+  <div class="shot" style="left:1020px;top:40px;width:530px;height:332px" data-b="2" data-z><img src="img/v/gate2.jpg" alt="A practised gate change"></div>
+  <div class="shot" style="left:470px;top:400px;width:530px;height:332px" data-b="3" data-z><img src="img/v/gate3.jpg" alt="Scan your boarding pass"></div>
+  <div class="shot" style="left:1020px;top:400px;width:530px;height:332px" data-b="4" data-z><img src="img/v/gate4.jpg" alt="Jet bridge to seat 14A"></div>
+  <p class="cap" style="left:470px;top:760px;width:1080px">Departures board · gate change · boarding · jet bridge to 14A</p>
+</section>
+
+<section class="scr sa" id="a16" data-right="a10" data-name="Saath · Tools">
+  <p class="lab abs" style="left:110px;top:120px">Built with</p>
+  <div class="abs t" style="left:110px;top:170px;width:620px;font-size:25px">
+    <p><b style="color:var(--blue)">three.js + WebXR</b> — runs in the Meta Quest 3 browser</p>
+    <p style="margin-top:18px"><b style="color:var(--blue)">Blender</b> — the airport spaces and props</p>
+    <p style="margin-top:18px"><b style="color:var(--blue)">Figma</b> — research boards, IA and screen flows</p>
+    <p style="margin-top:18px"><b style="color:var(--blue)">Recorded voice guidance</b> — calm narration, repeat any time</p>
+    <p style="margin-top:18px"><b style="color:var(--blue)">Desktop &amp; webcam preview</b> — try it without a headset</p>
+  </div>
+  <div class="shot" style="left:790px;top:180px;width:740px;height:463px"><img src="img/v/gate2.jpg" alt="Saath terminal scene"></div>
+</section>
+
+<section class="scr sa" id="a17" data-right="a16" data-name="Saath · Learnings">
+  <p class="lab abs" style="left:110px;top:120px">Learnings</p>
+  <h2 class="abs" style="left:110px;top:160px;width:900px">Design for confidence, <em>not only for ease.</em></h2>
+  <div class="abs t" style="left:110px;top:400px;width:720px;font-size:27px">
+    <p data-b="1">Mapping the loops showed the real problem was confidence, not information.</p>
+    <p style="margin-top:20px" data-b="2">For older users, pace matters most: removing timers did more than any visual change.</p>
+    <p style="margin-top:20px" data-b="3">Mistakes must stay private. A gentle retry keeps people practising.</p>
+  </div>
+  <div class="shot" style="left:900px;top:380px;width:620px;height:386px"><img src="img/v/getting1.jpg" alt="A friendly cab driver greets the traveller"></div>
+</section>
+
+<!-- =================== CLOSING =================== -->
+<section class="scr op" id="z1" data-right="s02" data-name="Thank you">
+  <h2 class="abs" style="left:110px;top:110px;font-size:88px;line-height:1;font-weight:800;letter-spacing:-2px;width:1380px">Map the system. Then build it to learn.</h2>
+  <div class="abs" style="left:110px;top:360px;width:420px"><div class="c1" style="height:10px;border-radius:5px"></div><p style="font-size:40px;font-weight:800;margin-top:20px">Fear → understanding</p><p style="font-size:24px;color:#6b6b66">The Fear Between Us</p></div>
+  <div class="abs" style="left:590px;top:360px;width:420px"><div class="c2" style="height:10px;border-radius:5px"></div><p style="font-size:40px;font-weight:800;margin-top:20px">Object → world</p><p style="font-size:24px;color:#6b6b66">Time Wanderers</p></div>
+  <div class="abs" style="left:1070px;top:360px;width:420px"><div class="c3" style="height:10px;border-radius:5px"></div><p style="font-size:40px;font-weight:800;margin-top:20px">Anxiety → confidence</p><p style="font-size:24px;color:#6b6b66">Saath</p></div>
+  <p class="abs" style="left:110px;top:640px;font-size:110px;font-weight:800;letter-spacing:-3px">Thank you.</p>
+</section>
+
+</div>
 
 <div id="prog"></div>
-<div id="hint">Click anything to zoom in · ← → to step · Esc for overview</div>
+<div id="hint">→ or Space to move · ← back · Esc to the three projects · F for full screen</div>
 <nav id="hud" aria-label="Presentation controls">
   <button id="bPrev" aria-label="Previous">←</button>
-  <button id="bAll" aria-label="Overview">Overview</button>
-  <span id="where">Overview</span>
+  <button id="bHub" aria-label="Back to the three projects">Projects</button>
+  <span id="where">Introduction</span>
   <button id="bNext" aria-label="Next">→</button>
 </nav>
 
 <script>
 {
-// drawn visuals for the data story
+/* ---------- drawn content ---------- */
 const NS='http://www.w3.org/2000/svg';
-const arcPts=[['Fear',.08,.78],['Scale',.22,.7],['Myths',.36,.62],['Antivenom',.5,.48],['Uncounted',.62,.4],['300+ species',.73,.3],['Your street',.9,.2]];
-document.getElementById('arc').innerHTML=`<svg viewBox="0 0 460 285" preserveAspectRatio="xMidYMid slice"><path d="M${arcPts.map(p=>[p[1]*460,p[2]*285].join(' ')).join(' L')}" fill="none" stroke="#e9f1ea" stroke-opacity=".35" stroke-width="2" stroke-dasharray="4 5"/>${arcPts.map((p,i)=>`<circle cx="${p[1]*460}" cy="${p[2]*285}" r="${i==0||i==6?9:6}" fill="${i<4?'#e0553f':'#5fd39a'}"/><text x="${p[1]*460}" y="${p[2]*285+(i%2?-14:24)}" fill="#e9f1ea" font-size="12" text-anchor="middle" font-family="Schibsted Grotesk,sans-serif">${p[0]}</text>`).join('')}<text x="20" y="30" fill="#e0553f" font-size="15" font-weight="700" font-family="Schibsted Grotesk,sans-serif">Fear</text><text x="440" y="30" fill="#5fd39a" font-size="15" font-weight="700" text-anchor="end" font-family="Schibsted Grotesk,sans-serif">Understanding</text></svg>`;
+// one hour, sixty minutes, six lives
+{let s='';for(let i=0;i<60;i++){const a=i/60*Math.PI*2-Math.PI/2,on=i%10==0,r0=on?236:256;
+ s+=`<line x1="${300+Math.cos(a)*r0}" y1="${300+Math.sin(a)*r0}" x2="${300+Math.cos(a)*280}" y2="${300+Math.sin(a)*280}" stroke="${on?'#e0553f':'#e8efe4'}" stroke-opacity="${on?1:.3}" stroke-width="${on?14:4}" stroke-linecap="round"/>`}
+ document.getElementById('ring60').innerHTML=s}
+// the nine-chapter story arc
+{const ch=['A shared home','The scale','Myths vs antivenom','The alternate pathway','The uncounted','300+ species','Venomous or not?','The Big Four','Your neighbourhood'];
+ const pts=ch.map((c,i)=>[150+i*162,760-430*(1-Math.cos(Math.PI*i/8))/2]);
+ let svg=`<path d="M${pts.map(p=>p.join(' ')).join(' L')}" fill="none" stroke="#e8efe4" stroke-opacity=".3" stroke-width="3" stroke-dasharray="6 8"/>`;
+ svg+=`<text x="150" y="830" fill="#e0553f" font-size="26" font-weight="700" font-family="Schibsted Grotesk">Fear</text><text x="1460" y="250" fill="#6fd39f" font-size="26" font-weight="700" text-anchor="end" font-family="Schibsted Grotesk">Understanding</text>`;
+ document.getElementById('arcsvg').innerHTML=svg;
+ document.getElementById('arcnodes').innerHTML=pts.map((p,i)=>`<div class="abs" data-b="${i<4?1:2}" style="left:${p[0]-80}px;top:${p[1]-(i%2?92:-26)}px;width:160px;text-align:center;font-size:20px;line-height:1.15">${ch[i]}</div><div class="${i==5?'port':'abs'}" ${i==5?'id="p-n5"':''} data-b="${i<4?1:2}" style="left:${p[0]-24}px;top:${p[1]-13.5}px;width:48px;height:27px;display:grid;place-items:center"><i style="width:${i==5?26:20}px;height:${i==5?26:20}px;border-radius:50%;background:${i<4?'#e0553f':'#6fd39f'};box-shadow:0 0 0 6px rgba(255,255,255,.08)"></i></div>`).join('')}
 // 307 species: 73 venomous, 57 mildly venomous, 177 non-venomous
-{const cols=26,r=4.2,gap=12.4,x0=(460-(cols-1)*gap)/2,y0=40;let s='';
- for(let i=0;i<307;i++){const c=i<73?'#e0553f':i<130?'#e8b04a':'#5fd39a';s+=`<circle cx="${x0+(i%cols)*gap}" cy="${y0+Math.floor(i/cols)*gap}" r="${r}" fill="${c}"/>`}
- const lg=[['#e0553f','23.8% venomous'],['#e8b04a','18.6% mild'],['#5fd39a','57.7% harmless']].map((l,i)=>`<circle cx="${30+i*145}" cy="${y0+12*gap+16}" r="5" fill="${l[0]}"/><text x="${40+i*145}" y="${y0+12*gap+20}" fill="#e9f1ea" font-size="12" font-family="Schibsted Grotesk,sans-serif">${l[1]}</text>`).join('');
- document.getElementById('dots').innerHTML=`<svg viewBox="0 0 460 285"><text x="230" y="24" fill="#e9f1ea" font-size="13" text-anchor="middle" font-family="Schibsted Grotesk,sans-serif">Each dot is one of 307 species</text>${s}${lg}</svg>`}
-// a 60-minute ring with six marks
-{let s='';for(let i=0;i<60;i++){const a=i/60*Math.PI*2-Math.PI/2,on=i%10==0,R=on?100:104;s+=`<line x1="${300+Math.cos(a)*R}" y1="${142+Math.sin(a)*R}" x2="${300+Math.cos(a)*112}" y2="${142+Math.sin(a)*112}" stroke="${on?'#e0553f':'#e9f1ea'}" stroke-opacity="${on?1:.3}" stroke-width="${on?6:2}" stroke-linecap="round"/>`}
- document.getElementById('clock').innerHTML=s+`<text x="300" y="148" fill="#e9f1ea" font-size="14" text-anchor="middle" font-family="Schibsted Grotesk,sans-serif">one hour</text>`}
+{let s='';const cols=23;for(let i=0;i<307;i++){const c=i<73?'#e0553f':i<130?'#e8b04a':'#6fd39f';s+=`<circle cx="${16+(i%cols)*30.5}" cy="${16+Math.floor(i/cols)*30.5}" r="11" fill="${c}"/>`}
+ document.getElementById('dots307').innerHTML=s}
+// the Big Four cards
+{const C=[['♣','Common Indian Krait','f-krait','0.09','12.5','8 – 20','POTENT NEUROTOXIC'],['♥','Saw-scaled Viper','f-saw','0.15 – 0.24','14.0','5 – 20','POTENT HEMOTOXIC'],['♠','Indian Cobra','f-cobra','0.28 – 0.56','190.0','150 – 250','POST-SYNAPTIC NEUROTOXIC'],['♦',"Russell's Viper",'f-russell','0.40 – 0.75','170.0','130 – 250','CYTOTOXIC &amp; HEMOTOXIC']];
+ document.getElementById('cards4').innerHTML=C.map((c,i)=>`<div class="card4" data-b="${i+1}" data-z style="left:${110+i*360}px;transform:rotate(${[-3,2,-1.5,3][i]}deg)"><div class="su">${c[0]}</div><h4>${c[1].toUpperCase()}</h4><img src="img/v/${c[2]}.png" alt="${c[1]}"><dl><dt>LD₅₀ (mg/kg)</dt><dd>${c[3]}</dd><dt>Avg. yield (mg)</dt><dd>${c[4]}</dd><dt>Yield range (mg)</dt><dd>${c[5]}</dd></dl><p class="tox">${c[6]}</p></div>`).join('')}
+// neighbourhood map: the live map's clusters, drawn (replace with img/v/fear-map.png when you add a screenshot)
+{const m=document.getElementById('map');const cl=[[140,180,200],[555,320,250],[272,430,220],[295,470,330],[636,610,220],[844,640,330],[363,720,180],[140,150,420]];
+ m.innerHTML=`<svg viewBox="0 0 790 680" style="position:absolute;inset:0;width:100%;height:100%"><path d="M250 90 L420 60 L520 140 L640 170 L700 260 L620 300 L560 360 L470 520 L400 640 L340 560 L300 430 L230 380 L180 300 L200 200 Z" fill="#1b3527" stroke="#2f5a43" stroke-width="2"/>${cl.map(c=>`<circle cx="${c[1]}" cy="${c[2]}" r="${14+Math.sqrt(c[0])}" fill="#1f4a33" stroke="#6fd39f" stroke-width="2"/><text x="${c[1]}" y="${c[2]+7}" fill="#e8efe4" font-size="20" font-weight="700" text-anchor="middle" font-family="Schibsted Grotesk">${c[0]}</text>`).join('')}</svg><div style="position:absolute;left:20px;top:20px;display:flex;gap:10px"><span style="background:#0b1a12;border:1px solid #2f5a43;padding:8px 14px;border-radius:8px;font-size:18px">All India</span><span style="background:#0b1a12;border:1px solid #2f5a43;padding:8px 14px;border-radius:8px;font-size:18px">Explore a place ▾</span></div><img src="img/v/fear-map.png" alt="Sightings map on the live site" onerror="this.remove()" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">`}
+// rings: object → world
+{const R=['OBJECT','PEOPLE','PLACE','CULTURE','SOCIETY','WORLD'];
+ document.getElementById('rings').innerHTML=R.map((r,i)=>{const d=150+i*130;return`<div class="rg" ${i?`data-b="${i}"`:''} style="left:${1150-d/2}px;top:${470-d/2}px;width:${d}px;height:${d}px;${i==0?'background:#d9a25b;border:0;place-items:center':''}"><span style="${i==0?'color:#000;margin:0':''}">${r}</span></div>`}).join('')}
+// information architecture: 11 scenes in 4 chapters, each chapter opens into its screens
+{const CH=[['AT HOME','home1','p-home',['Booking','Packing']],['GETTING THERE','getting1','p-getting',['Cab','Kerb']],['TERMINAL','terminal1','p-terminal',['Entrance','Check-in','Security']],['GATE & AIRCRAFT','gate2','p-gate',['Departures','Gate change','Boarding','Seat 14A']]];
+ let h=`<div class="abs" style="left:80px;top:568px;width:1440px;height:4px;background:#1d4fa3;border-radius:2px"></div><div class="port" id="p-open" style="left:60px;top:540px;width:110px;height:62px;display:grid;place-items:center;background:#2e8b84;color:#fff;border-radius:31px;font-size:18px;font-weight:700">Open Saath</div>`;
+ let n=0;const gap=124,x0=262;
+ CH.forEach(c=>{const first=n,last=n+c[3].length-1,cx=x0+(first+last)/2*gap,w=240,x=Math.round(cx-w/2);
+  h+=`<p class="abs" style="left:${x}px;top:300px;width:${w}px;text-align:center;font-size:17px;letter-spacing:.12em;color:#4a8fd6;font-weight:600">${c[0]}</p><div class="shot port" id="${c[2]}" style="left:${x}px;top:332px;width:${w}px;height:135px;cursor:zoom-in"><img src="img/v/${c[1]}.jpg" alt=""></div><div class="abs" style="left:${x0+first*gap-10}px;top:500px;width:${(last-first)*gap+20}px;height:4px;background:#4a8fd6;opacity:.35;border-radius:2px"></div>`;
+  c[3].forEach(s=>{const nx=x0+n*gap;n++;h+=`<div class="node" style="left:${nx-13}px;top:557px"></div><p class="nl" style="left:${nx-60}px;top:600px;width:120px">${s}</p>`})});
+ document.getElementById('ia').innerHTML=h}
 
-const stage=document.getElementById('stage'),world=document.getElementById('world'),hint=document.getElementById('hint');
-const frames=[...document.querySelectorAll('.f')];
-const path=[null,document.querySelector('.title')];
-for(const p of document.querySelectorAll('.p')){path.push(p,...p.querySelectorAll('.c'),null)}
-path.push(document.querySelector('.end'));
-let idx=0,cur=null;const cam={x:0,y:0,s:.2};let anim=null;
-
-function box(el){let x=0,y=0,e=el;while(e&&e!==world){x+=e.offsetLeft;y+=e.offsetTop;e=e.offsetParent}return{x,y,w:el.offsetWidth,h:el.offsetHeight}}
-function bounds(){let a=1e9,b=1e9,c=-1e9,d=-1e9;for(const f of document.querySelectorAll('#world>.f')){const r=box(f);a=Math.min(a,r.x);b=Math.min(b,r.y);c=Math.max(c,r.x+r.w);d=Math.max(d,r.y+r.h)}return{x:a,y:b,w:c-a,h:d-b}}
-function fit(r,pad){const W=innerWidth,H=innerHeight-90;return{x:r.x+r.w/2,y:r.y+r.h/2,s:Math.min(W/r.w,H/r.h)*(pad||.9)}}
+/* ---------- camera ---------- */
+const stage=document.getElementById('stage'),hint=document.getElementById('hint');
+const S=[...document.querySelectorAll('.scr')];const byId={};S.forEach(e=>byId[e.id]=e);
+const P={};
+function local(el,root){let x=0,y=0,e=el;while(e&&e!==root){x+=e.offsetLeft;y+=e.offsetTop;e=e.offsetParent}return{x,y,w:el.offsetWidth,h:el.offsetHeight}}
+function layout(){
+  S.forEach(e=>e.style.display='block');
+  for(const e of S){const d=e.dataset;
+    if(d.at){const[x,y,s]=d.at.split(' ').map(Number);P[e.id]={x,y,s}}
+    else if(d.in){const[pid,aid]=d.in.split(' '),p=P[pid],a=local(document.getElementById(aid),byId[pid]);
+      const s=p.s*Math.min(a.w/1600,a.h/900);P[e.id]={x:p.x+(a.x+a.w/2)*p.s-800*s,y:p.y+(a.y+a.h/2)*p.s-450*s,s,parent:pid};
+      const an=document.getElementById(aid);an.dataset.go=e.id;P[e.id].peek='peek' in an.dataset}
+    else if(d.right){const p=P[d.right];P[e.id]={x:p.x+1760*p.s,y:p.y,s:p.s,right:d.right}}
+  }
+}
+let cam={x:800,y:450,w:1600*3};// centre and visible width, in world units
 function render(){
-  const W=innerWidth,H=innerHeight-60;
-  world.style.transform=`translate(${W/2}px,${H/2}px) scale(${cam.s}) translate(${-cam.x}px,${-cam.y}px)`;
-  // infinite dot grid: spacing wraps by powers of 4
-  let g=40*cam.s;while(g>160)g/=4;while(g<40)g*=4;
-  const t=Math.log(g/40)/Math.log(4),ox=W/2-cam.x*cam.s,oy=H/2-cam.y*cam.s,r1=1+t*.6;
+  const vw=innerWidth,vh=innerHeight,z=vw/cam.w;
+  for(const e of S){const p=P[e.id],sw=1600*p.s*z;
+    const L=vw/2+(p.x-cam.x)*z,T=vh/2+(p.y-cam.y)*z;
+    const fin=p.parent?(p.peek?Math.min(1,Math.max(0,(sw/vw-.035)/.22)):Math.min(1,Math.max(0,(sw/vw-.22)/.3))):(p.right?Math.min(1,Math.max(0,(sw/vw-.25)/.3)):1);
+    const fout=Math.min(1,Math.max(0,(5*vw-sw)/(2.5*vw)));
+    const o=fin*fout,off=L>vw||T>vh||L+sw<0||T+sw*.5625<0;
+    if(o<=.01||off||sw<3){e.style.display='none';continue}
+    e.style.display='block';e.style.opacity=o;e.style.transform=`translate(${L}px,${T}px) scale(${p.s*z})`}
+  // infinite dot grid
+  let g=48*z*(cam.w/cam.w);const base=48*(vw/cam.w);g=base;let k=0;while(g>192){g/=4;k++}while(g<48){g*=4;k--}
+  const ox=vw/2-cam.x*(vw/cam.w),oy=vh/2-cam.y*(vw/cam.w),t=Math.log(g/48)/Math.log(4),r1=.8+t*.9;
   const bs=document.body.style;
-  bs.backgroundImage=`radial-gradient(circle,var(--dot) ${r1}px,transparent ${r1+.6}px),radial-gradient(circle,var(--dot2) 1.6px,transparent 2.2px)`;
-  bs.backgroundSize=`${g/4}px ${g/4}px,${g}px ${g}px`;bs.backgroundPosition=`${ox}px ${oy}px,${ox}px ${oy}px`;
+  bs.backgroundImage=`radial-gradient(circle,var(--dotc) ${r1}px,transparent ${r1+.7}px),radial-gradient(circle,var(--dotc2) 1.6px,transparent 2.3px)`;
+  bs.backgroundSize=`${g/4}px ${g/4}px,${g}px ${g}px`;
+  bs.backgroundPosition=`${((ox%g)+g)%g}px ${((oy%g)+g)%g}px,${((ox%g)+g)%g}px ${((oy%g)+g)%g}px`;
 }
-const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
-const still=matchMedia('(prefers-reduced-motion: reduce)');
-function fly(to){
-  cancelAnimationFrame(anim);
-  const from={...cam},d=Math.hypot(to.x-from.x,to.y-from.y),view=Math.max(innerWidth,innerHeight);
-  const ls0=Math.log(from.s),ls1=Math.log(to.s),dip=Math.max(0,Math.min(ls0,ls1)-Math.log(view/(d+1)*.9))*.9;
-  const dur=Math.min(1700,750+d*from.s*.25+Math.abs(ls1-ls0)*130),t0=performance.now();
-  world.classList.add('moving');
-  const step=now=>{let t=Math.min(1,(now-t0)/dur);if(still.matches)t=1;const e=ease(t);
-    cam.x=from.x+(to.x-from.x)*e;cam.y=from.y+(to.y-from.y)*e;cam.s=Math.exp(ls0+(ls1-ls0)*e-dip*Math.sin(Math.PI*e));render();
-    if(t<1)anim=requestAnimationFrame(step);else world.classList.remove('moving')};
-  anim=requestAnimationFrame(step);
-}
-function label(f){if(!f)return'Overview';if(f.dataset.stop)return f.dataset.stop;const a=f.closest('[data-stop]');return a?a.dataset.stop+' · picture':''}
-function go(f,fromPath){
-  cur=f;frames.forEach(x=>x.classList.toggle('cur',x===f));
-  fly(fit(f?box(f):bounds(),f&&f.classList.contains('g')?.97:f&&f.classList.contains('c')?.94:.9));
-  document.getElementById('where').textContent=label(f);
-  if(!fromPath){const i=path.indexOf(f);if(i>=0)idx=i}
-  document.getElementById('prog').style.width=(idx/(path.length-1)*100)+'%';
-}
-function step(n){idx=Math.max(0,Math.min(path.length-1,idx+n));go(path[idx],true)}
-function parent(f){return f&&f.parentElement.closest('.f')}
-// open the next level down from where we are: board → project → card → picture
-function target(f){let t=f;while(parent(t)&&!(cur&&parent(t).contains(cur)))t=parent(t);return t}
+function viewOf(id,el){const p=P[id],vw=innerWidth,vh=innerHeight-40;
+  if(el){const a=local(el,byId[id]);const wx=p.x+a.x*p.s,wy=p.y+a.y*p.s,ww=a.w*p.s,wh=a.h*p.s;const w=Math.max(ww/.92,wh/.88*vw/vh);return{x:wx+ww/2,y:wy+wh/2,w}}
+  return{x:p.x+800*p.s,y:p.y+450*p.s,w:Math.max(1600*p.s,900*p.s*vw/vh)}}
+// smooth zoom-and-pan path (van Wijk & Nuij)
+function interp(a,b){const rho=1.35,r2=rho*rho,r4=r2*r2,dx=b.x-a.x,dy=b.y-a.y,d2=dx*dx+dy*dy,w0=a.w,w1=b.w;let S,f;
+  if(d2<1e-12*w0*w0||d2<1e-24){S=Math.log(w1/w0)/rho;f=t=>({x:a.x+t*dx,y:a.y+t*dy,w:w0*Math.exp(rho*t*S)})}
+  else{const d1=Math.sqrt(d2),b0=(w1*w1-w0*w0+r4*d2)/(2*w0*r2*d1),b1=(w1*w1-w0*w0-r4*d2)/(2*w1*r2*d1),q0=Math.log(Math.sqrt(b0*b0+1)-b0),q1=Math.log(Math.sqrt(b1*b1+1)-b1);S=(q1-q0)/rho;
+    f=t=>{const s=t*S,c0=Math.cosh(q0),u=w0/(r2*d1)*(c0*Math.tanh(rho*s+q0)-Math.sinh(q0));return{x:a.x+u*dx,y:a.y+u*dy,w:w0*c0/Math.cosh(rho*s+q0)}}}
+  return{f,dur:Math.min(2600,Math.max(650,Math.abs(S)*560))}}
+let anim=0;const still=matchMedia('(prefers-reduced-motion: reduce)');
+function fly(to){cancelAnimationFrame(anim);const it=interp({...cam},to),t0=performance.now();
+  const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+  const step=now=>{let t=Math.min(1,(now-t0)/it.dur);if(still.matches)t=1;cam=it.f(ease(t));render();if(t<1)anim=requestAnimationFrame(step)};
+  anim=requestAnimationFrame(step)}
 
-let down=null,moved=false;
-stage.addEventListener('pointerdown',e=>{down={x:e.clientX,y:e.clientY,cx:cam.x,cy:cam.y};moved=false;stage.setPointerCapture(e.pointerId)});
-stage.addEventListener('pointermove',e=>{if(!down)return;const dx=e.clientX-down.x,dy=e.clientY-down.y;
-  if(!moved&&Math.hypot(dx,dy)>5){moved=true;stage.classList.add('drag');cancelAnimationFrame(anim)}
-  if(moved){cam.x=down.cx-dx/cam.s;cam.y=down.cy-dy/cam.s;render()}});
-stage.addEventListener('pointerup',e=>{stage.classList.remove('drag');const was=moved;down=null;if(was)return;
-  const hit=document.elementFromPoint(e.clientX,e.clientY),f=hit&&hit.closest('.f');
-  if(!f||f===cur)go(parent(cur)||null);else go(target(f));hint.style.opacity=0});
-stage.addEventListener('wheel',e=>{e.preventDefault();cancelAnimationFrame(anim);
-  const W=innerWidth,H=innerHeight-60,k=Math.exp(-e.deltaY*.0015);
-  const wx=cam.x+(e.clientX-W/2)/cam.s,wy=cam.y+(e.clientY-H/2)/cam.s;
-  cam.s=Math.max(.02,Math.min(40,cam.s*k));cam.x=wx-(e.clientX-W/2)/cam.s;cam.y=wy-(e.clientY-H/2)/cam.s;render()},{passive:false});
+/* ---------- path: every screen, then each of its builds ---------- */
+const path=[];
+S.forEach(e=>{path.push({id:e.id,b:0});const n=Math.max(0,...[...e.querySelectorAll('[data-b]')].map(x=>+x.dataset.b));for(let b=1;b<=n;b++)path.push({id:e.id,b})});
+let idx=0;
+function apply(i){const cur=path[i],order=S.map(e=>e.id),ci=order.indexOf(cur.id);
+  S.forEach((e,k)=>e.querySelectorAll('[data-b]').forEach(x=>x.classList.toggle('on',k<ci||(k==ci&&+x.dataset.b<=cur.b))));
+  const scr=byId[cur.id],focus=cur.b?[...scr.querySelectorAll(`[data-b="${cur.b}"][data-z]`)][0]:null;
+  fly(viewOf(cur.id,focus));
+  const bg=getComputedStyle(scr).getPropertyValue('--bg').trim();document.body.style.backgroundColor=bg;
+  document.body.classList.toggle('dark',scr.classList.contains('fe')||scr.classList.contains('tw'));
+  const yt=document.getElementById('yt');if(cur.id=='t9'){if(!yt.src)yt.src=yt.dataset.src}else if(yt.src){yt.removeAttribute('src')}
+  document.getElementById('where').textContent=scr.dataset.name+'  ·  '+(i+1)+' / '+path.length;
+  document.getElementById('prog').style.width=(i/(path.length-1)*100)+'%';
+  try{history.replaceState(null,'','#'+cur.id)}catch(_){}
+}
+function go(n){idx=Math.max(0,Math.min(path.length-1,n));apply(idx);hint.style.opacity=0}
+function toScreen(id){const i=path.findIndex(p=>p.id==id);if(i>=0)go(i)}
+
+/* ---------- input ---------- */
 addEventListener('keydown',e=>{
-  if(['ArrowRight',' ','PageDown','Enter'].includes(e.key)){e.preventDefault();step(1);hint.style.opacity=0}
-  else if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){e.preventDefault();step(-1)}
-  else if(e.key==='Escape'||e.key==='o')go(null);
-  else if(e.key==='Home'){idx=0;go(path[0],true)}
-  else if(e.key==='f')document.documentElement.requestFullscreen?.().catch(()=>{});
+  if(['ArrowRight',' ','PageDown','Enter','ArrowDown'].includes(e.key)){e.preventDefault();go(idx+1)}
+  else if(['ArrowLeft','PageUp','Backspace','ArrowUp'].includes(e.key)){e.preventDefault();go(idx-1)}
+  else if(e.key=='Escape'||e.key=='o')toScreen('s02');
+  else if(e.key=='Home')go(0);else if(e.key=='End')go(path.length-1);
+  else if(e.key=='f'||e.key=='F')(document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()).catch(()=>{});
 });
-document.getElementById('bPrev').onclick=()=>step(-1);
-document.getElementById('bNext').onclick=()=>step(1);
-document.getElementById('bAll').onclick=()=>go(null);
-addEventListener('resize',()=>go(cur,true));
-const o=fit(bounds());cam.x=o.x;cam.y=o.y;cam.s=o.s*.6;render();
-setTimeout(()=>go(null,true),150);
+let down=null,moved=false;
+stage.addEventListener('pointerdown',e=>{if(e.target.closest('iframe'))return;down={x:e.clientX,y:e.clientY,c:{...cam}};moved=false});
+addEventListener('pointermove',e=>{if(!down)return;const dx=e.clientX-down.x,dy=e.clientY-down.y;
+  if(!moved&&Math.hypot(dx,dy)>6){moved=true;stage.classList.add('drag');cancelAnimationFrame(anim)}
+  if(moved){const k=cam.w/innerWidth;cam={x:down.c.x-dx*k,y:down.c.y-dy*k,w:cam.w};render()}});
+addEventListener('pointerup',e=>{stage.classList.remove('drag');const was=moved;down=null;if(was)return;
+  const t=e.target.closest&&e.target.closest('[data-go]');if(t)toScreen(t.dataset.go)});
+stage.addEventListener('wheel',e=>{e.preventDefault();cancelAnimationFrame(anim);const vw=innerWidth,vh=innerHeight,k=Math.exp(e.deltaY*.0015);
+  const wx=cam.x+(e.clientX-vw/2)*cam.w/vw,wy=cam.y+(e.clientY-vh/2)*cam.w/vw,nw=cam.w*k;
+  cam={x:wx-(e.clientX-vw/2)*nw/vw,y:wy-(e.clientY-vh/2)*nw/vw,w:nw};render()},{passive:false});
+document.getElementById('bPrev').onclick=()=>go(idx-1);
+document.getElementById('bNext').onclick=()=>go(idx+1);
+document.getElementById('bHub').onclick=()=>toScreen('s02');
+addEventListener('hashchange',()=>{const id=location.hash.slice(1);if(byId[id]&&path[idx].id!==id)toScreen(id)});
+addEventListener('resize',()=>{cam=viewOf(path[idx].id);render();apply(idx)});
+
+window.__deck={P,get cam(){return cam}};
+/* ---------- start ---------- */
+const boot=()=>{layout();const h=location.hash.slice(1),i=path.findIndex(p=>p.id==h);idx=i>0?i:0;
+  const v=viewOf(path[idx].id);cam={x:v.x,y:v.y,w:v.w*2.2};render();setTimeout(()=>apply(idx),120)};
+document.fonts&&document.fonts.ready?document.fonts.ready.then(boot):addEventListener('load',boot);
 }
 </script>
 </body>
