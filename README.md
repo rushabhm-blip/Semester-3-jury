@@ -1,6 +1,6 @@
 # Semester 3 Jury
 
-A Prezi-style jury presentation on one continuous dot-grid canvas. Each screen sits inside a detail of the one before it (a number, a sketch, a diagram node) and the camera zooms in, so the talk flows without cuts.
+A jury presentation on one continuous dot-grid canvas. Slides change with a soft fade; nothing flies or zooms between them. Clicking an image still enlarges it.
 
 Talk order:
 

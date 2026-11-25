@@ -8,14 +8,14 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Figtree:ital,wght@0,400;0,600;0,800;1,400&family=Yatra+One&family=Schibsted+Grotesk:wght@400;500;700;800&display=swap">
 <style>
 /* VOICE: a spoken jury talk — one idea per screen, the work carries it.
-   IDEA: one continuous canvas; every next screen hides inside a detail of the one before and the camera dives in.
+   IDEA: screens on one canvas, joined by soft fades; nothing zooms between slides.
    PICTURE: full screens built from the real work — the live data story, the Time Wanderers slides, the Saath renders and sketches.
    COLOUR and TYPE: each project keeps its own world — forest + serif (Fear), black + cream (Time Wanderers), airport blue + Figtree (Saath).
    LAYOUT: 1600×900 screens on a zoomable board; each project ends on its learning outcomes; click any image to look closer. */
 :root{--paper:#f4f3ee;--ink:#141414;--dotc:rgba(20,20,20,.16);--dotc2:rgba(20,20,20,.28)}
 *{box-sizing:border-box;min-width:0}
 html,body{height:100%}
-body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 "Schibsted Grotesk",system-ui,sans-serif;overflow:hidden;user-select:none;touch-action:none;transition:background-color .9s}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 "Schibsted Grotesk",system-ui,sans-serif;overflow:hidden;user-select:none;touch-action:none;transition:background-color .32s}
 body.dark{--dotc:rgba(255,255,255,.10);--dotc2:rgba(255,255,255,.2)}
 #stage{position:fixed;inset:0;cursor:grab;overflow:hidden}#stage.drag{cursor:grabbing}
 .scr{position:absolute;left:0;top:0;width:1600px;height:900px;transform-origin:0 0;overflow:hidden;display:none;background:var(--bg);color:var(--fg)}
@@ -24,8 +24,8 @@ body.dark{--dotc:rgba(255,255,255,.10);--dotc2:rgba(255,255,255,.2)}
 img{display:block}
 .cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .port{position:absolute;cursor:zoom-in}
-[data-b]{opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s}
-[data-b].on{opacity:1;transform:none}
+[data-b]{opacity:0;transition:opacity .5s}
+[data-b].on{opacity:1}
 .slide,.shot,.fig{cursor:zoom-in}
 .shot{position:absolute;border-radius:10px;overflow:hidden;box-shadow:0 18px 50px -20px rgba(0,0,0,.45)}
 .shot img{width:100%;height:100%;object-fit:cover}
@@ -104,7 +104,7 @@ body.infs #hud,body.infs #hint{display:none}
 .then{position:absolute;left:80px;top:668px;width:430px;font-size:40px;line-height:1.1;font-weight:800;color:var(--blue)}
 .ste{position:absolute;left:80px;top:60px;font-size:20px;letter-spacing:.14em;text-transform:uppercase;color:#2f6fb8;font-weight:700}
 /* ---------- HUD ---------- */
-#veil{position:fixed;inset:0;z-index:4;opacity:0;pointer-events:none;transition:opacity .4s ease}#veil.on{opacity:1}
+#veil{position:fixed;inset:0;z-index:4;opacity:0;pointer-events:none;transition:opacity .32s ease}#veil.on{opacity:1}
 #hud{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);display:flex;align-items:center;gap:4px;padding:5px;border-radius:14px;background:rgba(255,255,255,.9);border:1px solid rgba(0,0,0,.08);backdrop-filter:blur(10px);box-shadow:0 10px 30px -12px rgba(0,0,0,.35);opacity:0;transition:opacity .3s;z-index:5}
 #hud::before{content:"";position:absolute;inset:-18px -40px -14px;z-index:-1}
 #hud:hover,#hud:has(:focus-visible){opacity:1}
@@ -526,13 +526,12 @@ function fly(to){cancelAnimationFrame(anim);const it=interp({...cam},to),t0=perf
   const step=now=>{let t=Math.min(1,(now-t0)/it.dur);if(still.matches)t=1;cam=it.f(ease(t));render();if(t<1)anim=requestAnimationFrame(step)};
   anim=requestAnimationFrame(step)}
 
-// crossing between projects: a soft fade instead of flying the camera out and back in
-let at=null,vt=0;const veil=document.getElementById('veil');
-function travel(id){const a=byId[at],b=byId[id],from=at;at=id;
-  const hop=vt||(a&&a.classList[1]!=b.classList[1]&&from!='s02');
-  if(!hop){fly(viewOf(id));return}
+// every slide change is a soft fade; the camera never flies between slides (easier on the eyes)
+const FADE=320;let at=null,vt=0;const veil=document.getElementById('veil');
+function travel(id){const b=byId[id],same=at===id;at=id;
+  if(same){if(!vt)fly(viewOf(id));return}
   clearTimeout(vt);cancelAnimationFrame(anim);veil.style.background=getComputedStyle(b).getPropertyValue('--bg').trim();veil.classList.add('on');
-  vt=setTimeout(()=>{vt=0;cam=viewOf(id);render();veil.classList.remove('on')},420)}
+  vt=setTimeout(()=>{vt=0;cam=viewOf(id);render();veil.classList.remove('on')},FADE)}
 
 /* ---------- path: every screen, then each of its builds ---------- */
 const path=[];
@@ -591,7 +590,7 @@ window.__deck={P,path,get cam(){return cam}};
 
 /* ---------- start ---------- */
 const boot=()=>{layout();const h=location.hash.slice(1),i=path.findIndex(p=>p.id==h);idx=i>0?i:0;
-  const v=viewOf(path[idx].id);cam={x:v.x,y:v.y,w:v.w*2.2};render();setTimeout(()=>{ready=true;apply(idx)},120)};
+  const v=viewOf(path[idx].id);cam={x:v.x,y:v.y,w:v.w};at=path[idx].id;render();setTimeout(()=>{ready=true;apply(idx)},120)};
 document.fonts&&document.fonts.ready?document.fonts.ready.then(boot):addEventListener('load',boot);
 }
 </script>
