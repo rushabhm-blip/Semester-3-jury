@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Jury Presentation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Figtree:ital,wght@0,400;0,600;0,800;1,400&family=Schibsted+Grotesk:wght@400;500;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Figtree:ital,wght@0,400;0,600;0,800;1,400&family=Yatra+One&family=Schibsted+Grotesk:wght@400;500;700;800&display=swap">
 <style>
 /* VOICE: a spoken jury talk — one idea per screen, the work carries it.
    IDEA: one continuous canvas; every next screen hides inside a detail of the one before and the camera dives in.
@@ -45,6 +45,9 @@ img{display:block}
 .q .ring img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s}
 .q .ring:hover img{transform:scale(1.06)}
 .q .ring .port{left:55px;top:133px;width:260px;height:146px}
+.nm{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
+.nm-f{font:500 70px/.9 "Cormorant Garamond",Georgia,serif;color:#f0e9d8;background:radial-gradient(circle,rgba(4,16,10,.72),rgba(4,16,10,.3) 75%)}.nm-f i{font-size:66px;font-style:italic;margin-top:4px}
+.nm-s{font:400 92px/1 "Yatra One",Figtree,system-ui;color:#fff;background:radial-gradient(circle,rgba(16,50,120,.82) 25%,rgba(16,50,120,.45) 85%)}
 .q p{font-size:36px;line-height:1.15;font-weight:700;margin-top:44px;text-wrap:balance}
 .q small{display:block;font-size:22px;color:#6b6b66;margin-top:14px;font-weight:500}
 /* ---------- fear (forest + serif) ---------- */
@@ -53,7 +56,7 @@ img{display:block}
 .fe .lab{font-size:20px;letter-spacing:.12em;text-transform:uppercase;color:var(--grn);font-weight:700}
 .fe .mute{color:#a9b8a8}
 .tl{display:flex;gap:14px;align-items:flex-start;margin-top:18px;font-size:20px;line-height:1.3;color:#e8efe4}.tl b{flex:none;width:34px;height:34px;border-radius:50%;background:var(--grn);color:#0b1a12;display:grid;place-items:center;font-size:19px}.tl u{text-decoration:none;color:var(--grn);font-weight:700}
-.hr{position:absolute;box-sizing:border-box;border:3px solid #6fd39f;border-radius:12px;box-shadow:0 0 0 4px rgba(111,211,159,.18),0 0 24px rgba(111,211,159,.5);animation:hp 2s ease-in-out infinite}.hr b{position:absolute;width:38px;height:38px;border-radius:50%;background:#6fd39f;color:#0b1a12;display:grid;place-items:center;font-size:21px;font-style:normal}.hr b.l{left:-48px;top:7px}.hr b.r{right:-48px;top:5px}.hr b.c{left:-22px;top:-22px}@keyframes hp{50%{box-shadow:0 0 0 9px rgba(111,211,159,.08),0 0 30px rgba(111,211,159,.7)}}
+.hr{position:absolute;box-sizing:border-box;border:3px solid #6fd39f;border-radius:12px;box-shadow:0 0 0 4px rgba(111,211,159,.18),0 0 24px rgba(111,211,159,.5);animation:hp 2s ease-in-out infinite}.hr.am{border-color:#e8b04a;box-shadow:0 0 0 4px rgba(232,176,74,.18),0 0 24px rgba(232,176,74,.45);animation:none}.hr.am b{background:#e8b04a!important}.tl b.am{background:var(--amb)}.tl u.am{color:var(--amb)}.p2{transition:opacity .4s}#fP:has([data-b="3"].on) .p2,#fP:has([data-b="3"].on) #hl{opacity:0}.hr b{position:absolute;width:38px;height:38px;border-radius:50%;background:#6fd39f;color:#0b1a12;display:grid;place-items:center;font-size:21px;font-style:normal}.hr b.l{left:-48px;top:7px}.hr b.r{right:-48px;top:5px}.hr b.c{left:-22px;top:-22px}@keyframes hp{50%{box-shadow:0 0 0 9px rgba(111,211,159,.08),0 0 30px rgba(111,211,159,.7)}}
 #fs{position:fixed;inset:0;z-index:50;background:#06100a;display:none}#fs.on{display:block}#fs iframe{width:100%;height:100%;border:0}
 #fsDone{position:absolute;left:14px;top:14px;height:44px;min-width:230px;padding:0 22px;border-radius:999px;border:0;background:#6fd39f;color:#0b1a12;font:700 17px/1 "Schibsted Grotesk",system-ui,sans-serif;cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,.45)}
 #fsTip{position:absolute;left:14px;top:66px;font:14px system-ui;color:#c9d8c9;background:rgba(6,16,10,.7);padding:6px 12px;border-radius:999px;pointer-events:none}
@@ -82,6 +85,7 @@ body.infs #hud,body.infs #hint{display:none}
 .node{position:absolute;width:26px;height:26px;border-radius:50%;background:var(--blue);border:5px solid #f3f7fd;box-shadow:0 0 0 2px var(--blue)}
 .nl{position:absolute;font-size:19px;color:#33415c;text-align:center;line-height:1.2}
 /* ---------- HUD ---------- */
+#veil{position:fixed;inset:0;z-index:4;opacity:0;pointer-events:none;transition:opacity .4s ease}#veil.on{opacity:1}
 #hud{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);display:flex;align-items:center;gap:4px;padding:5px;border-radius:14px;background:rgba(255,255,255,.9);border:1px solid rgba(0,0,0,.08);backdrop-filter:blur(10px);box-shadow:0 10px 30px -12px rgba(0,0,0,.35);opacity:.25;transition:opacity .3s;z-index:5}
 #hud:hover,#hud:focus-within{opacity:1}
 #hud button{all:unset;cursor:pointer;min-width:44px;height:44px;display:grid;place-items:center;border-radius:10px;font:600 15px "Schibsted Grotesk",sans-serif;color:#141414;padding:0 12px}
@@ -104,9 +108,9 @@ body.infs #hud,body.infs #hint{display:none}
 </section>
 
 <section class="scr op" id="s02" data-in="s01 p-dots" data-name="Three questions">
-  <div class="q" style="left:100px"><div class="ring c1" style="--rc:#163a28" data-go-to="f1"><img src="img/v/f-diversity.jpg" alt="" style="object-position:62% 50%"><div class="port" id="p-q1"></div></div><p>Why do we fear what we don't understand?<small>The Fear Between Us</small></p></div>
+  <div class="q" style="left:100px"><div class="ring c1" style="--rc:#163a28" data-go-to="f1"><img src="img/v/f-diversity.jpg" alt="" style="object-position:62% 50%"><div class="nm nm-f">The Fear<i>Between Us</i></div><div class="port" id="p-q1"></div></div><p>Why do we fear what we don't understand?<small>The Fear Between Us</small></p></div>
   <div class="q" style="left:580px"><div class="ring c2" style="--rc:#111" data-go-to="t1"><img src="img/v/tw13.jpg" alt="" style="transform-origin:50% 45%"><div class="port" id="p-q2"></div></div><p>How do children meet history?<small>Time Wanderers</small></p></div>
-  <div class="q" style="left:1060px"><div class="ring c3" style="--rc:#2456c8" data-go-to="a1"><img src="img/v/room.jpg" alt="" style="object-position:55% 50%"><div class="port" id="p-q3"></div></div><p>How do you prepare for a place you've never been?<small>Saath</small></p></div>
+  <div class="q" style="left:1060px"><div class="ring c3" style="--rc:#2456c8" data-go-to="a1"><img src="img/v/room.jpg" alt="" style="object-position:55% 50%"><div class="nm nm-s">Saath</div><div class="port" id="p-q3"></div></div><p>How do you prepare for a place you've never been?<small>Saath</small></p></div>
 </section>
 
 <!-- =================== 1 · THE FEAR BETWEEN US =================== -->
@@ -124,18 +128,27 @@ body.infs #hud,body.infs #hint{display:none}
   <div id="fpA" style="transition:opacity .5s"><p class="lab abs" style="left:60px;top:70px">The prototype · live</p>
   <h2 class="serif abs" style="left:56px;top:110px;font-size:64px;line-height:1;width:300px">Scroll it with the jury.</h2>
   <div class="abs" style="left:60px;top:400px;width:300px;color:#e8efe4"><span class="chip">iNaturalist data</span><span class="chip">Leaflet maps</span><span class="chip">HTML · CSS · JS</span></div></div>
-  <div data-b="2" class="abs" style="left:56px;top:70px;width:320px"><p class="lab">The tool we built</p>
+  <div data-b="2" class="abs p2" style="left:56px;top:70px;width:320px"><p class="lab">The tool we built</p>
     <h2 class="serif" style="font-size:44px;line-height:1.02;margin-top:12px">Who shares your neighbourhood?</h2>
     <div class="tl" style="margin-top:30px"><b>1</b><p><u>Search</u> any area, city or place, or tap <u>Use my location</u>.</p></div>
     <div class="tl"><b>2</b><p><u>Choose on map</u> to drop a pin anywhere in India.</p></div>
     <div class="tl"><b>3</b><p>See the species <u>recorded within 5 km</u>, from 33,408 sightings.</p></div>
-    <div class="tl"><b>4</b><p><u>Filter species</u> to find where one snake has been seen.</p></div></div>
-  <a id="fpOpen" class="btn abs" href="https://rushworks.in/projects/snakbite/" target="_blank" rel="noopener" style="left:60px;top:640px;background:var(--grn);color:#0b1a12">Open in browser ↗</a>
-  <p class="abs mute" style="left:60px;top:720px;font-size:18px;width:300px">rushworks.in/projects/snakbite</p>
+    <div class="tl"><b>4</b><p><u>Filter species</u> to find where one snake has been seen.</p></div>
+    <div class="tl"><b class="am">5</b><p><u class="am">Share a sighting</u> to register a snake you saw.</p></div></div>
+  <div data-b="3" class="abs" style="left:56px;top:70px;width:320px"><p class="lab" style="color:var(--amb)">Register a sighting</p>
+    <h2 class="serif" style="font-size:44px;line-height:1.02;margin-top:12px">Anyone can add to the map.</h2>
+    <div class="tl" style="margin-top:30px"><b class="am">1</b><p>Name the snake, or type <u class="am">“not sure”</u>.</p></div>
+    <div class="tl"><b class="am">2</b><p>Add a <u class="am">photo</u>, place and date.</p></div>
+    <div class="tl"><b class="am">3</b><p>Set the <u class="am">location</u>. Saved only to about 1 km.</p></div>
+    <div class="tl"><b class="am">4</b><p>It is <u class="am">reviewed</u> before it appears.</p></div></div>
+  <a id="fpOpen" class="btn abs" href="https://rushabhm-blip.github.io/Snakebite_dataviz_India/" target="_blank" rel="noopener" style="left:60px;top:640px;background:var(--grn);color:#0b1a12">Open in browser ↗</a>
+  <p class="abs mute" style="left:60px;top:720px;font-size:18px;width:300px">rushabhm-blip.github.io/<br>Snakebite_dataviz_India</p>
   <div class="abs" style="left:400px;top:40px;width:1160px;height:820px;border-radius:14px;overflow:hidden;border:2px solid #24402f;background:#0e2017">
-    <iframe id="proto" data-src="https://rushworks.in/projects/snakbite/" title="The Fear Between Us, live prototype" style="width:1450px;height:1025px;border:0;transform:scale(.8);transform-origin:0 0"></iframe>
+    <iframe id="proto" data-src="https://rushabhm-blip.github.io/Snakebite_dataviz_India/" title="The Fear Between Us, live prototype" style="width:1450px;height:1025px;border:0;transform:scale(.8);transform-origin:0 0"></iframe>
     <img data-b="2" src="img/v/f-tool.jpg" alt="The neighbourhood tool: search, map and species filter" style="position:absolute;left:0;top:0;width:1160px;height:820px">
-    <div id="hl" data-b="2" style="position:absolute;inset:0;pointer-events:none"><div style="position:absolute;left:0;top:0;width:1450px;height:1025px;transform:scale(.8);transform-origin:0 0"><i class="hr" style="left:67.5px;top:304.1px;width:497.1px;height:58px"><b class="l">1</b></i><i class="hr" style="left:67.5px;top:364.1px;width:190.5px;height:54px"></i><i class="hr" style="left:266px;top:364.1px;width:145px;height:54px"><b class="r">2</b></i><i class="hr" style="left:610.6px;top:67.9px;width:771.9px;height:778.8px"><b class="c">3</b></i><i class="hr" style="left:67.5px;top:422.1px;width:126.7px;height:54px"><b class="r">4</b></i></div></div>
+    <div id="hl" data-b="2" style="position:absolute;inset:0;pointer-events:none"><div style="position:absolute;left:0;top:0;width:1450px;height:1025px;transform:scale(.8);transform-origin:0 0"><i class="hr" style="left:67.5px;top:304.1px;width:497.1px;height:58px"><b class="l">1</b></i><i class="hr" style="left:67.5px;top:364.1px;width:190.5px;height:54px"></i><i class="hr" style="left:266px;top:364.1px;width:145px;height:54px"><b class="r">2</b></i><i class="hr" style="left:610.6px;top:67.9px;width:771.9px;height:839.5px"><b class="c">3</b></i><i class="hr" style="left:67.5px;top:422.1px;width:126.7px;height:54px"><b class="r">4</b></i><i class="hr am" style="left:67.5px;top:625.6px;width:497.1px;height:176.8px"><b class="r">5</b></i></div></div>
+    <img data-b="3" src="img/v/f-share.jpg" alt="The share a snake sighting form: name, photo, place, date, location" style="position:absolute;left:0;top:0;width:1160px;height:820px">
+    <div data-b="3" style="position:absolute;inset:0;pointer-events:none"><div style="position:absolute;left:0;top:0;width:1450px;height:1025px;transform:scale(.8);transform-origin:0 0"><i class="hr am" style="left:503px;top:326px;width:444px;height:52px"><b class="r">1</b></i><i class="hr am" style="left:503px;top:402px;width:444px;height:206px"><b class="r">2</b></i><i class="hr am" style="left:503px;top:635px;width:298.2px;height:52px"><b class="r">3</b></i><i class="hr am" style="left:846.9px;top:747px;width:100.1px;height:52px"><b class="r">4</b></i></div></div>
   </div>
 </section>
 
@@ -372,7 +385,8 @@ body.infs #hud,body.infs #hint{display:none}
 
 <div id="prog"></div>
 <div id="hint">→ or Space to move · ← back · click an image to look closer · Esc to the three projects · F full screen</div>
-<div id="fs"><iframe id="fsFrame" data-src="https://rushworks.in/projects/snakbite/" title="The Fear Between Us, full-screen prototype" allow="geolocation"></iframe><button id="fsDone">← Back to slides</button><span id="fsTip">Scroll the story · click “Back to slides” when you are done</span></div>
+<div id="fs"><iframe id="fsFrame" data-src="https://rushabhm-blip.github.io/Snakebite_dataviz_India/" title="The Fear Between Us, full-screen prototype" allow="geolocation"></iframe><button id="fsDone">← Back to slides</button><span id="fsTip">Scroll the story · click “Back to slides” when you are done</span></div>
+<div id="veil"></div>
 <nav id="hud" aria-label="Presentation controls">
   <button id="bPrev" aria-label="Previous">←</button>
   <button id="bHub" aria-label="Back to the three projects">Projects</button>
@@ -442,6 +456,14 @@ function fly(to){cancelAnimationFrame(anim);const it=interp({...cam},to),t0=perf
   const step=now=>{let t=Math.min(1,(now-t0)/it.dur);if(still.matches)t=1;cam=it.f(ease(t));render();if(t<1)anim=requestAnimationFrame(step)};
   anim=requestAnimationFrame(step)}
 
+// crossing between projects: a soft fade instead of flying the camera out and back in
+let at=null,vt=0;const veil=document.getElementById('veil');
+function travel(id){const a=byId[at],b=byId[id],from=at;at=id;
+  const hop=vt||(a&&a.classList[1]!=b.classList[1]&&from!='s02');
+  if(!hop){fly(viewOf(id));return}
+  clearTimeout(vt);cancelAnimationFrame(anim);veil.style.background=getComputedStyle(b).getPropertyValue('--bg').trim();veil.classList.add('on');
+  vt=setTimeout(()=>{vt=0;cam=viewOf(id);render();veil.classList.remove('on')},420)}
+
 /* ---------- path: every screen, then each of its builds ---------- */
 const path=[];
 S.forEach(e=>{path.push({id:e.id,b:0});const n=Math.max(0,...[...e.querySelectorAll('[data-b]')].map(x=>+x.dataset.b));for(let b=1;b<=n;b++)path.push({id:e.id,b})});
@@ -449,11 +471,11 @@ let idx=0,focused=null;
 const frames={yt:'t9',proto:'fP'};
 function apply(i){const cur=path[i],order=S.map(e=>e.id),ci=order.indexOf(cur.id);focused=null;
   S.forEach((e,k)=>e.querySelectorAll('[data-b]').forEach(x=>x.classList.toggle('on',k<ci||(k==ci&&+x.dataset.b<=cur.b))));
-  const scr=byId[cur.id];fly(viewOf(cur.id));
+  const scr=byId[cur.id];travel(cur.id);
   document.body.style.backgroundColor=getComputedStyle(scr).getPropertyValue('--bg').trim();
   document.body.classList.toggle('dark',scr.classList.contains('fe')||scr.classList.contains('tw'));
   for(const[fid,sid]of Object.entries(frames)){const f=document.getElementById(fid);if(cur.id==sid){if(!f.getAttribute('src'))f.src=f.dataset.src}else if(f.getAttribute('src'))f.removeAttribute('src')}
-  {const a=document.getElementById('fpA');if(a)a.style.opacity=(cur.id=='fP'&&cur.b>=2)?0:1;document.getElementById('fpOpen').href='https://rushworks.in/projects/snakbite/'+(cur.id=='fP'&&cur.b>=2?'#snakes-neighbourhood-component':'');
+  {const a=document.getElementById('fpA');if(a)a.style.opacity=(cur.id=='fP'&&cur.b>=2)?0:1;document.getElementById('fpOpen').href='https://rushabhm-blip.github.io/Snakebite_dataviz_India/'+(cur.id=='fP'&&cur.b>=2?'#snakes-neighbourhood-component':'');
   const on=cur.id=='fP'&&cur.b==1,fr=document.getElementById('fsFrame'),box=document.getElementById('fs');box.classList.toggle('on',on);document.body.classList.toggle('infs',on);
   if(on&&!fr.getAttribute('src'))fr.src=fr.dataset.src;if(cur.id!='fP'&&fr.getAttribute('src'))fr.removeAttribute('src')}
   if(cur.id!='a15')document.getElementById('saathVid').pause();
