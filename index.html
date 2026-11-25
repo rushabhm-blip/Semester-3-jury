@@ -26,6 +26,8 @@ img{display:block}
 .port{position:absolute;cursor:zoom-in}
 [data-b]{opacity:0;transition:opacity .5s}
 [data-b].on{opacity:1}
+/* .solo: shown only on its own step, then replaced by the next */
+.solo{position:absolute;inset:0;pointer-events:none;transition:opacity .25s}.solo.on{transition:opacity .4s .25s}.solo.past{opacity:0;transition:opacity .25s}
 .slide,.shot,.fig{cursor:zoom-in}
 .shot{position:absolute;border-radius:10px;overflow:hidden;box-shadow:0 18px 50px -20px rgba(0,0,0,.45)}
 .shot img{width:100%;height:100%;object-fit:cover}
@@ -277,11 +279,16 @@ body.infs #hud,body.infs #hint{display:none}
 
 <section class="scr sa wh" id="a3" data-in="a2 p-ticket" data-name="Saath · Her journey">
   <h2 class="abs" style="left:50px;top:40px;width:1500px;font-size:52px">With every step, <em>she is a little less sure.</em></h2>
-  <div class="beat" data-b="1" style="left:40px;top:150px"><div class="say">What if I miss something?</div><div class="sk"><img src="img/v/hand2.jpg" alt="The night before, she cannot picture what happens inside."></div><p>The night before, she cannot picture what happens inside.</p></div>
-  <div class="beat" data-b="2" style="left:350px;top:218px"><div class="say">Which door? Which counter?</div><div class="sk"><img src="img/v/hand3.jpg" alt="Signs, queues and codes she has never seen."></div><p>Signs, queues and codes she has never seen.</p></div>
-  <div class="beat" data-b="3" style="left:660px;top:286px"><div class="say">Do I take this out too?</div><div class="sk"><img src="img/v/hand4.jpg" alt="Trays and instructions come too fast."></div><p>Trays and instructions come too fast.</p></div>
-  <div class="beat" data-b="4" style="left:970px;top:354px"><div class="say">Nobody told me!</div><div class="sk"><img src="img/v/hand5.jpg" alt="A missed announcement turns into panic."></div><p>A missed announcement turns into panic.</p></div>
+  <div class="beat" data-b="5" style="left:40px;top:150px"><div class="say">What if I miss something?</div><div class="sk"><img src="img/v/hand2.jpg" alt="The night before, she cannot picture what happens inside."></div><p>The night before, she cannot picture what happens inside.</p></div>
+  <div class="beat" data-b="5" style="left:350px;top:218px"><div class="say">Which door? Which counter?</div><div class="sk"><img src="img/v/hand3.jpg" alt="Signs, queues and codes she has never seen."></div><p>Signs, queues and codes she has never seen.</p></div>
+  <div class="beat" data-b="5" style="left:660px;top:286px"><div class="say">Do I take this out too?</div><div class="sk"><img src="img/v/hand4.jpg" alt="Trays and instructions come too fast."></div><p>Trays and instructions come too fast.</p></div>
+  <div class="beat" data-b="5" style="left:970px;top:354px"><div class="say">Nobody told me!</div><div class="sk"><img src="img/v/hand5.jpg" alt="A missed announcement turns into panic."></div><p>A missed announcement turns into panic.</p></div>
   <div class="beat" data-b="5" style="left:1280px;top:422px"><div class="say">Next time someone must come.</div><div class="sk"><img src="img/v/hand6.jpg" alt="Her confidence drops. She waits for a companion."></div><p>Her confidence drops. She waits for a companion.</p><div class="port" id="p-loop" style="left:165px;top:200px;width:96px;height:54px"></div></div>
+  <div class="solo" data-b="0"><div class="sk" style="left:110px;top:245px;width:620px;height:620px"><img src="img/v/hand2.jpg" alt="The night before, she cannot picture what happens inside."></div><div class="say" style="left:110px;top:130px;width:620px;font-size:38px;padding:18px 20px">What if I miss something?</div><p class="lab abs" style="left:860px;top:380px">1 of 5</p><p class="abs" style="left:860px;top:420px;width:620px;font-size:54px;line-height:1.15;font-weight:800;color:#0f1f3d;text-wrap:balance">The night before, she cannot picture what happens inside.</p></div>
+  <div class="solo" data-b="1"><div class="sk" style="left:110px;top:245px;width:620px;height:620px"><img src="img/v/hand3.jpg" alt="Signs, queues and codes she has never seen."></div><div class="say" style="left:110px;top:130px;width:620px;font-size:38px;padding:18px 20px">Which door? Which counter?</div><p class="lab abs" style="left:860px;top:380px">2 of 5</p><p class="abs" style="left:860px;top:420px;width:620px;font-size:54px;line-height:1.15;font-weight:800;color:#0f1f3d;text-wrap:balance">Signs, queues and codes she has never seen.</p></div>
+  <div class="solo" data-b="2"><div class="sk" style="left:110px;top:245px;width:620px;height:620px"><img src="img/v/hand4.jpg" alt="Trays and instructions come too fast."></div><div class="say" style="left:110px;top:130px;width:620px;font-size:38px;padding:18px 20px">Do I take this out too?</div><p class="lab abs" style="left:860px;top:380px">3 of 5</p><p class="abs" style="left:860px;top:420px;width:620px;font-size:54px;line-height:1.15;font-weight:800;color:#0f1f3d;text-wrap:balance">Trays and instructions come too fast.</p></div>
+  <div class="solo" data-b="3"><div class="sk" style="left:110px;top:245px;width:620px;height:620px"><img src="img/v/hand5.jpg" alt="A missed announcement turns into panic."></div><div class="say" style="left:110px;top:130px;width:620px;font-size:38px;padding:18px 20px">Nobody told me!</div><p class="lab abs" style="left:860px;top:380px">4 of 5</p><p class="abs" style="left:860px;top:420px;width:620px;font-size:54px;line-height:1.15;font-weight:800;color:#0f1f3d;text-wrap:balance">A missed announcement turns into panic.</p></div>
+  <div class="solo" data-b="4"><div class="sk" style="left:110px;top:245px;width:620px;height:620px"><img src="img/v/hand6.jpg" alt="Her confidence drops. She waits for a companion."></div><div class="say" style="left:110px;top:130px;width:620px;font-size:38px;padding:18px 20px">Next time someone must come.</div><p class="lab abs" style="left:860px;top:380px">5 of 5</p><p class="abs" style="left:860px;top:420px;width:620px;font-size:54px;line-height:1.15;font-weight:800;color:#0f1f3d;text-wrap:balance">Her confidence drops. She waits for a companion.</p></div>
 </section>
 
 <!-- act 2 · why -->
@@ -567,7 +574,7 @@ S.forEach(e=>{path.push({id:e.id,b:0});const n=Math.max(0,...[...e.querySelector
 let idx=0,focused=null;
 const frames={yt:'t9',proto:'fP'};
 function apply(i){const cur=path[i],order=S.map(e=>e.id),ci=order.indexOf(cur.id);focused=null;
-  S.forEach((e,k)=>e.querySelectorAll('[data-b]').forEach(x=>x.classList.toggle('on',k<ci||(k==ci&&+x.dataset.b<=cur.b))));
+  S.forEach((e,k)=>e.querySelectorAll('[data-b]').forEach(x=>{x.classList.toggle('on',k<ci||(k==ci&&+x.dataset.b<=cur.b));if(x.classList.contains('solo'))x.classList.toggle('past',k<ci||(k==ci&&+x.dataset.b<cur.b))}));
   const scr=byId[cur.id];travel(cur.id);
   document.body.style.backgroundColor=getComputedStyle(scr).getPropertyValue('--bg').trim();
   document.body.classList.toggle('dark',scr.classList.contains('fe')||scr.classList.contains('tw'));
