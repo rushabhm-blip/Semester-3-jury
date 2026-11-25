@@ -328,7 +328,15 @@ body.infs #hud,body.infs #hint{display:none}
   <div class="shot" style="left:1060px;top:580px;width:480px;height:300px"><img src="img/v/gate4.jpg" alt="Jet bridge to seat 14A"></div>
 </section>
 
-<section class="scr sa" id="a16" data-right="a10" data-name="Saath · Tools">
+<section class="scr sa" id="a15" data-right="a10" data-name="Saath · The journey film">
+  <p class="lab abs" style="left:160px;top:36px">The journey · film</p>
+  <div class="abs" style="left:160px;top:80px;width:1280px;height:720px;background:#0b1220;border-radius:14px;overflow:hidden">
+    <video id="saathVid" src="video/saath-journey.mp4" poster="img/v/getting1.jpg" controls playsinline preload="none" style="width:100%;height:100%;display:block;object-fit:cover"></video>
+  </div>
+  <p class="abs t" style="left:160px;top:822px;font-size:22px">From booking at home to seat 14A.</p>
+</section>
+
+<section class="scr sa" id="a16" data-right="a15" data-name="Saath · Tools">
   <p class="lab abs" style="left:110px;top:120px">Built with</p>
   <div class="abs t" style="left:110px;top:170px;width:620px;font-size:25px">
     <p><b style="color:var(--blue)">three.js + WebXR</b> — runs in the Meta Quest 3 browser</p>
@@ -448,6 +456,7 @@ function apply(i){const cur=path[i],order=S.map(e=>e.id),ci=order.indexOf(cur.id
   {const a=document.getElementById('fpA');if(a)a.style.opacity=(cur.id=='fP'&&cur.b>=2)?0:1;document.getElementById('fpOpen').href='https://rushworks.in/projects/snakbite/'+(cur.id=='fP'&&cur.b>=2?'#snakes-neighbourhood-component':'');
   const on=cur.id=='fP'&&cur.b==1,fr=document.getElementById('fsFrame'),box=document.getElementById('fs');box.classList.toggle('on',on);document.body.classList.toggle('infs',on);
   if(on&&!fr.getAttribute('src'))fr.src=fr.dataset.src;if(cur.id!='fP'&&fr.getAttribute('src'))fr.removeAttribute('src')}
+  if(cur.id!='a15')document.getElementById('saathVid').pause();
   document.getElementById('where').textContent=scr.dataset.name+'  ·  '+(i+1)+' / '+path.length;
   document.getElementById('prog').style.width=(i/(path.length-1)*100)+'%';
   try{history.replaceState(null,'','#'+cur.id)}catch(_){}
@@ -465,12 +474,12 @@ addEventListener('keydown',e=>{
   else if(e.key=='f'||e.key=='F')(document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()).catch(()=>{});
 });
 let down=null,moved=false;
-stage.addEventListener('pointerdown',e=>{if(e.target.closest('iframe,a'))return;down={x:e.clientX,y:e.clientY,c:{...cam}};moved=false});
+stage.addEventListener('pointerdown',e=>{if(e.target.closest('iframe,a,video'))return;down={x:e.clientX,y:e.clientY,c:{...cam}};moved=false});
 addEventListener('pointermove',e=>{if(!down)return;const dx=e.clientX-down.x,dy=e.clientY-down.y;
   if(!moved&&Math.hypot(dx,dy)>6){moved=true;stage.classList.add('drag');cancelAnimationFrame(anim)}
   if(moved){const k=cam.w/innerWidth;cam={x:down.c.x-dx*k,y:down.c.y-dy*k,w:cam.w};render()}});
 addEventListener('pointerup',e=>{stage.classList.remove('drag');const was=moved;down=null;if(was||!e.target.closest)return;
-  if(e.target.closest('a'))return;
+  if(e.target.closest('a,video'))return;
   const g=e.target.closest('[data-go],[data-go-to]');if(g){toScreen(g.dataset.go||g.dataset.goTo);return}
   // click an image to look closer; click it again (or Esc) to step back
   const im=e.target.closest('.slide,.shot,.fig'),scr=im&&im.closest('.scr');
