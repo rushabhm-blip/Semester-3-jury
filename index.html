@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Figtree:ital,wght@0,400;0,600;0,800;1,400&family=Yatra+One&family=Schibsted+Grotesk:wght@400;500;700;800&display=swap">
 <style>
 /* VOICE: a spoken jury talk — one idea per screen, the work carries it.
-   IDEA: screens on one canvas, joined by soft fades; nothing zooms between slides.
+   IDEA: screens on one canvas, joined by a gentle zoom that melts into the next slide.
    PICTURE: full screens built from the real work — the live data story, the Time Wanderers slides, the Saath renders and sketches.
    COLOUR and TYPE: each project keeps its own world — forest + serif (Fear), black + cream (Time Wanderers), airport blue + Figtree (Saath).
    LAYOUT: 1600×900 screens on a zoomable board; each project ends on its learning outcomes; click any image to look closer. */
@@ -104,7 +104,7 @@ body.infs #hud,body.infs #hint{display:none}
 .then{position:absolute;left:80px;top:668px;width:430px;font-size:40px;line-height:1.1;font-weight:800;color:var(--blue)}
 .ste{position:absolute;left:80px;top:60px;font-size:20px;letter-spacing:.14em;text-transform:uppercase;color:#2f6fb8;font-weight:700}
 /* ---------- HUD ---------- */
-#veil{position:fixed;inset:0;z-index:4;opacity:0;pointer-events:none;transition:opacity .32s ease}#veil.on{opacity:1}
+#veil{position:fixed;inset:0;z-index:4;opacity:0;pointer-events:none;transition:opacity .42s ease}#veil.on{opacity:1}
 #hud{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);display:flex;align-items:center;gap:4px;padding:5px;border-radius:14px;background:rgba(255,255,255,.9);border:1px solid rgba(0,0,0,.08);backdrop-filter:blur(10px);box-shadow:0 10px 30px -12px rgba(0,0,0,.35);opacity:0;transition:opacity .3s;z-index:5}
 #hud::before{content:"";position:absolute;inset:-18px -40px -14px;z-index:-1}
 #hud:hover,#hud:has(:focus-visible){opacity:1}
@@ -526,12 +526,28 @@ function fly(to){cancelAnimationFrame(anim);const it=interp({...cam},to),t0=perf
   const step=now=>{let t=Math.min(1,(now-t0)/it.dur);if(still.matches)t=1;cam=it.f(ease(t));render();if(t<1)anim=requestAnimationFrame(step)};
   anim=requestAnimationFrame(step)}
 
-// every slide change is a soft fade; the camera never flies between slides (easier on the eyes)
-const FADE=320;let at=null,vt=0;const veil=document.getElementById('veil');
-function travel(id){const b=byId[id],same=at===id;at=id;
-  if(same){if(!vt)fly(viewOf(id));return}
-  clearTimeout(vt);cancelAnimationFrame(anim);veil.style.background=getComputedStyle(b).getPropertyValue('--bg').trim();veil.classList.add('on');
-  vt=setTimeout(()=>{vt=0;cam=viewOf(id);render();veil.classList.remove('on')},FADE)}
+// slide changes: a gentle zoom towards the next detail that melts into the next slide
+// ZOOM is the strength (0 = plain fade, .5 = strong); OUT and SETTLE are the timings in ms
+const ZOOM=.2,OUT=480,SETTLE=800;let at=null,vt=0;const veil=document.getElementById('veil');
+function glide(a,b,ms,ease){cancelAnimationFrame(anim);if(still.matches){cam=b;render();return}
+  const t0=performance.now(),step=now=>{const t=Math.min(1,Math.max(0,(now-t0)/ms)),k=ease(t);
+    cam={x:a.x+(b.x-a.x)*k,y:a.y+(b.y-a.y)*k,w:a.w*Math.pow(b.w/a.w,k)};render();if(t<1)anim=requestAnimationFrame(step)};
+  cam=a;render();anim=requestAnimationFrame(step)}
+const easeInOut=t=>t*t*(3-2*t),easeOut=t=>1-Math.pow(1-t,3);
+function travel(id){const b=byId[id],from=at,same=from===id;at=id;
+  if(same){if(!vt){const v=viewOf(id);if(Math.abs(v.x-cam.x)+Math.abs(v.y-cam.y)+Math.abs(v.w-cam.w)>1e-6*v.w&&!gliding())fly(v)}return}
+  const A=P[from],B=P[id],fwd=!from||S.indexOf(b)>S.indexOf(byId[from]),dir=fwd?1:-1;
+  const dive=A&&B.parent===from,side=A&&(B.right===from||A.right===id);
+  clearTimeout(vt);veil.style.background=getComputedStyle(b).getPropertyValue('--bg').trim();veil.classList.add('on');
+  // leaving: drift a little towards where the next slide lives
+  if(from&&!vt){const c={...cam},k=1+ZOOM*(side?0:1),to={x:c.x,y:c.y,w:dir>0?c.w/k:c.w*k};
+    if(dive){to.x+=(B.x+800*B.s-c.x)*(1-1/k);to.y+=(B.y+450*B.s-c.y)*(1-1/k)}
+    if(side)to.x+=dir*c.w*ZOOM*.3;
+    glide(c,to,OUT,easeInOut)}
+  // arriving: start slightly small (or slightly large when going back) and settle
+  vt=setTimeout(()=>{vt=0;const v=viewOf(id),k=1+ZOOM*.6,st={x:side?v.x-dir*v.w*ZOOM*.3:v.x,y:v.y,w:side?v.w:dir>0?v.w*k:v.w/k};
+    settleEnd=performance.now()+SETTLE;glide(st,v,SETTLE,easeOut);veil.classList.remove('on')},still.matches?320:OUT)}
+let settleEnd=0;const gliding=()=>performance.now()<settleEnd+60;
 
 /* ---------- path: every screen, then each of its builds ---------- */
 const path=[];

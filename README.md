@@ -1,6 +1,6 @@
 # Semester 3 Jury
 
-A jury presentation on one continuous dot-grid canvas. Slides change with a soft fade; nothing flies or zooms between them. Clicking an image still enlarges it.
+A jury presentation on one continuous dot-grid canvas. Slides change with a gentle zoom and fade (strength: `ZOOM` in `index.html`). Clicking an image still enlarges it.
 
 Talk order:
 
