@@ -49,7 +49,8 @@ img{display:block}
 .nm{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
 .nm-f{font:500 70px/.9 "Cormorant Garamond",Georgia,serif;color:#f0e9d8;background:radial-gradient(circle,rgba(4,16,10,.72),rgba(4,16,10,.3) 75%)}.nm-f i{font-size:66px;font-style:italic;margin-top:4px}
 .nm-s{font:400 92px/1 "Yatra One",Figtree,system-ui;color:#fff;background:radial-gradient(circle,rgba(16,50,120,.82) 25%,rgba(16,50,120,.45) 85%)}
-.q p{font-size:36px;line-height:1.15;font-weight:700;margin-top:44px;text-wrap:balance}
+.q .tags{display:flex;justify-content:center;gap:10px;margin-top:36px}.q .tags span{font-size:19px;line-height:1;font-weight:600;color:var(--rc);border:2px solid var(--rc);border-radius:999px;padding:9px 16px;white-space:nowrap}
+.q p{font-size:36px;line-height:1.15;font-weight:700;margin-top:24px;text-wrap:balance}
 .q small{display:block;font-size:22px;color:#6b6b66;margin-top:14px;font-weight:500}
 /* ---------- fear (forest + serif) ---------- */
 .fe{--bg:#0b1a12;--fg:#e8efe4;--red:#e0553f;--grn:#6fd39f;--amb:#e8b04a;--loc:#6fd39f;--lot:#0b1a12;background:radial-gradient(ellipse at 70% 30%,#14301f,#0b1a12 70%)}
@@ -128,9 +129,9 @@ body.infs #hud,body.infs #hint{display:none}
 </section>
 
 <section class="scr op" id="s02" data-in="s01 p-dots" data-name="Three questions">
-  <div class="q" style="left:100px"><div class="ring c1" style="--rc:#163a28" data-go-to="f1"><img src="img/v/f-diversity.jpg" alt="" style="object-position:62% 50%"><div class="nm nm-f">The Fear<i>Between Us</i></div><div class="port" id="p-q1"></div></div><p>Why do we fear what we don't understand?<small>The Fear Between Us<span class="cr"><b>Amit Kapoor</b><br>2 weeks</span></small></p></div>
-  <div class="q" style="left:580px"><div class="ring c2" style="--rc:#111" data-go-to="t1"><img src="img/v/tw13.jpg" alt="" style="transform-origin:50% 45%"><div class="port" id="p-q2"></div></div><p>How do children meet history?<small>Time Wanderers<span class="cr"><b>Dr. Mamata Rao, Prof. Athul Dinesh</b><br>4 weeks</span></small></p></div>
-  <div class="q" style="left:1060px"><div class="ring c3" style="--rc:#2456c8" data-go-to="a1"><img src="img/v/room.jpg" alt="" style="object-position:55% 50%"><div class="nm nm-s">Saath</div><div class="port" id="p-q3"></div></div><p>How do you prepare for a place you've never been?<small>Saath<span class="cr"><b>Prof. Jagriti Galphade, Prof. Athul Dinesh</b><br>8 weeks</span></small></p></div>
+  <div class="q" style="left:100px"><div class="ring c1" style="--rc:#163a28" data-go-to="f1"><img src="img/v/f-diversity.jpg" alt="" style="object-position:62% 50%"><div class="nm nm-f">The Fear<i>Between Us</i></div><div class="port" id="p-q1"></div></div><div class="tags" style="--rc:#163a28"><span>Data visualization</span><span>Storytelling</span></div><p>Why do we fear what we don't understand?<small>The Fear Between Us<span class="cr"><b>Amit Kapoor</b><br>2 weeks</span></small></p></div>
+  <div class="q" style="left:580px"><div class="ring c2" style="--rc:#111" data-go-to="t1"><img src="img/v/tw13.jpg" alt="" style="transform-origin:50% 45%"><div class="port" id="p-q2"></div></div><div class="tags" style="--rc:#111"><span>Multimodality</span><span>Gesture interaction</span></div><p>How do children meet history?<small>Time Wanderers<span class="cr"><b>Dr. Mamata Rao, Prof. Athul Dinesh</b><br>4 weeks</span></small></p></div>
+  <div class="q" style="left:1060px"><div class="ring c3" style="--rc:#2456c8" data-go-to="a1"><img src="img/v/room.jpg" alt="" style="object-position:55% 50%"><div class="nm nm-s">Saath</div><div class="port" id="p-q3"></div></div><div class="tags" style="--rc:#2456c8"><span>Immersive experience</span><span>AR/VR</span></div><p>How do you prepare for a place you've never been?<small>Saath<span class="cr"><b>Prof. Jagriti Galphade, Prof. Athul Dinesh</b><br>8 weeks</span></small></p></div>
 </section>
 
 <!-- =================== 1 · THE FEAR BETWEEN US =================== -->
