@@ -53,24 +53,18 @@ Between projects we pull back out to the board and fly to the next one.
 
 ---
 
-## 3 · Saath — Design Project 2 (calm airport blue, ~14 screens)
+## 3 · Saath — Design Project 2, told through Kamala
 
-| # | Screen | What's on it | → Transition |
-|---|---|---|---|
-| 3.1 | **Title** | Living-room render · "Practise the airport, before the airport." · solo, Meta Quest 3 | Zoom into the phone in the render |
-| 3.2 | **Kamala's story** | The 6 sketch panels, stepped one by one: ticket → night before → terminal → security → gate change → never again alone | Panel 6 loops back to panel 1 |
-| 3.3 | **Three vicious loops** | Stress · dependence · avoidance | Dive below the waterline |
-| 3.4 | **Iceberg** | Events → patterns → structures → mental models | Zoom into "No place to practise" |
-| 3.5 | **Leverage points + brief** | For whom / to enable / through | — |
-| 3.6 | **Three ideas** | Video · checklist · rehearse at home → chosen | Zoom into the chosen idea |
-| 3.7 | **Interviews → 3 gaps** | 5 people · understanding gap, confidence gap, independence gap | — |
-| 3.8 | **Persona + empathy map** | Kamala, 68: think / feel / do | — |
-| 3.9 | **Patterns → possibilities** | Each problem paired with its design answer | — |
-| 3.10 | **Information architecture** | 11 scenes in 4 chapters, as one line | Zoom into chapter 1 |
-| 3.11 | **Start screen** | One screen, no scrolling | — |
-| 3.12 | **Walkthrough** | At home → getting there → terminal → gate & seat 14A, each zoomed from its IA node | Back to the line |
-| 3.13 | **Tools** | three.js, WebXR, Blender, Figma, recorded voice | — |
-| 3.14 | **Learnings** | 3 learnings | Pull back to board |
+| Act | Screens | What happens |
+|---|---|---|
+| Title | a1 | Practise the airport, before the airport |
+| 1 · Who | a2, a3 | Meet Kamala, 68; five moments where her confidence drops |
+| 2 · Why | a4, a5, a6 | The loop · beneath the surface · "The gap is practice" |
+| 3 · The idea | a7, a8, a10 | Three ideas, one chosen · how Saath behaves · eleven scenes |
+| 4 · The same journey, with Saath | a11, w1–w6 | Each fear from act 1 is met again and answered |
+| Close | a15, a16, a17 | Film · tools · learning outcomes |
+
+Quotes on a6 are illustrative, written from proto-personas (see the note on the Figma interview board).
 
 ---
 

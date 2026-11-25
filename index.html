@@ -85,6 +85,24 @@ body.infs #hud,body.infs #hint{display:none}
 .sa .fig img{width:100%;height:100%;object-fit:contain}
 .node{position:absolute;width:26px;height:26px;border-radius:50%;background:var(--blue);border:5px solid #f3f7fd;box-shadow:0 0 0 2px var(--blue)}
 .nl{position:absolute;font-size:19px;color:#33415c;text-align:center;line-height:1.2}
+.sa.wh{--bg:#fff}
+.sk{position:absolute;mix-blend-mode:multiply}
+.sk img{width:100%;height:100%;object-fit:contain}
+.say{position:absolute;background:#fff;border:3px solid #0f1f3d;border-radius:26px;padding:14px 22px;font-size:26px;line-height:1.2;font-weight:700;color:#0f1f3d;text-align:center}
+.say::after{content:"";position:absolute;left:46px;bottom:-15px;width:22px;height:22px;background:#fff;border:solid #0f1f3d;border-width:0 3px 3px 0;transform:rotate(45deg) skew(8deg,8deg)}
+.beat{position:absolute;width:280px}.beat .sk{position:static;width:250px;height:250px;margin:24px auto 0}.beat .say{position:relative;font-size:23px;min-height:76px;display:grid;place-items:center;padding:10px 16px}.beat p{font-size:20px;line-height:1.3;color:#33415c;text-align:center}
+.ice{position:absolute;display:flex;align-items:center;justify-content:center;text-align:center;font-size:30px;line-height:1.2;font-weight:700}
+.cut{position:absolute;width:440px;height:250px;background:#fff;border-radius:20px;padding:34px 36px;box-shadow:0 20px 60px -30px rgba(15,31,61,.45)}
+.cut h3{font-size:38px;line-height:1.1;font-weight:800;color:var(--blue)}.cut p{font-size:25px;line-height:1.35;color:#33415c;margin-top:16px}
+.cut.no{background:#e9eef6;box-shadow:none}.cut.no h3{color:#5b6880;text-decoration:line-through;text-decoration-thickness:4px}
+.cut.yes{background:var(--blue)}.cut.yes h3,.cut.yes p{color:#fff}
+.gap{position:absolute;width:440px}.gap h3{font-size:34px;font-weight:800;color:var(--teal)}.gap p{font-size:24px;line-height:1.35;color:#33415c;margin-top:10px}.gap q{display:block;margin-top:20px;font-size:24px;line-height:1.3;font-style:italic;color:#0f1f3d}
+.scene{position:absolute;left:560px;top:120px;width:980px;height:576px;border-radius:14px;overflow:hidden;box-shadow:0 18px 50px -20px rgba(0,0,0,.45)}
+.scene>img{width:980px;height:612px}
+.sa .ring2{position:absolute;border:4px solid #f2a33a;border-radius:14px;box-shadow:0 0 0 5px rgba(242,163,58,.3)}
+.fact{position:absolute;top:732px;width:480px;font-size:25px;line-height:1.35;color:#33415c}.fact b{color:var(--teal)}
+.then{position:absolute;left:80px;top:668px;width:430px;font-size:40px;line-height:1.1;font-weight:800;color:var(--blue)}
+.ste{position:absolute;left:80px;top:60px;font-size:20px;letter-spacing:.14em;text-transform:uppercase;color:#2f6fb8;font-weight:700}
 /* ---------- HUD ---------- */
 #veil{position:fixed;inset:0;z-index:4;opacity:0;pointer-events:none;transition:opacity .4s ease}#veil.on{opacity:1}
 #hud{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);display:flex;align-items:center;gap:4px;padding:5px;border-radius:14px;background:rgba(255,255,255,.9);border:1px solid rgba(0,0,0,.08);backdrop-filter:blur(10px);box-shadow:0 10px 30px -12px rgba(0,0,0,.35);opacity:0;transition:opacity .3s;z-index:5}
@@ -130,7 +148,7 @@ body.infs #hud,body.infs #hint{display:none}
   <div id="fpA" style="transition:opacity .5s"><p class="lab abs" style="left:60px;top:70px">The prototype · live</p>
   <h2 class="serif abs" style="left:56px;top:110px;font-size:64px;line-height:1;width:300px">Scroll it with the jury.</h2>
   <div class="abs" style="left:60px;top:400px;width:300px;color:#e8efe4"><span class="chip">iNaturalist data</span><span class="chip">Leaflet maps</span><span class="chip">HTML · CSS · JS</span></div></div>
-  <div data-b="2" class="abs p2" style="left:56px;top:70px;width:320px"><p class="lab">The tool we built</p>
+  <div data-b="2" class="abs p2" style="left:56px;top:70px;width:320px"><p class="lab">The tool</p>
     <h2 class="serif" style="font-size:44px;line-height:1.02;margin-top:12px">Who shares your neighbourhood?</h2>
     <div class="tl" style="margin-top:30px"><b>1</b><p><u>Search</u> any area, city or place, or tap <u>Use my location</u>.</p></div>
     <div class="tl"><b>2</b><p><u>Choose on map</u> to drop a pin anywhere in India.</p></div>
@@ -243,104 +261,154 @@ body.infs #hud,body.infs #hint{display:none}
   <p class="lab abs" style="left:110px;top:100px">Design Project 2 · Mixed reality · Accessibility</p>
   <p class="abs" style="left:100px;top:140px;font-size:200px;font-weight:800;color:var(--blue);letter-spacing:-6px;line-height:1">Saath</p>
   <p class="abs" style="left:110px;top:360px;font-size:46px;font-style:italic;color:var(--blue)">Practise the airport, before the airport.</p>
-  <div class="abs t" style="left:110px;top:470px;width:420px;font-size:22px"><p><b>Platform</b><br>Meta Quest 3 (WebXR) + desktop preview</p><p style="margin-top:16px"><b>Journey</b><br>11 practice scenes, home to seat 14A</p><p style="margin-top:16px"><b>Solo project</b></p></div>
+  <div class="abs t" style="left:110px;top:500px;width:420px;font-size:24px"><p>A mixed-reality rehearsal for older and first-time flyers.</p><p style="margin-top:20px"><b>Meta Quest 3 · solo project</b></p></div>
   <div class="fig" style="left:560px;top:470px;width:960px;height:328px"><img src="img/v/room.jpg" alt="Saath in a living room: a booking card beside a phone"></div>
   <div class="port" id="p-phone" style="left:1088px;top:620px;width:72px;height:40px"></div>
 </section>
 
-<section class="scr sa" id="a2" data-in="a1 p-phone" data-name="Saath · Kamala's story">
-  <div class="fig" style="left:90px;top:30px;width:330px;height:350px"><img src="img/v/k1.jpg" alt="The ticket arrives"></div>
-  <div class="fig" style="left:635px;top:30px;width:330px;height:350px"><img src="img/v/k2.jpg" alt="The night before"></div>
-  <div class="fig" style="left:1180px;top:30px;width:330px;height:350px"><img src="img/v/k3.jpg" alt="At the terminal"></div>
-  <div class="fig" style="left:1180px;top:520px;width:330px;height:350px"><img src="img/v/k4.jpg" alt="Security"></div>
-  <div class="fig" style="left:635px;top:520px;width:330px;height:350px"><img src="img/v/k5.jpg" alt="The gate changes"></div>
-  <div class="fig" style="left:90px;top:520px;width:330px;height:350px"><img src="img/v/k6.jpg" alt="Never again alone"></div>
-  <div class="abs" style="left:440px;top:395px;width:720px;text-align:center"><p style="font-size:34px;font-weight:800;color:var(--blue)">Kamala, 68, flying alone for the first time.</p><p class="t" style="font-size:22px">Every unknown step pushes her back towards needing someone with her.</p></div>
-  <div class="port" id="p-loop" style="left:1180px;top:410px;width:150px;height:84px;display:grid;place-items:center;font-size:20px;color:var(--blue);font-weight:700;border:2px solid var(--blue);border-radius:999px">↻ the loop</div>
+<!-- act 1 · who -->
+<section class="scr sa wh" id="a2" data-in="a1 p-phone" data-name="Saath · Meet Kamala">
+  <div class="sk" style="left:90px;top:120px;width:700px;height:700px"><img src="img/v/ks1.jpg" alt="Kamala and her son look at a flight booking on his phone"><div class="port" id="p-ticket" style="left:385px;top:290px;width:80px;height:45px"></div></div>
+  <div class="say" style="left:110px;top:120px;width:380px;font-size:30px">Beta booked it for me.</div>
+  <h2 class="abs" style="left:900px;top:250px;width:620px;font-size:84px">Meet Kamala, 68.</h2>
+  <div class="abs t" style="left:900px;top:460px;width:600px;font-size:30px"><p data-b="1">A retired school teacher from Bengaluru. Her daughter lives in Mumbai.</p><p data-b="2" style="margin-top:22px">She has flown twice, both times with family.</p><p data-b="3" style="margin-top:22px;font-weight:800;color:var(--blue)">This time, she wants to go alone.</p></div>
 </section>
 
-<section class="scr sa" id="a3" data-in="a2 p-loop" data-name="Saath · Vicious loops">
-  <p class="lab abs" style="left:110px;top:120px">Systems thinking</p>
-  <h2 class="abs" style="left:110px;top:160px;width:460px">Three <em>vicious</em> loops</h2>
-  <div class="abs t" style="left:110px;top:360px;width:430px;font-size:23px">
-    <p><b style="color:#e8605f">Stress</b> — not knowing what comes next makes every step stressful.</p>
-    <p style="margin-top:20px"><b style="color:#a65fe8">Dependence</b> — asking for help feels like a burden, so they depend on family.</p>
-    <p style="margin-top:20px"><b style="color:#4f6ef0">Avoidance</b> — without practice, one bad trip confirms flying is not for them.</p>
-  </div>
-  <div class="fig" style="left:590px;top:60px;width:940px;height:780px"><img src="img/v/loops.jpg" alt="Stress, dependence and avoidance loops" style="object-fit:cover;object-position:50% 85%"></div>
-  <div class="port" id="p-avoid" style="left:1000px;top:640px;width:140px;height:79px"></div>
+<section class="scr sa wh" id="a3" data-in="a2 p-ticket" data-name="Saath · Her journey">
+  <h2 class="abs" style="left:50px;top:40px;width:1500px;font-size:52px">With every step, <em>she is a little less sure.</em></h2>
+  <div class="beat" data-b="1" style="left:40px;top:150px"><div class="say">What if I miss something?</div><div class="sk"><img src="img/v/ks2.jpg" alt="The night before, she cannot picture what happens inside."></div><p>The night before, she cannot picture what happens inside.</p></div>
+  <div class="beat" data-b="2" style="left:350px;top:218px"><div class="say">Which door? Which counter?</div><div class="sk"><img src="img/v/ks3.jpg" alt="Signs, queues and codes she has never seen."></div><p>Signs, queues and codes she has never seen.</p></div>
+  <div class="beat" data-b="3" style="left:660px;top:286px"><div class="say">Do I take this out too?</div><div class="sk"><img src="img/v/ks4.jpg" alt="Trays and instructions come too fast."></div><p>Trays and instructions come too fast.</p></div>
+  <div class="beat" data-b="4" style="left:970px;top:354px"><div class="say">Nobody told me!</div><div class="sk"><img src="img/v/ks5.jpg" alt="A missed announcement turns into panic."></div><p>A missed announcement turns into panic.</p></div>
+  <div class="beat" data-b="5" style="left:1280px;top:422px"><div class="say">Next time someone must come.</div><div class="sk"><img src="img/v/ks6.jpg" alt="Her confidence drops. She waits for a companion."></div><p>Her confidence drops. She waits for a companion.</p><div class="port" id="p-loop" style="left:165px;top:200px;width:96px;height:54px"></div></div>
 </section>
 
-<section class="scr sa" id="a4" data-in="a3 p-avoid" data-name="Saath · Iceberg">
-  <p class="lab abs" style="left:110px;top:140px">Beneath the surface</p>
-  <h2 class="abs" style="left:110px;top:180px;width:560px">What we see at the airport, and <em>what sits underneath.</em></h2>
-  <p class="abs t" style="left:110px;top:480px;width:520px">Events → patterns → system structures → mental models: “If I get it wrong, I hold everyone up.”</p>
-  <div class="fig" style="left:790px;top:20px;width:760px;height:860px"><img src="img/v/iceberg.jpg" alt="Iceberg model"></div>
-  <div class="port" id="p-nopractise" style="left:1316px;top:578px;width:150px;height:30px"></div>
+<!-- act 2 · why -->
+<section class="scr sa" id="a4" data-in="a3 p-loop" data-name="Saath · The loop">
+  <p class="lab abs" style="left:110px;top:150px">Why it keeps happening</p>
+  <h2 class="abs" style="left:110px;top:190px;width:520px;font-size:72px">One bad trip <em>feeds the next.</em></h2>
+  <div class="abs t" data-b="6" style="left:110px;top:500px;width:500px;font-size:27px"><p>So family flies with her, and <b>the skill never builds.</b></p><p style="margin-top:18px">Or she stops flying, and <b>the airport grows stranger.</b></p></div>
+  <svg class="abs" style="left:640px;top:20px" width="900" height="880" viewBox="640 20 900 880" fill="none" aria-hidden="true"><ellipse cx="1090" cy="470" rx="330" ry="310" stroke="#e8605f" stroke-width="3" stroke-dasharray="4 14" stroke-linecap="round"/></svg>
+  <div class="abs" data-b="1" style="left:970px;top:108px;width:240px;height:104px;border-radius:52px;background:#fff;border:3px solid #e8605f;display:grid;place-items:center;text-align:center;font-size:24px;line-height:1.15;font-weight:700;padding:0 18px">Unfamiliar process</div>
+  <div class="abs" data-b="2" style="left:1284px;top:322px;width:240px;height:104px;border-radius:52px;background:#fff;border:3px solid #e8605f;display:grid;place-items:center;text-align:center;font-size:24px;line-height:1.15;font-weight:700;padding:0 18px">Rushing and stress</div>
+  <div class="abs" data-b="3" style="left:1164px;top:669px;width:240px;height:104px;border-radius:52px;background:#fff;border:3px solid #e8605f;display:grid;place-items:center;text-align:center;font-size:24px;line-height:1.15;font-weight:700;padding:0 18px">Mistakes at the counter</div>
+  <div class="abs" data-b="4" style="left:776px;top:669px;width:240px;height:104px;border-radius:52px;background:#fff;border:3px solid #e8605f;display:grid;place-items:center;text-align:center;font-size:24px;line-height:1.15;font-weight:700;padding:0 18px">Embarrassment</div>
+  <div class="abs" data-b="5" style="left:656px;top:322px;width:240px;height:104px;border-radius:52px;background:#fff;border:3px solid #e8605f;display:grid;place-items:center;text-align:center;font-size:24px;line-height:1.15;font-weight:700;padding:0 18px">Dread before the next trip</div>
+  <div class="abs" style="left:955px;top:335px;width:270px;height:270px;border-radius:50%;overflow:hidden;background:#fff"><img src="img/v/ks6.jpg" alt="Kamala, discouraged, at home" style="width:340px;height:340px;max-width:none;margin:-40px 0 0 -20px"></div>
+  <div class="port" id="p-under" style="left:1042px;top:540px;width:96px;height:54px"></div>
 </section>
 
-<section class="scr sa" id="a5" data-in="a4 p-nopractise" data-name="Saath · Leverage → brief → idea">
-  <p class="lab abs" style="left:40px;top:60px">Leverage points → design brief → three ideas</p>
-  <h2 class="abs" style="left:40px;top:100px;width:1500px;font-size:52px">Where a small change breaks the loops: <em>rehearse at home.</em></h2>
-  <div class="fig" style="left:30px;top:230px;width:520px;height:457px"><img src="img/v/leverage.jpg" alt="Leverage points"></div>
-  <div class="fig" style="left:570px;top:270px;width:520px;height:375px"><img src="img/v/brief.jpg" alt="Design brief"></div>
-  <div class="fig" style="left:1110px;top:268px;width:470px;height:372px"><img src="img/v/ideas.jpg" alt="Three ideas compared; rehearse at home chosen"></div>
+<section class="scr sa" id="a5" data-in="a4 p-under" data-name="Saath · Beneath the surface" style="background:linear-gradient(#f3f7fd 0 330px,#cfe1f7 330px,#1d4fa3)">
+  <p class="lab abs" style="left:110px;top:70px">Beneath the surface</p>
+  <h2 class="abs" style="left:110px;top:110px;width:560px;font-size:56px">Staff see a missed gate. <em>What sits under it?</em></h2>
+  <svg class="abs" style="left:0;top:0" width="1600" height="900" viewBox="0 0 1600 900" aria-hidden="true"><path d="M1090 70 1230 180 1310 330H860L960 190Z" fill="#fff"/><path d="M860 330H1310L1400 520 1340 720 1180 880H1000L850 730 780 520Z" fill="#fff" opacity=".22"/><path d="M0 330H1600" stroke="#4a8fd6" stroke-width="4"/></svg>
+  <div class="ice" style="left:920px;top:215px;width:330px;height:90px;color:#1d4fa3">Misses the gate change</div>
+  <p class="abs" style="left:1340px;top:240px;font-size:22px;color:#33415c">What happens</p>
+  <div class="ice" data-b="1" style="left:850px;top:375px;width:480px;height:100px;color:#0f1f3d">Avoids flying alone</div><p class="abs" data-b="1" style="left:1420px;top:410px;font-size:22px;color:#0f1f3d;width:170px">What repeats</p>
+  <div class="ice" data-b="2" style="left:850px;top:525px;width:480px;height:110px"><span style="background:#f2a33a;color:#0f1f3d;border-radius:999px;padding:18px 30px">No place to practise</span><div class="port" id="p-nopractise" style="left:180px;top:22px;width:120px;height:67px"></div></div><p class="abs" data-b="2" style="left:1420px;top:565px;font-size:22px;color:#fff;width:170px">What sustains it</p>
+  <div class="ice" data-b="3" style="left:890px;top:690px;width:400px;height:120px;color:#fff;font-style:italic">“If I get it wrong, I hold everyone up.”</div><p class="abs" data-b="3" style="left:1420px;top:735px;font-size:22px;color:#fff;width:170px">What she believes</p>
+  <p class="abs" data-b="4" style="left:110px;top:540px;width:600px;font-size:42px;line-height:1.2;font-weight:800;color:#0f1f3d">Airports are designed for people who already know them.</p>
 </section>
 
-<section class="scr sa" id="a7" data-right="a5" data-name="Saath · Research">
-  <p class="lab abs" style="left:30px;top:40px">5 conversations → 3 gaps → Kamala</p>
-  <div class="fig" style="left:30px;top:100px;width:420px;height:476px"><img src="img/v/interviews.jpg" alt="Interviews with five travellers"></div>
-  <div class="fig" style="left:470px;top:100px;width:520px;height:356px"><img src="img/v/core.jpg" alt="Repeated patterns into core problems"></div>
-  <div class="fig" style="left:470px;top:476px;width:520px;height:320px"><img src="img/v/persona.jpg" alt="Persona: Kamala, 68"></div>
-  <div class="fig" style="left:1010px;top:100px;width:560px;height:664px"><img src="img/v/empathy.jpg" alt="Empathy map"></div>
-  <p class="abs t" style="left:30px;top:610px;width:420px;font-size:22px">Understanding gap · confidence gap · independence gap.</p>
+<section class="scr sa" id="a6" data-in="a5 p-nopractise" data-name="Saath · The gap">
+  <p class="lab abs" style="left:110px;top:110px">The real problem</p>
+  <h2 class="abs" style="left:110px;top:150px;width:1380px;font-size:88px">The gap is not information.<br><span style="color:var(--teal)">The gap is practice.</span></h2>
+  <div class="gap" data-b="1" style="left:110px;top:430px"><h3>Understanding</h3><p>The order of steps is invisible until you are already in it.</p><q>I followed the people from my cab. When they turned another way, I just stood there.</q></div>
+  <div class="gap" data-b="2" style="left:590px;top:430px"><h3>Confidence</h3><p>Without practice, every step feels like a test.</p><q>I did not know the phone also goes in the tray. The queue behind me was waiting.</q></div>
+  <div class="gap" data-b="3" style="left:1070px;top:430px"><h3>Independence</h3><p>Help exists, but asking feels hard.</p><q>I don’t want to disturb them, they are so busy. I wait for someone to come.</q></div>
+  <p class="abs" data-b="1" style="left:110px;top:815px;font-size:20px;color:#5b6880">Quotes are illustrative, written from five proto-personas.</p>
 </section>
 
-<section class="scr sa" id="a9" data-right="a7" data-name="Saath · Patterns → possibilities">
-  <p class="lab abs" style="left:110px;top:150px">Patterns → possibilities</p>
-  <h2 class="abs" style="left:110px;top:190px;width:600px">Every problem gets an <em>answer inside Saath.</em></h2>
-  <div class="abs t" style="left:110px;top:470px;width:560px;font-size:24px"><p>One step, one card, one action · no timers · a calm voice, repeat any time · gentle retry, never a failure screen · <b>Show me</b> and <b>Ask for help</b> on every step.</p></div>
-  <div class="fig" style="left:850px;top:10px;width:690px;height:880px"><img src="img/v/patterns.jpg" alt="Observed patterns and design responses"></div>
+<!-- act 3 · the idea -->
+<section class="scr sa" id="a7" data-right="a6" data-name="Saath · The idea">
+  <p class="lab abs" style="left:110px;top:90px">How might we</p>
+  <h2 class="abs" style="left:110px;top:130px;width:1380px;font-size:58px">let travellers rehearse the whole journey at home, at their own pace, <em>and reach the airport already knowing it?</em></h2>
+  <div class="cut no" data-b="1" style="left:110px;top:440px"><h3>Watch a video</h3><p>Easy to share. But passive: nothing to practise.</p></div>
+  <div class="cut no" data-b="2" style="left:580px;top:440px"><h3>Printed checklist</h3><p>Works anywhere. But it does not show the place.</p></div>
+  <div class="cut yes" data-b="3" style="left:1050px;top:440px"><h3>Rehearse at home</h3><p>Learn by doing, with your own hands, in your own room.</p><div class="port" id="p-idea" style="left:310px;top:180px;width:96px;height:54px"></div></div>
 </section>
 
-<section class="scr sa" id="a10" data-right="a9" data-name="Saath · One path">
-  <p class="lab abs" style="left:80px;top:70px">Information architecture</p>
-  <h2 class="abs" style="left:80px;top:110px;width:1300px">One path, <em>in the same order as a real airport.</em></h2>
+<section class="scr sa" id="a8" data-in="a7 p-idea" data-name="Saath · Beside her">
+  <img class="cover" src="img/v/roomfull.jpg" alt="Saath in a living room: one instruction card beside a phone" style="object-position:50% 20%">
+  <div class="abs" style="inset:0;background:linear-gradient(90deg,rgba(12,28,60,.94) 0%,rgba(12,28,60,.8) 34%,rgba(12,28,60,0) 60%)"></div>
+  <h2 class="abs" style="left:110px;top:120px;width:640px;font-size:80px;color:#fff">Saath walks beside her.</h2>
+  <p class="abs" style="left:110px;top:320px;font-size:28px;color:#cfe1f7">Saath: “together”, in Hindi</p>
+  <div class="abs" style="left:110px;top:420px;width:560px;font-size:30px;line-height:1.3;color:#fff"><p data-b="1"><b>One step, one card, one action.</b></p><p data-b="2" style="margin-top:20px"><b>No timers.</b> She sets the pace.</p><p data-b="3" style="margin-top:20px"><b>A calm voice</b> she can repeat any time.</p><p data-b="4" style="margin-top:20px"><b>Show me</b> and <b>Ask for help</b>, always there.</p><p data-b="5" style="margin-top:20px"><b>Gentle retry,</b> never a failure screen.</p></div>
+</section>
+
+<section class="scr sa" id="a10" data-right="a8" data-name="Saath · One path">
+  <p class="lab abs" style="left:80px;top:70px">The rehearsal</p>
+  <h2 class="abs" style="left:80px;top:110px;width:1440px">Eleven scenes, <em>in the same order as a real airport.</em></h2>
   <div id="ia"></div>
-  <p class="abs t" style="left:80px;top:800px;font-size:22px">Available on every step: <b>Show me</b> · <b>Ask for help</b> · <b>Read aloud</b></p>
+  <p class="abs t" style="left:80px;top:790px;font-size:26px">Now Kamala takes the journey again, with Saath.</p>
 </section>
 
-<section class="scr sa" id="a11" data-in="a10 p-open" data-name="Saath · Start screen">
-  <p class="lab abs" style="left:110px;top:150px">The start screen</p>
-  <h2 class="abs" style="left:110px;top:190px;width:640px">One screen, <em>no scrolling.</em></h2>
-  <div class="abs t" style="left:110px;top:400px;width:620px;font-size:24px">
-    <p><b>Your name</b> — printed on the booking, pass and ID; greeted aloud.</p>
-    <p style="margin-top:14px"><b>Start in mixed reality</b> — the main path, in your own room.</p>
-    <p style="margin-top:14px"><b>Full VR · Webcam · Desktop preview</b> — when the room is small, or there's no headset.</p>
-    <p style="margin-top:14px"><b>Watch the journey</b> — a narrated tour of all eleven scenes.</p>
-  </div>
-  <div class="fig" style="left:900px;top:60px;width:620px;height:780px;background:#7fa3a6"><img src="img/v/start.jpg" alt="Saath start screen"></div>
+<section class="scr sa" id="a11" data-in="a10 p-open" data-name="Saath · She begins">
+  <p class="lab abs" style="left:110px;top:150px">She begins</p>
+  <h2 class="abs" style="left:110px;top:190px;width:700px;font-size:76px">One screen. <em>She types her name.</em></h2>
+  <div class="abs t" style="left:110px;top:450px;width:640px;font-size:29px"><p data-b="1">It appears on her booking, her pass and her ID, and Saath greets her aloud.</p><p data-b="2" style="margin-top:24px">She starts in <b>mixed reality</b>, in her own living room.</p><p data-b="3" style="margin-top:24px">No headset? <b>Webcam</b> and <b>desktop</b> previews run the same journey.</p></div>
+  <div class="fig" style="left:850px;top:40px;width:668px;height:820px;background:#7fa3a6"><img src="img/v/start.jpg" alt="Saath start screen"></div>
 </section>
 
-<section class="scr sa" id="a12" data-in="a10 p-home" data-name="Saath · Home → getting there">
-  <p class="lab abs" style="left:60px;top:70px">At home → getting there</p>
-  <h2 class="abs" style="left:60px;top:110px;width:1400px">Prepare in your own room, <em>then arrive the way you will on the day.</em></h2>
-  <div class="shot" style="left:60px;top:270px;width:480px;height:300px"><img src="img/v/home1.jpg" alt="Booking on a familiar phone"></div>
-  <div class="shot" style="left:560px;top:270px;width:480px;height:300px"><img src="img/v/home2.jpg" alt="Packing by dragging, with limits in view"></div>
-  <div class="shot" style="left:1060px;top:270px;width:480px;height:300px"><img src="img/v/getting1.jpg" alt="The cab driver greets you"></div>
-  <div class="shot" style="left:310px;top:590px;width:480px;height:300px"><img src="img/v/getting2.jpg" alt="Step out at Terminal 2"></div>
-  <div class="shot" style="left:810px;top:590px;width:480px;height:300px"><img src="img/v/getting3.jpg" alt="Ticket and ID at the door"></div>
+<!-- act 4 · the same journey, with Saath -->
+<section class="scr sa wh" id="w1" data-in="a10 p-home" data-name="Saath · The booking">
+  <p class="ste">1 · The ticket</p>
+  <div class="say" style="left:80px;top:112px;width:400px">Beta booked it for me.</div>
+  <div class="sk" style="left:80px;top:225px;width:400px;height:400px"><img src="img/v/ks1.jpg" alt=""></div>
+  <p class="then" data-b="1">Now she reads it herself.</p>
+  <div class="scene" data-b="1"><img src="img/v/home1.jpg" alt="A booking opens on a familiar phone beside one instruction card"><i class="ring2" style="left:440px;top:258px;width:180px;height:132px"></i></div>
+  <p class="fact" data-b="2" style="left:560px"><b>On a familiar phone.</b> She finds the flight number, then the airport.</p>
+  <p class="fact" data-b="2" style="left:1060px"><b>One card</b> beside it says what to do next.</p>
 </section>
 
-<section class="scr sa" id="a14" data-in="a10 p-terminal" data-name="Saath · Terminal → seat 14A">
-  <p class="lab abs" style="left:60px;top:70px">Terminal → gate → seat 14A</p>
-  <h2 class="abs" style="left:60px;top:110px;width:1400px">Check-in and security without the rush, <em>and a gate that changes.</em></h2>
-  <div class="shot" style="left:60px;top:260px;width:480px;height:300px"><img src="img/v/terminal1.jpg" alt="Walk to the check-in counter"></div>
-  <div class="shot" style="left:560px;top:260px;width:480px;height:300px"><img src="img/v/terminal2.jpg" alt="The security lane in the real order"></div>
-  <div class="shot" style="left:1060px;top:260px;width:480px;height:300px"><img src="img/v/gate1.jpg" alt="Departures board"></div>
-  <div class="shot" style="left:60px;top:580px;width:480px;height:300px"><img src="img/v/gate2.jpg" alt="A practised gate change"></div>
-  <div class="shot" style="left:560px;top:580px;width:480px;height:300px"><img src="img/v/gate3.jpg" alt="Scan your boarding pass"></div>
-  <div class="shot" style="left:1060px;top:580px;width:480px;height:300px"><img src="img/v/gate4.jpg" alt="Jet bridge to seat 14A"></div>
+<section class="scr sa wh" id="w2" data-right="w1" data-name="Saath · Packing">
+  <p class="ste">2 · The night before</p>
+  <div class="say" style="left:80px;top:112px;width:400px">What if I miss something?</div>
+  <div class="sk" style="left:80px;top:225px;width:400px;height:400px"><img src="img/v/ks2.jpg" alt=""></div>
+  <p class="then" data-b="1">She packs it, once, for practice.</p>
+  <div class="scene" data-b="1"><img src="img/v/home2.jpg" alt="Packing into cabin and checked bags, with baggage rules in view"><i class="ring2" style="left:585px;top:18px;width:382px;height:328px"></i></div>
+  <p class="fact" data-b="2" style="left:560px"><b>The limits stay in view:</b> cabin 7 kg, checked 15 kg.</p>
+  <p class="fact" data-b="2" style="left:1060px"><b>She drags each item</b> into its glowing box.</p>
+</section>
+
+<section class="scr sa wh" id="w3" data-right="w2" data-name="Saath · Arriving">
+  <p class="ste">3 · At the terminal</p>
+  <div class="say" style="left:80px;top:112px;width:400px">Which door? Which counter?</div>
+  <div class="sk" style="left:80px;top:225px;width:400px;height:400px"><img src="img/v/ks3.jpg" alt=""></div>
+  <p class="then" data-b="1">She has already stood at this door.</p>
+  <div class="scene" data-b="1"><img src="img/v/getting3.jpg" alt="A guard at the Terminal 2 entrance asks for ticket and photo ID"><i class="ring2" style="left:620px;top:96px;width:285px;height:310px"></i></div>
+  <p class="fact" data-b="2" style="left:560px"><b>A cab, the kerb, the entrance:</b> she gets out when she is ready.</p>
+  <p class="fact" data-b="2" style="left:1060px"><b>The guard asks</b> for ticket and ID, as a real one would.</p>
+</section>
+
+<section class="scr sa wh" id="w4" data-right="w3" data-name="Saath · Security">
+  <p class="ste">4 · Security</p>
+  <div class="say" style="left:80px;top:112px;width:400px">Do I take this out too?</div>
+  <div class="sk" style="left:80px;top:225px;width:400px;height:400px"><img src="img/v/ks4.jpg" alt=""></div>
+  <p class="then" data-b="1">One instruction at a time.</p>
+  <div class="scene" data-b="1"><img src="img/v/terminal2.jpg" alt="The security lane, in the real order"><i class="ring2" style="left:540px;top:145px;width:146px;height:190px"></i></div>
+  <p class="fact" data-b="2" style="left:560px"><b>Phone and pouch in the tray,</b> bag on the belt, walk through.</p>
+  <p class="fact" data-b="2" style="left:1060px"><b>The officer waits.</b> Mistakes stay private, at home.</p>
+</section>
+
+<section class="scr sa wh" id="w5" data-right="w4" data-name="Saath · The gate change">
+  <p class="ste">5 · The gate changes</p>
+  <div class="say" style="left:80px;top:112px;width:400px">Nobody told me!</div>
+  <div class="sk" style="left:80px;top:225px;width:400px;height:400px"><img src="img/v/ks5.jpg" alt=""></div>
+  <p class="then" data-b="1">She notices the change herself.</p>
+  <div class="scene" data-b="1"><img src="img/v/gate2.jpg" alt="The screen shows the gate has changed from 12 to 18"><i class="ring2" style="left:352px;top:76px;width:92px;height:66px"></i><i class="ring2" style="left:550px;top:114px;width:104px;height:38px"></i></div>
+  <p class="fact" data-b="2" style="left:560px"><b>Her pass says 12.</b> The screen now says 18.</p>
+  <p class="fact" data-b="2" style="left:1060px"><b>The signs lead on,</b> and she follows them to gate 18.</p>
+</section>
+
+<section class="scr sa wh" id="w6" data-right="w5" data-name="Saath · Seat 14A">
+  <p class="ste">6 · Seat 14A</p>
+  <div class="say" style="left:80px;top:112px;width:400px">Next time someone must come.</div>
+  <div class="sk" style="left:80px;top:225px;width:400px;height:400px"><img src="img/v/ks6.jpg" alt=""></div>
+  <p class="then" data-b="1">“I have been here before.”</p>
+  <div class="scene" data-b="1"><img src="img/v/gate4.jpg" alt="The jet bridge to the aircraft door"></div>
+  <p class="fact" data-b="2" style="left:560px"><b>Down the jet bridge,</b> to row 14, the window seat.</p>
+  <p class="fact" data-b="2" style="left:1060px"><b>The loop, broken:</b> the airport is no longer new.</p>
 </section>
 
 <section class="scr sa" id="a15" data-right="a10" data-name="Saath · The journey film">
@@ -403,11 +471,11 @@ body.infs #hud,body.infs #hint{display:none}
 {const R=['OBJECT','PEOPLE','PLACE','CULTURE','SOCIETY','WORLD'];
  document.getElementById('rings').innerHTML=R.map((r,i)=>{const d=150+i*130;return`<div class="rg" ${i?`data-b="${i}"`:''} style="left:${1170-d/2}px;top:${460-d/2}px;width:${d}px;height:${d}px;${i==0?'background:#d9a25b;border:0;place-items:center':''}"><span style="${i==0?'color:#000;margin:0':''}">${r}</span></div>`}).join('')}
 // information architecture: 11 scenes in 4 chapters; two thumbnails open the walkthrough
-{const CH=[['AT HOME','home1','p-home',['Booking','Packing']],['GETTING THERE','getting1','p-getting',['Cab','Kerb']],['TERMINAL','terminal1','p-terminal',['Entrance','Check-in','Security']],['GATE & AIRCRAFT','gate2','p-gate',['Departures','Gate change','Boarding','Seat 14A']]];
+{const CH=[['AT HOME','home1','p-home',['Booking','Packing'],'w1'],['GETTING THERE','getting1','p-getting',['Cab','Kerb'],'w3'],['TERMINAL','terminal1','p-terminal',['Entrance','Check-in','Security'],'w4'],['GATE & AIRCRAFT','gate2','p-gate',['Departures','Gate change','Boarding','Seat 14A'],'w5']];
  let h=`<div class="abs" style="left:80px;top:568px;width:1440px;height:4px;background:#1d4fa3;border-radius:2px"></div><div class="port" id="p-open" style="left:60px;top:540px;width:110px;height:62px;display:grid;place-items:center;background:#2e8b84;color:#fff;border-radius:31px;font-size:18px;font-weight:700">Open Saath</div>`;
  let n=0;const gap=124,x0=262;
  CH.forEach(c=>{const first=n,last=n+c[3].length-1,cx=x0+(first+last)/2*gap,w=240,x=Math.round(cx-w/2);
-  h+=`<p class="abs" style="left:${x}px;top:300px;width:${w}px;text-align:center;font-size:17px;letter-spacing:.12em;color:#4a8fd6;font-weight:600">${c[0]}</p><div class="shot port" id="${c[2]}" style="left:${x}px;top:332px;width:${w}px;height:135px"><img src="img/v/${c[1]}.jpg" alt=""></div><div class="abs" style="left:${x0+first*gap-10}px;top:500px;width:${(last-first)*gap+20}px;height:4px;background:#4a8fd6;opacity:.35;border-radius:2px"></div>`;
+  h+=`<p class="abs" style="left:${x}px;top:300px;width:${w}px;text-align:center;font-size:17px;letter-spacing:.12em;color:#4a8fd6;font-weight:600">${c[0]}</p><div class="shot port" id="${c[2]}" data-go="${c[4]}" style="left:${x}px;top:332px;width:${w}px;height:135px"><img src="img/v/${c[1]}.jpg" alt=""></div><div class="abs" style="left:${x0+first*gap-10}px;top:500px;width:${(last-first)*gap+20}px;height:4px;background:#4a8fd6;opacity:.35;border-radius:2px"></div>`;
   c[3].forEach(s=>{const nx=x0+n*gap;n++;h+=`<div class="node" style="left:${nx-13}px;top:557px"></div><p class="nl" style="left:${nx-60}px;top:600px;width:120px">${s}</p>`})});
  document.getElementById('ia').innerHTML=h}
 
