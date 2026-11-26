@@ -106,6 +106,19 @@ body.infs #hud,body.infs #hint{display:none}
 .fact{position:absolute;top:732px;width:480px;font-size:25px;line-height:1.35;color:#33415c}.fact b{color:var(--teal)}
 .then{position:absolute;left:80px;top:668px;width:430px;font-size:40px;line-height:1.1;font-weight:800;color:var(--blue)}
 .ste{position:absolute;left:80px;top:60px;font-size:20px;letter-spacing:.14em;text-transform:uppercase;color:#2f6fb8;font-weight:700}
+/* ---------- neurovascular backup (night blue) ---------- */
+.bb{--bg:#050b14;--fg:#eaf2f8;--acc:#5cc8f2;--loc:#5cc8f2;--lot:#04121d;font-family:Figtree,system-ui,sans-serif}
+.bb .lab{font-size:20px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);font-weight:700}
+.bb h2{font-size:64px;line-height:1.06;font-weight:800;letter-spacing:-1px;text-wrap:balance}
+.bb .mute{color:#8fa6ba}
+.bb .shot{border:1px solid #1f3247}
+.bb .warn{font-size:20px;color:#f5b342;border:2px solid #5a4423;border-radius:999px;padding:10px 22px}
+.bb .cn{font-size:30px;font-weight:700}
+.bb .bars{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;height:400px;align-items:end;border-bottom:2px solid #1f3247;margin-top:20px}
+.bb .bars div{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:8px}.bb .bars b{font-size:32px;line-height:1}.bb .bars i{width:100%;border-radius:6px 6px 0 0}
+.bb .ax{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:12px;text-align:center;font-size:18px;color:#8fa6ba}
+.bb table{border-collapse:collapse;font-size:25px;line-height:1.3}.bb th,.bb td{padding:11px 16px;border-bottom:1px solid #1f3247;text-align:right}.bb th{font-size:22px}.bb th:first-child,.bb td:first-child{text-align:left;padding-left:0;width:540px}.bb td small{font-size:18px;color:#8fa6ba;margin-left:8px}.bb td:nth-child(2){color:#8fa6ba}
+.bb .flow{display:flex;justify-content:space-between}.bb .flow span{display:flex;align-items:center;gap:10px;font-size:20px}.bb .flow b{width:34px;height:34px;border-radius:50%;background:var(--acc);color:#04121d;display:grid;place-items:center;font-size:18px}
 /* ---------- HUD ---------- */
 #veil{position:fixed;inset:0;z-index:4;opacity:0;pointer-events:none;transition:opacity .42s ease}#veil.on{opacity:1}
 #hud{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);display:flex;align-items:center;gap:4px;padding:5px;border-radius:14px;background:rgba(255,255,255,.9);border:1px solid rgba(0,0,0,.08);backdrop-filter:blur(10px);box-shadow:0 10px 30px -12px rgba(0,0,0,.35);opacity:0;transition:opacity .3s;z-index:5}
@@ -468,6 +481,100 @@ body.infs #hud,body.infs #hint{display:none}
   <p class="abs" style="left:110px;top:640px;font-size:110px;font-weight:800;letter-spacing:-3px">Thank you.</p>
 </section>
 
+<!-- =================== BACKUP · NEUROVASCULAR JOURNEY (not in the talk: press D, Esc returns) =================== -->
+<section class="scr bb" id="nv1" data-at="0 -3000 1" data-extra data-name="Neurovascular · Title">
+  <img class="cover" src="img/v/bbb-head.jpg" alt="Transparent head showing the brain, arteries and nerves, with the affected territory marked" style="left:520px;width:1080px">
+  <div class="abs" style="inset:0;background:linear-gradient(90deg,#050b14 36%,rgba(5,11,20,.55) 54%,rgba(5,11,20,0) 72%)"></div>
+  <p class="lab abs" style="left:90px;top:170px">Data visualisation · interactive 3D prototype</p>
+  <h2 class="abs" style="left:84px;top:230px;width:780px;font-size:118px;line-height:.98">Neurovascular Journey</h2>
+  <p class="abs" style="left:90px;top:540px;width:640px;font-size:40px;line-height:1.2">Seeing the blood–brain barrier, from the whole head down to one cell wall.</p>
+  <p class="warn abs" style="left:90px;top:720px">Concept demo · simulated data · not for clinical use</p>
+</section>
+
+<section class="scr bb" id="nv2" data-right="nv1" data-extra data-name="Neurovascular · The question">
+  <p class="lab abs" style="left:90px;top:70px">The problem</p>
+  <h2 class="abs" style="left:90px;top:120px;width:640px">The wall that protects the brain cannot be seen.</h2>
+  <p class="abs mute" style="left:90px;top:400px;width:600px;font-size:28px;line-height:1.4">Capillaries in the brain are sealed by tight junctions, so only selected substances cross. A stroke or a bleed breaks that seal. Some treatments open it on purpose.</p>
+  <p class="abs" data-b="1" style="left:90px;top:650px;width:620px;font-size:36px;line-height:1.2;font-weight:700;color:var(--acc)">How might we show where it is failing, how badly, and what changes over time?</p>
+  <div class="shot" style="left:780px;top:150px;width:750px;height:530px"><img src="img/v/bbb-sec-normal.jpg" alt="Cross-section of an intact brain capillary with its layers labelled"></div>
+</section>
+
+<section class="scr bb" id="nv3" data-right="nv2" data-extra data-name="Neurovascular · Three scales">
+  <p class="lab abs" style="left:90px;top:70px">One signal, three scales</p>
+  <h2 class="abs" style="left:90px;top:112px;width:1420px">Start with the whole head, then go closer.</h2>
+  <div class="abs" data-b="1" style="left:0;top:0"><div class="shot" style="left:90px;top:300px;width:450px;height:318px"><img src="img/v/bbb-head.jpg" alt="Head and brain"></div><p class="lab abs" style="left:90px;top:650px;width:450px">1 · Where</p><p class="abs" style="left:90px;top:690px;width:450px;font-size:32px;font-weight:700">Head and brain</p><p class="abs mute" style="left:90px;top:744px;width:430px;font-size:23px;line-height:1.35">Which territory is affected, against named anatomy.</p></div>
+  <div class="abs" data-b="2" style="left:0;top:0"><div class="shot" style="left:575px;top:300px;width:450px;height:318px"><img src="img/v/bbb-sec-haem.jpg" alt="Capillary cross-section"></div><p class="lab abs" style="left:575px;top:650px;width:450px">2 · What</p><p class="abs" style="left:575px;top:690px;width:450px;font-size:32px;font-weight:700">Capillary cross-section</p><p class="abs mute" style="left:575px;top:744px;width:430px;font-size:23px;line-height:1.35">What the wall is doing, as one animated cut.</p></div>
+  <div class="abs" data-b="3" style="left:0;top:0"><div class="shot" style="left:1060px;top:300px;width:450px;height:318px"><img src="img/v/bbb-unit.jpg" alt="Barrier in 3D"></div><p class="lab abs" style="left:1060px;top:650px;width:450px">3 · Which layer</p><p class="abs" style="left:1060px;top:690px;width:450px;font-size:32px;font-weight:700">Barrier in 3D</p><p class="abs mute" style="left:1060px;top:744px;width:430px;font-size:23px;line-height:1.35">Each layer, turned, separated and named.</p></div>
+</section>
+
+<section class="scr bb" id="nv4" data-right="nv3" data-extra data-name="Neurovascular · Four states">
+  <p class="lab abs" style="left:90px;top:70px">Four demonstration cases</p>
+  <h2 class="abs" style="left:90px;top:112px;width:1420px">The same view, four states of the wall.</h2>
+  <div class="abs" data-b="1" style="left:0;top:0"><div class="shot" style="left:90px;top:330px;width:340px;height:240px"><img src="img/v/bbb-sec-haem.jpg" alt="Haemorrhage: capillary cross-section"></div><p class="abs" style="left:90px;top:600px;width:340px;font-size:30px;font-weight:700;color:#ff5a52">Haemorrhage</p><p class="abs mute" style="left:90px;top:652px;width:320px;font-size:23px;line-height:1.35">Torn wall. Red cells escape.</p></div>
+  <div class="abs" data-b="2" style="left:0;top:0"><div class="shot" style="left:450px;top:330px;width:340px;height:240px"><img src="img/v/bbb-sec-isch.jpg" alt="Ischaemic stroke: capillary cross-section"></div><p class="abs" style="left:450px;top:600px;width:340px;font-size:30px;font-weight:700;color:#b78cf7">Ischaemic stroke</p><p class="abs mute" style="left:450px;top:652px;width:320px;font-size:23px;line-height:1.35">Flow blocked. Junctions weaken.</p></div>
+  <div class="abs" data-b="3" style="left:0;top:0"><div class="shot" style="left:810px;top:330px;width:340px;height:240px"><img src="img/v/bbb-sec-drug.jpg" alt="Drug delivery: capillary cross-section"></div><p class="abs" style="left:810px;top:600px;width:340px;font-size:30px;font-weight:700;color:#f5b342">Drug delivery</p><p class="abs mute" style="left:810px;top:652px;width:320px;font-size:23px;line-height:1.35">Opened on purpose, for a while.</p></div>
+  <div class="abs" data-b="4" style="left:0;top:0"><div class="shot" style="left:1170px;top:330px;width:340px;height:240px"><img src="img/v/bbb-sec-normal.jpg" alt="Intact reference: capillary cross-section"></div><p class="abs" style="left:1170px;top:600px;width:340px;font-size:30px;font-weight:700;color:#34d399">Intact reference</p><p class="abs mute" style="left:1170px;top:652px;width:320px;font-size:23px;line-height:1.35">Sealed. The comparison state.</p></div>
+</section>
+
+<section class="scr bb" id="nv5" data-right="nv4" data-extra data-name="Neurovascular · Barrier index">
+  <p class="lab abs" style="left:90px;top:70px">Reading change</p>
+  <h2 class="abs" style="left:90px;top:112px;width:1420px">One number to scan: 0 is sealed, 100 is open.</h2>
+  <div class="abs" data-b="1" style="left:90px;top:270px;width:320px">
+    <p class="cn" style="color:#ff5a52">Haemorrhage</p>
+    <div class="bars"><div><b>78</b><i style="height:280.8px;background:#ff5a52"></i></div><div><b>31</b><i style="height:111.60000000000001px;background:#ff5a52"></i></div><div><b>18</b><i style="height:64.8px;background:#ff5a52"></i></div></div>
+    <div class="ax"><span>Start</span><span>Treated</span><span>Follow-up</span></div></div>
+  <div class="abs" data-b="2" style="left:455px;top:270px;width:320px">
+    <p class="cn" style="color:#b78cf7">Ischaemic stroke</p>
+    <div class="bars"><div><b>61</b><i style="height:219.6px;background:#b78cf7"></i></div><div><b>34</b><i style="height:122.4px;background:#b78cf7"></i></div><div><b>19</b><i style="height:68.4px;background:#b78cf7"></i></div></div>
+    <div class="ax"><span>Start</span><span>Treated</span><span>Follow-up</span></div></div>
+  <div class="abs" data-b="3" style="left:820px;top:270px;width:320px">
+    <p class="cn" style="color:#f5b342">Drug delivery</p>
+    <div class="bars"><div><b>12</b><i style="height:43.2px;background:#f5b342"></i></div><div><b>52</b><i style="height:187.20000000000002px;background:#f5b342"></i></div><div><b>13</b><i style="height:46.800000000000004px;background:#f5b342"></i></div></div>
+    <div class="ax"><span>Start</span><span>Opening</span><span>Follow-up</span></div></div>
+  <div class="abs" data-b="4" style="left:1185px;top:270px;width:320px">
+    <p class="cn" style="color:#34d399">Intact reference</p>
+    <div class="bars"><div><b>3</b><i style="height:10.8px;background:#34d399"></i></div><div><b>3</b><i style="height:10.8px;background:#34d399"></i></div><div><b>4</b><i style="height:14.4px;background:#34d399"></i></div></div>
+    <div class="ax"><span>Start</span><span>Treated</span><span>Follow-up</span></div></div>
+  <p class="abs mute" style="left:90px;top:800px;font-size:22px">All values are invented to demonstrate the interface.</p>
+</section>
+
+<section class="scr bb" id="nv6" data-right="nv5" data-extra data-name="Neurovascular · Behind the index">
+  <p class="lab abs" style="left:90px;top:70px">Behind the number</p>
+  <h2 class="abs" style="left:90px;top:112px;width:1420px">Then six measures, always beside a reference.</h2>
+  <table class="abs" style="left:90px;top:270px;width:1420px"><thead><tr><th>Measure</th><th>Reference</th><th style="color:#ff5a52">Haemorrhage</th><th style="color:#b78cf7">Ischaemic stroke</th><th style="color:#f5b342">Planned opening</th></tr></thead>
+  <tbody><tr><td>Barrier index <small>0–100</small></td><td>3</td><td>78</td><td>61</td><td>52</td></tr><tr><td>Junction gap <small>nm</small></td><td>1.8</td><td>58.0</td><td>24.0</td><td>14.2</td></tr><tr><td>Electrical resistance <small>Ω·cm²</small></td><td>520</td><td>45</td><td>120</td><td>180</td></tr><tr><td>PS transfer <small>mL/100g/min</small></td><td>1.0</td><td>38.5</td><td>14.2</td><td>12.4</td></tr><tr><td>Red-cell leak <small>cells/min</small></td><td>0</td><td>165</td><td>0</td><td>0</td></tr><tr><td>Tracer or drug passage <small>%</small></td><td>2</td><td>92</td><td>34</td><td>78</td></tr><tr><td>Neuron viability <small>%</small></td><td>99</td><td>58</td><td>42</td><td>96</td></tr></tbody></table>
+  <p class="abs mute" style="left:90px;top:790px;width:1420px;font-size:22px;line-height:1.4">Invented demonstration values. A scalp sensor cannot directly measure junction gap, electrical resistance, cell leak or neuron viability.</p>
+</section>
+
+<section class="scr bb" id="nv7" data-right="nv6" data-extra data-name="Neurovascular · The journey">
+  <p class="lab abs" style="left:90px;top:70px">The clinician journey</p>
+  <h2 class="abs" style="left:90px;top:112px;width:1420px;font-size:52px">Eight steps, each opening the view it needs.</h2>
+  <div class="shot" style="left:280px;top:210px;width:1040px;height:585px"><img src="img/v/bbb-workspace.jpg" alt="The workspace: sensor readings on the left, 3D head in the centre, step guidance and checklist on the right"></div>
+  <div class="abs flow" style="left:90px;top:825px;width:1420px"><span><b>1</b>Fit sensor</span><span><b>2</b>Screen</span><span><b>3</b>Localise</span><span><b>4</b>Inspect barrier</span><span><b>5</b>Confirm</span><span><b>6</b>Plan</span><span><b>7</b>Treat</span><span><b>8</b>Follow-up</span></div>
+</section>
+
+<section class="scr bb" id="nv8" data-right="nv7" data-extra data-name="Neurovascular · Live prototype">
+  <p class="lab abs" style="left:90px;top:36px">The prototype · live</p>
+  <a class="btn abs" href="https://rushabhm-blip.github.io/Brain-Blood-Barrier_datametre/" target="_blank" rel="noopener" style="left:1150px;top:16px;background:var(--acc);color:#04121d">Open in browser ↗</a>
+  <div class="abs" style="left:160px;top:90px;width:1280px;height:720px;border-radius:10px;overflow:hidden;border:1px solid #1f3247;background:#050b14 url(img/v/bbb-workspace.jpg) center/cover">
+    <iframe id="nvf" data-src="https://rushabhm-blip.github.io/Brain-Blood-Barrier_datametre/" title="Neurovascular Journey, live prototype" style="width:1600px;height:900px;border:0;transform:scale(.8);transform-origin:0 0"></iframe>
+  </div>
+  <p class="abs mute" style="left:160px;top:828px;font-size:20px">Pick a case, step through the journey, and rotate the head or the barrier.</p>
+</section>
+
+<section class="scr bb" id="nv9" data-right="nv8" data-extra data-name="Neurovascular · Learning outcomes">
+  <p class="lab abs" style="left:90px;top:110px">Learning outcomes</p>
+  <h2 class="abs" style="left:90px;top:150px;width:1420px">Show the signal, and show its limits.</h2>
+  <div class="abs lo" style="left:90px;top:330px;width:840px;font-size:28px;line-height:1.35">
+    <p><b>Overview first, detail on demand.</b> One index to scan, then territory, cross-section and layers.</p>
+    <p style="margin-top:26px"><b>Colour carries the state.</b> Each case keeps one colour across the buttons, beacons and readings.</p>
+    <p style="margin-top:26px"><b>Honesty is part of the design.</b> Simulated data, model views and sensor limits are labelled on screen.</p>
+    <p style="margin-top:26px"><b>Built in the browser.</b> Three.js and canvas, in HTML, CSS and JavaScript.</p>
+  </div>
+  <div class="shot" style="left:980px;top:340px;width:540px;height:382px"><img src="img/v/bbb-sec-drug.jpg" alt="Focused ultrasound opening the barrier for therapy molecules"></div>
+  <p class="abs mute" style="left:90px;top:815px;font-size:18px">Head scan: “Lee Perry-Smith”, Infinite-Realities. Brain: 196-part anatomical atlas. Vessels and nerves are schematic.</p>
+</section>
+
 </div>
 
 <div id="prog"></div>
@@ -570,19 +677,24 @@ let settleEnd=0;const gliding=()=>performance.now()<settleEnd+60;
 const path=[];
 S.forEach(e=>{path.push({id:e.id,b:0});const n=Math.max(0,...[...e.querySelectorAll('[data-b]')].map(x=>+x.dataset.b));for(let b=1;b<=n;b++)path.push({id:e.id,b})});
 let idx=0,focused=null;
-const frames={yt:'t9',proto:'fP'};
+const frames={yt:'t9',proto:'fP',nvf:'nv8'};
+/* backup screens (data-extra) sit outside the talk: D opens them, Esc returns */
+const isExtra=i=>byId[path[i].id].hasAttribute('data-extra');
+const main=path.filter((_,i)=>!isExtra(i)).length;let back='s02';
+function step(d){const n=idx+d;if(path[n]&&isExtra(n)!==isExtra(idx))return;go(n)}
 function apply(i){const cur=path[i],order=S.map(e=>e.id),ci=order.indexOf(cur.id);focused=null;
   S.forEach((e,k)=>e.querySelectorAll('[data-b]').forEach(x=>{x.classList.toggle('on',k<ci||(k==ci&&+x.dataset.b<=cur.b));if(x.classList.contains('solo'))x.classList.toggle('past',k<ci||(k==ci&&+x.dataset.b<cur.b))}));
   const scr=byId[cur.id];travel(cur.id);
   document.body.style.backgroundColor=getComputedStyle(scr).getPropertyValue('--bg').trim();
-  document.body.classList.toggle('dark',scr.classList.contains('fe')||scr.classList.contains('tw'));
+  document.body.classList.toggle('dark',['fe','tw','bb'].some(c=>scr.classList.contains(c)));
   for(const[fid,sid]of Object.entries(frames)){const f=document.getElementById(fid);if(cur.id==sid){if(!f.getAttribute('src'))f.src=f.dataset.src}else if(f.getAttribute('src'))f.removeAttribute('src')}
   {const a=document.getElementById('fpA');if(a)a.style.opacity=(cur.id=='fP'&&cur.b>=2)?0:1;document.getElementById('fpOpen').href='https://rushabhm-blip.github.io/Snakebite_dataviz_India/'+(cur.id=='fP'&&cur.b>=2?'#snakes-neighbourhood-component':'');
   const on=cur.id=='fP'&&cur.b==1,fr=document.getElementById('fsFrame'),box=document.getElementById('fs');box.classList.toggle('on',on);document.body.classList.toggle('infs',on);
   if(on&&!fr.getAttribute('src'))fr.src=fr.dataset.src;if(cur.id!='fP'&&fr.getAttribute('src'))fr.removeAttribute('src')}
   if(cur.id!='a15')document.getElementById('saathVid').pause();
-  document.getElementById('where').textContent=scr.dataset.name+'  ·  '+(i+1)+' / '+path.length;
-  document.getElementById('prog').style.width=(i/(path.length-1)*100)+'%';
+  const from=isExtra(i)?main:0,len=isExtra(i)?path.length-main:main;
+  document.getElementById('where').textContent=scr.dataset.name+'  ·  '+(i-from+1)+' / '+len;
+  document.getElementById('prog').style.width=((i-from)/(len-1)*100)+'%';
   try{history.replaceState(null,'','#'+cur.id)}catch(_){}
 }
 function go(n){idx=Math.max(0,Math.min(path.length-1,n));apply(idx);hint.style.opacity=0}
@@ -590,11 +702,12 @@ function toScreen(id){const i=path.findIndex(p=>p.id==id);if(i>=0)go(i)}
 
 /* ---------- input ---------- */
 addEventListener('keydown',e=>{
-  if(['ArrowRight',' ','PageDown','Enter','ArrowDown'].includes(e.key)){e.preventDefault();go(idx+1)}
-  else if(['ArrowLeft','PageUp','Backspace','ArrowUp'].includes(e.key)){e.preventDefault();go(idx-1)}
+  if(['ArrowRight',' ','PageDown','Enter','ArrowDown'].includes(e.key)){e.preventDefault();step(1)}
+  else if(['ArrowLeft','PageUp','Backspace','ArrowUp'].includes(e.key)){e.preventDefault();step(-1)}
   else if(e.key=='Escape'&&document.body.classList.contains('infs'))go(idx+1);
-  else if(e.key=='Escape'){if(focused){focused=null;fly(viewOf(path[idx].id))}else toScreen('s02')}
-  else if(e.key=='Home')go(0);else if(e.key=='End')go(path.length-1);
+  else if(e.key=='Escape'){if(focused){focused=null;fly(viewOf(path[idx].id))}else toScreen(isExtra(idx)?back:'s02')}
+  else if((e.key=='d'||e.key=='D')&&!e.ctrlKey&&!e.metaKey){if(!isExtra(idx)){back=path[idx].id;toScreen('nv1')}}
+  else if(e.key=='Home')go(0);else if(e.key=='End')go(main-1);
   else if(e.key=='f'||e.key=='F')(document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()).catch(()=>{});
 });
 let down=null,moved=false;
@@ -612,8 +725,8 @@ addEventListener('pointerup',e=>{stage.classList.remove('drag');const was=moved;
 stage.addEventListener('wheel',e=>{if(e.target.closest('iframe'))return;e.preventDefault();cancelAnimationFrame(anim);const vw=innerWidth,vh=innerHeight,k=Math.exp(e.deltaY*.0015);
   const wx=cam.x+(e.clientX-vw/2)*cam.w/vw,wy=cam.y+(e.clientY-vh/2)*cam.w/vw,nw=cam.w*k;
   cam={x:wx-(e.clientX-vw/2)*nw/vw,y:wy-(e.clientY-vh/2)*nw/vw,w:nw};render()},{passive:false});
-document.getElementById('bPrev').onclick=()=>go(idx-1);
-document.getElementById('bNext').onclick=()=>go(idx+1);
+document.getElementById('bPrev').onclick=()=>step(-1);
+document.getElementById('bNext').onclick=()=>step(1);
 document.getElementById('fsDone').onclick=()=>go(idx+1);
 document.getElementById('bHub').onclick=()=>toScreen('s02');
 addEventListener('hashchange',()=>{const id=location.hash.slice(1);if(byId[id]&&path[idx].id!==id)toScreen(id)});
