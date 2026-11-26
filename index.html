@@ -63,8 +63,10 @@ img{display:block}
 #s02 .q .tags{gap:8px;margin-top:34px}#s02 .q .tags span{font-size:16px;padding:8px 13px}
 #s02 .q p{font-size:30px}#s02 .q small{font-size:20px}#s02 .q .cr{font-size:17px}
 #s02 .nm-f{font-size:60px}#s02 .nm-f i{font-size:56px}#s02 .nm-s{font-size:78px}
-#s02 .q.more{width:310px}#s02 .q.more .ring{width:240px;height:240px;margin-top:35px;margin-bottom:35px}
-#s02 .q.more p{font-size:24px}#s02 .q.more small{font-size:18px}
+#s02 .q.more{width:310px}#s02 .q.more .ring{width:220px;height:220px}
+#s02 .nm-n{font-size:26px}#s02 .nm-b{font-size:34px}
+#s02 .q.more p{font-size:21px;margin-top:22px}
+.nm-b{font:800 38px/1.1 Figtree,system-ui,sans-serif;color:#eef6e4;background:radial-gradient(circle,rgba(8,16,10,.65) 25%,rgba(8,16,10,.2) 85%)}.nm-b i{font-weight:400}
 .nm-n{font:800 31px/1.1 Figtree,system-ui,sans-serif;color:#eaf2f8;background:radial-gradient(circle,rgba(5,11,20,.6) 25%,rgba(5,11,20,.15) 85%)}.nm-n i{font-weight:400}
 /* ---------- fear (forest + serif) ---------- */
 .fe{--bg:#0b1a12;--fg:#e8efe4;--red:#e0553f;--grn:#6fd39f;--amb:#e8b04a;--loc:#6fd39f;--lot:#0b1a12;background:radial-gradient(ellipse at 70% 30%,#14301f,#0b1a12 70%)}
@@ -131,6 +133,15 @@ body.infs #hud,body.infs #hint{display:none}
 .bb .ax{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:12px;text-align:center;font-size:18px;color:#8fa6ba}
 .bb table{border-collapse:collapse;font-size:25px;line-height:1.3}.bb th,.bb td{padding:11px 16px;border-bottom:1px solid #1f3247;text-align:right}.bb th{font-size:22px}.bb th:first-child,.bb td:first-child{text-align:left;padding-left:0;width:540px}.bb td small{font-size:18px;color:#8fa6ba;margin-left:8px}.bb td:nth-child(2){color:#8fa6ba}
 .bb .flow{display:flex;justify-content:space-between}.bb .flow span{display:flex;align-items:center;gap:10px;font-size:20px}.bb .flow b{width:34px;height:34px;border-radius:50%;background:var(--acc);color:#04121d;display:grid;place-items:center;font-size:18px}
+/* ---------- branching beyond backup (night green) ---------- */
+.br{--bg:#0b100e;--fg:#f2efe6;--acc:#a8e063;font-family:Figtree,system-ui,sans-serif}
+.br .lab{font-size:20px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);font-weight:700}
+.br h2{font-size:64px;line-height:1.06;font-weight:800;letter-spacing:-1px;text-wrap:balance}
+.br .mute{color:#a3b0a8}
+.br .star{font-size:34px;line-height:1.3;font-weight:700;background:#e2ecb8;color:#14200f;border-radius:14px;padding:32px 40px}
+.br .aim{font-size:25px;line-height:1.35;border-top:4px solid var(--acc);padding-top:18px}
+.br .way{background:#151d19;border-top:8px solid;border-radius:14px;padding:30px 32px 34px}.br .way h3{font-size:34px;font-weight:800}.br .way .rule{font-size:26px;line-height:1.35;margin-top:14px}.br .way .seq{font-size:34px;font-weight:800;margin:34px 0}.br .way .mute{font-size:21px;line-height:1.45}
+.br .flow{display:flex;align-items:center;justify-content:space-between}.br .flow span{width:420px;text-align:center;font-size:28px;font-weight:700;border:2px solid var(--acc);border-radius:999px;padding:18px 0}.br .flow i{font-style:normal;font-size:36px;color:var(--acc)}
 /* ---------- HUD ---------- */
 #veil{position:fixed;inset:0;z-index:4;opacity:0;pointer-events:none;transition:opacity .42s ease}#veil.on{opacity:1}
 #hud{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);display:flex;align-items:center;gap:4px;padding:5px;border-radius:14px;background:rgba(255,255,255,.9);border:1px solid rgba(0,0,0,.08);backdrop-filter:blur(10px);box-shadow:0 10px 30px -12px rgba(0,0,0,.35);opacity:0;transition:opacity .3s;z-index:5}
@@ -160,7 +171,8 @@ body.infs #hud,body.infs #hint{display:none}
   <div class="q" style="left:30px"><div class="ring c1" style="--rc:#163a28" data-go-to="f1"><img src="img/v/f-diversity.jpg" alt="" style="object-position:62% 50%"><div class="nm nm-f">The Fear<i>Between Us</i></div><div class="port" id="p-q1"></div></div><div class="tags" style="--rc:#163a28"><span>Data visualization</span><span>Storytelling</span></div><p>Why do we fear what we don't understand?<small>The Fear Between Us<span class="cr"><b>Amit Kapoor, Prof. Chakradhar Saswade</b><br>2 weeks</span></small></p></div>
   <div class="q" style="left:420px"><div class="ring c2" style="--rc:#111" data-go-to="t1"><img src="img/v/tw13.jpg" alt="" style="transform-origin:50% 45%"><div class="port" id="p-q2"></div></div><div class="tags" style="--rc:#111"><span>Multimodality</span><span>Gesture interaction</span></div><p>How do children meet history?<small>Time Wanderers<span class="cr"><b>Dr. Mamata Rao, Prof. Athul Dinesh</b><br>4 weeks</span></small></p></div>
   <div class="q" style="left:810px"><div class="ring c3" style="--rc:#2456c8" data-go-to="a1"><img src="img/v/room.jpg" alt="" style="object-position:55% 50%"><div class="nm nm-s">Saath</div><div class="port" id="p-q3"></div></div><div class="tags" style="--rc:#2456c8"><span>Immersive experience</span><span>AR/VR</span></div><p>How do you prepare for the unknown?<small>Saath<span class="cr"><b>Prof. Jagriti Galphade, Prof. Athul Dinesh</b><br>8 weeks</span></small></p></div>
-  <div class="q more" style="left:1240px"><div class="ring" style="--rc:#7a8793" data-go-to="nv1"><img src="img/v/bbb-head.jpg" alt=""><div class="nm nm-n">Neurovascular<i>Journey</i></div></div><div class="tags" style="--rc:#4d5a66"><span>Data visualization</span><span>3D</span></div><p>How do you see a barrier inside the brain?<small>Neurovascular Journey</small></p></div>
+  <div class="q more" style="left:1240px;top:145px"><div class="ring" style="--rc:#7a8793" data-go-to="nv1"><img src="img/v/bbb-head.jpg" alt=""><div class="nm nm-n">Neurovascular<i>Journey</i></div></div><p>How do you see a barrier inside the brain?</p></div>
+  <div class="q more" style="left:1240px;top:490px"><div class="ring" style="--rc:#7a8793" data-go-to="br1"><img src="img/v/br-cover.jpg" alt=""><div class="nm nm-b">Branching<i>Beyond</i></div></div><p>How do you feel the maths in nature?</p></div>
 </section>
 
 <!-- =================== 1 · THE FEAR BETWEEN US =================== -->
@@ -497,7 +509,7 @@ body.infs #hud,body.infs #hint{display:none}
 </section>
 
 <!-- =================== BACKUP · NEUROVASCULAR JOURNEY (not in the talk: press D, Esc returns) =================== -->
-<section class="scr bb" id="nv1" data-at="0 -3000 1" data-extra data-name="Neurovascular · Title">
+<section class="scr bb" id="nv1" data-at="0 -3000 1" data-extra="nv" data-name="Neurovascular · Title">
   <img class="cover" src="img/v/bbb-head.jpg" alt="Transparent head showing the brain, arteries and nerves, with the affected territory marked" style="left:520px;width:1080px">
   <div class="abs" style="inset:0;background:linear-gradient(90deg,#050b14 36%,rgba(5,11,20,.55) 54%,rgba(5,11,20,0) 72%)"></div>
   <p class="lab abs" style="left:90px;top:170px">Data visualisation · interactive 3D prototype</p>
@@ -506,7 +518,7 @@ body.infs #hud,body.infs #hint{display:none}
   <p class="warn abs" style="left:90px;top:720px">Concept demo · simulated data · not for clinical use</p>
 </section>
 
-<section class="scr bb" id="nv2" data-right="nv1" data-extra data-name="Neurovascular · The question">
+<section class="scr bb" id="nv2" data-right="nv1" data-extra="nv" data-name="Neurovascular · The question">
   <p class="lab abs" style="left:90px;top:70px">The problem</p>
   <h2 class="abs" style="left:90px;top:120px;width:640px">The wall that protects the brain cannot be seen.</h2>
   <p class="abs mute" style="left:90px;top:400px;width:600px;font-size:28px;line-height:1.4">Capillaries in the brain are sealed by tight junctions, so only selected substances cross. A stroke or a bleed breaks that seal. Some treatments open it on purpose.</p>
@@ -514,7 +526,7 @@ body.infs #hud,body.infs #hint{display:none}
   <div class="shot" style="left:780px;top:150px;width:750px;height:530px"><img src="img/v/bbb-sec-normal.jpg" alt="Cross-section of an intact brain capillary with its layers labelled"></div>
 </section>
 
-<section class="scr bb" id="nv3" data-right="nv2" data-extra data-name="Neurovascular · Three scales">
+<section class="scr bb" id="nv3" data-right="nv2" data-extra="nv" data-name="Neurovascular · Three scales">
   <p class="lab abs" style="left:90px;top:70px">One signal, three scales</p>
   <h2 class="abs" style="left:90px;top:112px;width:1420px">Start with the whole head, then go closer.</h2>
   <div class="abs" data-b="1" style="left:0;top:0"><div class="shot" style="left:90px;top:300px;width:450px;height:318px"><img src="img/v/bbb-head.jpg" alt="Head and brain"></div><p class="lab abs" style="left:90px;top:650px;width:450px">1 · Where</p><p class="abs" style="left:90px;top:690px;width:450px;font-size:32px;font-weight:700">Head and brain</p><p class="abs mute" style="left:90px;top:744px;width:430px;font-size:23px;line-height:1.35">Which territory is affected, against named anatomy.</p></div>
@@ -522,7 +534,7 @@ body.infs #hud,body.infs #hint{display:none}
   <div class="abs" data-b="3" style="left:0;top:0"><div class="shot" style="left:1060px;top:300px;width:450px;height:318px"><img src="img/v/bbb-unit.jpg" alt="Barrier in 3D"></div><p class="lab abs" style="left:1060px;top:650px;width:450px">3 · Which layer</p><p class="abs" style="left:1060px;top:690px;width:450px;font-size:32px;font-weight:700">Barrier in 3D</p><p class="abs mute" style="left:1060px;top:744px;width:430px;font-size:23px;line-height:1.35">Each layer, turned, separated and named.</p></div>
 </section>
 
-<section class="scr bb" id="nv4" data-right="nv3" data-extra data-name="Neurovascular · Four states">
+<section class="scr bb" id="nv4" data-right="nv3" data-extra="nv" data-name="Neurovascular · Four states">
   <p class="lab abs" style="left:90px;top:70px">Four demonstration cases</p>
   <h2 class="abs" style="left:90px;top:112px;width:1420px">The same view, four states of the wall.</h2>
   <div class="abs" data-b="1" style="left:0;top:0"><div class="shot" style="left:90px;top:330px;width:340px;height:240px"><img src="img/v/bbb-sec-haem.jpg" alt="Haemorrhage: capillary cross-section"></div><p class="abs" style="left:90px;top:600px;width:340px;font-size:30px;font-weight:700;color:#ff5a52">Haemorrhage</p><p class="abs mute" style="left:90px;top:652px;width:320px;font-size:23px;line-height:1.35">Torn wall. Red cells escape.</p></div>
@@ -531,7 +543,7 @@ body.infs #hud,body.infs #hint{display:none}
   <div class="abs" data-b="4" style="left:0;top:0"><div class="shot" style="left:1170px;top:330px;width:340px;height:240px"><img src="img/v/bbb-sec-normal.jpg" alt="Intact reference: capillary cross-section"></div><p class="abs" style="left:1170px;top:600px;width:340px;font-size:30px;font-weight:700;color:#34d399">Intact reference</p><p class="abs mute" style="left:1170px;top:652px;width:320px;font-size:23px;line-height:1.35">Sealed. The comparison state.</p></div>
 </section>
 
-<section class="scr bb" id="nv5" data-right="nv4" data-extra data-name="Neurovascular · Barrier index">
+<section class="scr bb" id="nv5" data-right="nv4" data-extra="nv" data-name="Neurovascular · Barrier index">
   <p class="lab abs" style="left:90px;top:70px">Reading change</p>
   <h2 class="abs" style="left:90px;top:112px;width:1420px">One number to scan: 0 is sealed, 100 is open.</h2>
   <div class="abs" data-b="1" style="left:90px;top:270px;width:320px">
@@ -553,7 +565,7 @@ body.infs #hud,body.infs #hint{display:none}
   <p class="abs mute" style="left:90px;top:800px;font-size:22px">All values are invented to demonstrate the interface.</p>
 </section>
 
-<section class="scr bb" id="nv6" data-right="nv5" data-extra data-name="Neurovascular · Behind the index">
+<section class="scr bb" id="nv6" data-right="nv5" data-extra="nv" data-name="Neurovascular · Behind the index">
   <p class="lab abs" style="left:90px;top:70px">Behind the number</p>
   <h2 class="abs" style="left:90px;top:112px;width:1420px">Then six measures, always beside a reference.</h2>
   <table class="abs" style="left:90px;top:270px;width:1420px"><thead><tr><th>Measure</th><th>Reference</th><th style="color:#ff5a52">Haemorrhage</th><th style="color:#b78cf7">Ischaemic stroke</th><th style="color:#f5b342">Planned opening</th></tr></thead>
@@ -561,14 +573,14 @@ body.infs #hud,body.infs #hint{display:none}
   <p class="abs mute" style="left:90px;top:790px;width:1420px;font-size:22px;line-height:1.4">Invented demonstration values. A scalp sensor cannot directly measure junction gap, electrical resistance, cell leak or neuron viability.</p>
 </section>
 
-<section class="scr bb" id="nv7" data-right="nv6" data-extra data-name="Neurovascular · The journey">
+<section class="scr bb" id="nv7" data-right="nv6" data-extra="nv" data-name="Neurovascular · The journey">
   <p class="lab abs" style="left:90px;top:70px">The clinician journey</p>
   <h2 class="abs" style="left:90px;top:112px;width:1420px;font-size:52px">Eight steps, each opening the view it needs.</h2>
   <div class="shot" style="left:280px;top:210px;width:1040px;height:585px"><img src="img/v/bbb-workspace.jpg" alt="The workspace: sensor readings on the left, 3D head in the centre, step guidance and checklist on the right"></div>
   <div class="abs flow" style="left:90px;top:825px;width:1420px"><span><b>1</b>Fit sensor</span><span><b>2</b>Screen</span><span><b>3</b>Localise</span><span><b>4</b>Inspect barrier</span><span><b>5</b>Confirm</span><span><b>6</b>Plan</span><span><b>7</b>Treat</span><span><b>8</b>Follow-up</span></div>
 </section>
 
-<section class="scr bb" id="nv8" data-right="nv7" data-extra data-name="Neurovascular · Live prototype">
+<section class="scr bb" id="nv8" data-right="nv7" data-extra="nv" data-name="Neurovascular · Live prototype">
   <p class="lab abs" style="left:90px;top:36px">The prototype · live</p>
   <a class="btn abs" href="https://rushabhm-blip.github.io/Brain-Blood-Barrier_datametre/" target="_blank" rel="noopener" style="left:1150px;top:16px;background:var(--acc);color:#04121d">Open in browser ↗</a>
   <div class="abs" style="left:160px;top:90px;width:1280px;height:720px;border-radius:10px;overflow:hidden;border:1px solid #1f3247;background:#050b14 url(img/v/bbb-workspace.jpg) center/cover">
@@ -577,7 +589,7 @@ body.infs #hud,body.infs #hint{display:none}
   <p class="abs mute" style="left:160px;top:828px;font-size:20px">Pick a case, step through the journey, and rotate the head or the barrier.</p>
 </section>
 
-<section class="scr bb" id="nv9" data-right="nv8" data-extra data-name="Neurovascular · Learning outcomes">
+<section class="scr bb" id="nv9" data-right="nv8" data-extra="nv" data-name="Neurovascular · Learning outcomes">
   <p class="lab abs" style="left:90px;top:110px">Learning outcomes</p>
   <h2 class="abs" style="left:90px;top:150px;width:1420px">Show the signal, and show its limits.</h2>
   <div class="abs lo" style="left:90px;top:330px;width:840px;font-size:28px;line-height:1.35">
@@ -588,6 +600,78 @@ body.infs #hud,body.infs #hint{display:none}
   </div>
   <div class="shot" style="left:980px;top:340px;width:540px;height:382px"><img src="img/v/bbb-sec-drug.jpg" alt="Focused ultrasound opening the barrier for therapy molecules"></div>
   <p class="abs mute" style="left:90px;top:815px;font-size:18px">Head scan: “Lee Perry-Smith”, Infinite-Realities. Brain: 196-part anatomical atlas. Vessels and nerves are schematic.</p>
+</section>
+
+<!-- =================== BACKUP · BRANCHING BEYOND (not in the talk: press B, Esc returns) =================== -->
+<section class="scr br" id="br1" data-at="0 -6000 1" data-extra="br" data-name="Branching Beyond · Title">
+  <img class="cover" src="img/v/br-cover.jpg" alt="Visitors in headsets growing glowing trees" style="left:430px;width:1170px">
+  <div class="abs" style="inset:0;background:linear-gradient(90deg,#0b100e 30%,rgba(11,16,14,.7) 46%,rgba(11,16,14,0) 66%)"></div>
+  <p class="lab abs" style="left:90px;top:170px">Immersive VR exhibit</p>
+  <h2 class="abs" style="left:84px;top:230px;width:620px;font-size:112px;line-height:1">Branching Beyond</h2>
+  <p class="abs" style="left:90px;top:500px;width:540px;font-size:36px;line-height:1.25">An interactive VR exploration of mathematics in nature.</p>
+  <p class="abs" style="left:90px;top:680px;width:640px;font-size:22px;line-height:1.5">Team: Sneha Karunanithi · Nila Damodar · Ankit Prajapat · Dakshata Shankhwar · Rushabh Mahore</p>
+  <p class="abs mute" style="left:90px;top:780px;width:640px;font-size:19px;line-height:1.5">Design Project: AR/VR &amp; Immersive Environments · with Visvesvaraya Industrial &amp; Technological Museum, Bengaluru</p>
+</section>
+
+<section class="scr br" id="br2" data-right="br1" data-extra="br" data-name="Branching Beyond · Maths in nature">
+  <p class="lab abs" style="left:90px;top:70px">Nature is full of maths. Most people never notice it.</p>
+  <h2 class="abs" style="left:90px;top:112px;width:1420px">Trees are mathematical structures.</h2>
+  <div class="abs" data-b="1" style="left:0;top:0"><div class="shot" style="left:150px;top:240px;width:380px;height:460px"><img src="img/v/br-oak1.jpg" alt="Fractals & recursion"></div><p class="abs" style="left:150px;top:724px;width:380px;font-size:28px;font-weight:700;color:var(--acc)">Fractals & recursion</p><p class="abs mute" style="left:150px;top:772px;width:380px;font-size:21px;line-height:1.4">Branches divide into smaller branches, repeating similar structures at different scales.</p></div>
+  <div class="abs" data-b="2" style="left:0;top:0"><div class="shot" style="left:610px;top:240px;width:380px;height:460px"><img src="img/v/br-oak2.jpg" alt="Exponential growth"></div><p class="abs" style="left:610px;top:724px;width:380px;font-size:28px;font-weight:700;color:var(--acc)">Exponential growth</p><p class="abs mute" style="left:610px;top:772px;width:380px;font-size:21px;line-height:1.4">As branches split, the number of tips rises quickly with each level.</p></div>
+  <div class="abs" data-b="3" style="left:0;top:0"><div class="shot" style="left:1070px;top:240px;width:380px;height:460px"><img src="img/v/br-oak3.jpg" alt="Fibonacci & spirals"></div><p class="abs" style="left:1070px;top:724px;width:380px;font-size:28px;font-weight:700;color:var(--acc)">Fibonacci & spirals</p><p class="abs mute" style="left:1070px;top:772px;width:380px;font-size:21px;line-height:1.4">Fibonacci-related patterns appear in how leaves are arranged, helping them catch sunlight.</p></div>
+</section>
+
+<section class="scr br" id="br3" data-right="br2" data-extra="br" data-name="Branching Beyond · The opportunity">
+  <p class="lab abs" style="left:90px;top:110px">The opportunity</p>
+  <h2 class="abs" style="left:90px;top:155px;width:1250px">What if we could interact with these patterns?</h2>
+  <p class="abs mute" style="left:90px;top:340px;width:1100px;font-size:28px;line-height:1.4">Maths is often introduced through numbers, formulas and diagrams. What happens when visitors can change the rules and see the outcome?</p>
+  <p class="abs star" data-b="1" style="left:90px;top:470px;width:1420px">Turn abstract mathematical ideas into an interactive, visual and spatial experience.</p>
+  <p class="abs aim" data-b="2" style="left:90px;top:650px;width:330px">Make mathematical growth visible.</p>
+  <p class="abs aim" data-b="2" style="left:450px;top:650px;width:330px">Let visitors experiment with different rules.</p>
+  <p class="abs aim" data-b="2" style="left:810px;top:650px;width:330px">Encourage prediction through interaction.</p>
+  <p class="abs aim" data-b="2" style="left:1170px;top:650px;width:330px">Connect the maths to patterns found in nature.</p>
+</section>
+
+<section class="scr br" id="br4" data-right="br3" data-extra="br" data-name="Branching Beyond · Three ways to grow">
+  <p class="lab abs" style="left:90px;top:70px">Three ways to grow</p>
+  <h2 class="abs" style="left:90px;top:112px;width:1420px">Pick a rule. Watch the numbers.</h2>
+  <div class="abs way" data-b="1" style="left:90px;top:280px;width:450px;border-top-color:#a8e063"><h3 style="color:#a8e063">Fractal</h3><p class="rule">Each branch splits in two.</p><p class="seq">1 → 2 → 4 → 8 → 16</p><p class="mute">You change the angle (wide or tall crown) and how much each branch shrinks. Seen in trees, ferns, lungs.</p></div>
+  <div class="abs way" data-b="2" style="left:575px;top:280px;width:450px;border-top-color:#5cb8f2"><h3 style="color:#5cb8f2">Exponential</h3><p class="rule">Each branch makes 4 shoots.</p><p class="seq">4 → 16 → 64 → 256</p><p class="mute">You choose shoots per branch. Slow at first, then it fills the space. Like cells and populations.</p></div>
+  <div class="abs way" data-b="3" style="left:1060px;top:280px;width:450px;border-top-color:#f27ac0"><h3 style="color:#f27ac0">Fibonacci</h3><p class="rule">New shoots rest one step first.</p><p class="seq">1 → 1 → 2 → 3 → 5 → 8</p><p class="mute">Each number is the sum of the two before it. Seen in sunflowers and pinecones.</p></div>
+</section>
+
+<section class="scr br" id="br5" data-right="br4" data-extra="br" data-name="Branching Beyond · The experience loop">
+  <p class="lab abs" style="left:90px;top:70px">The experience loop</p>
+  <h2 class="abs" style="left:90px;top:112px;width:1420px">Guess, grow, test, rebuild.</h2>
+  <div class="abs flow" style="left:90px;top:280px;width:1420px"><span>Choose a rule</span><i>→</i><span>Guess the count</span><i>→</i><span>Tree grows</span></div>
+  <div class="abs way" data-b="1" style="left:90px;top:420px;width:450px;border-top-color:#a8e063"><h3 style="color:#a8e063">Right guess</h3><p class="rule">A new layer grows. Guess the next one.</p></div>
+  <div class="abs way" data-b="2" style="left:575px;top:420px;width:450px;border-top-color:#f2b25c"><h3 style="color:#f2b25c">Wrong guess</h3><p class="rule">Branches break and the tree says why. Try again.</p></div>
+  <div class="abs way" data-b="3" style="left:1060px;top:420px;width:450px;border-top-color:#ff6b61"><h3 style="color:#ff6b61">Pushed too far</h3><p class="rule">The tree topples. Change the rule and grow again.</p></div>
+  <p class="abs mute" data-b="4" style="left:90px;top:700px;width:1420px;font-size:26px;line-height:1.5">After two wrong guesses a friendly hint appears: mistakes are part of learning. In free exploration, visitors change angles and lengths with no questions asked. Rising tones mark growth, a crackle marks a break, a creak marks collapse.</p>
+</section>
+
+<section class="scr br" id="br6" data-right="br5" data-extra="br" data-name="Branching Beyond · Visitor journey">
+  <p class="lab abs" style="left:90px;top:70px">The visitor journey · concept visuals</p>
+  <div class="abs" data-b="5" style="left:0;top:0"><div class="shot" style="left:90px;top:190px;width:460px;height:254px"><img src="img/v/br-enter.jpg" alt="Enter"></div><p class="abs" style="left:90px;top:460px;width:460px;font-size:24px;font-weight:700">1 · Enter</p></div>
+  <div class="abs" data-b="5" style="left:0;top:0"><div class="shot" style="left:570px;top:190px;width:460px;height:254px"><img src="img/v/br-headset.jpg" alt="Get ready"></div><p class="abs" style="left:570px;top:460px;width:460px;font-size:24px;font-weight:700">2 · Get ready</p></div>
+  <div class="abs" data-b="5" style="left:0;top:0"><div class="shot" style="left:1050px;top:190px;width:460px;height:254px"><img src="img/v/br-choose.jpg" alt="Choose"></div><p class="abs" style="left:1050px;top:460px;width:460px;font-size:24px;font-weight:700">3 · Choose</p></div>
+  <div class="abs" data-b="5" style="left:0;top:0"><div class="shot" style="left:330px;top:520px;width:460px;height:254px"><img src="img/v/br-collapse.jpg" alt="Collapse and rebuild"></div><p class="abs" style="left:330px;top:790px;width:460px;font-size:24px;font-weight:700">4 · Collapse and rebuild</p></div>
+  <div class="abs" data-b="5" style="left:0;top:0"><div class="shot" style="left:810px;top:520px;width:460px;height:254px"><img src="img/v/br-garden.jpg" alt="Shared garden"></div><p class="abs" style="left:810px;top:790px;width:460px;font-size:24px;font-weight:700">5 · Shared garden</p></div>
+  <div class="solo" data-b="0"><div class="shot" style="left:240px;top:120px;width:1120px;height:620px"><img src="img/v/br-enter.jpg" alt="Enter"></div><p class="abs" style="left:90px;top:765px;width:1420px;text-align:center;font-size:36px;font-weight:700">Enter</p><p class="abs mute" style="left:90px;top:822px;width:1420px;text-align:center;font-size:24px">Visitors walk into the exhibit.</p></div>
+  <div class="solo" data-b="1"><div class="shot" style="left:240px;top:120px;width:1120px;height:620px"><img src="img/v/br-headset.jpg" alt="Get ready"></div><p class="abs" style="left:90px;top:765px;width:1420px;text-align:center;font-size:36px;font-weight:700">Get ready</p><p class="abs mute" style="left:90px;top:822px;width:1420px;text-align:center;font-size:24px">A facilitator helps with the headset, controls and hand gestures.</p></div>
+  <div class="solo" data-b="2"><div class="shot" style="left:240px;top:120px;width:1120px;height:620px"><img src="img/v/br-choose.jpg" alt="Choose"></div><p class="abs" style="left:90px;top:765px;width:1420px;text-align:center;font-size:36px;font-weight:700">Choose</p><p class="abs mute" style="left:90px;top:822px;width:1420px;text-align:center;font-size:24px">Pick a mathematical system, predict, and change its parameters.</p></div>
+  <div class="solo" data-b="3"><div class="shot" style="left:240px;top:120px;width:1120px;height:620px"><img src="img/v/br-collapse.jpg" alt="Collapse and rebuild"></div><p class="abs" style="left:90px;top:765px;width:1420px;text-align:center;font-size:36px;font-weight:700">Collapse and rebuild</p><p class="abs mute" style="left:90px;top:822px;width:1420px;text-align:center;font-size:24px">A wrong guess, or too much growth, brings the tree down. Rebuild it.</p></div>
+  <div class="solo" data-b="4"><div class="shot" style="left:240px;top:120px;width:1120px;height:620px"><img src="img/v/br-garden.jpg" alt="Shared garden"></div><p class="abs" style="left:90px;top:765px;width:1420px;text-align:center;font-size:36px;font-weight:700">Shared garden</p><p class="abs mute" style="left:90px;top:822px;width:1420px;text-align:center;font-size:24px">Explore trees grown by other visitors.</p></div>
+</section>
+
+<section class="scr br" id="br7" data-right="br6" data-extra="br" data-name="Branching Beyond · The VR experience">
+  <p class="lab abs" style="left:90px;top:110px">The VR experience</p>
+  <h2 class="abs" style="left:90px;top:155px;width:1420px">Maths you can stand under.</h2>
+  <div class="abs" data-b="1" style="left:90px;top:340px;width:360px"><p style="font-size:26px;font-weight:700;color:var(--acc)">★ Spatial scale</p><p class="mute" style="font-size:22px;line-height:1.45;margin-top:12px">The tree starts at the visitor’s feet and grows overhead, so its size and complexity can be felt.</p></div>
+  <div class="abs" data-b="2" style="left:490px;top:340px;width:360px"><p style="font-size:26px;font-weight:700;color:var(--acc)">★ Hand interaction</p><p class="mute" style="font-size:22px;line-height:1.45;margin-top:12px">Hand tracking and pinch gestures select options and change parameters. Controllers also work.</p></div>
+  <div class="abs" data-b="3" style="left:90px;top:570px;width:360px"><p style="font-size:26px;font-weight:700;color:var(--acc)">★ Real-time feedback</p><p class="mute" style="font-size:22px;line-height:1.45;margin-top:12px">Changing structures, growth animation and sound respond to every action.</p></div>
+  <div class="abs" data-b="4" style="left:490px;top:570px;width:360px"><p style="font-size:26px;font-weight:700;color:var(--acc)">★ Shared experience</p><p class="mute" style="font-size:22px;line-height:1.45;margin-top:12px">A shared display lets people outside the headset watch and join the prediction challenges.</p></div>
+  <div class="shot" style="left:920px;top:340px;width:590px;height:326px"><img src="img/v/br-garden.jpg" alt="Visitors in a shared garden of glowing trees"></div>
 </section>
 
 </div>
@@ -693,21 +777,21 @@ const path=[];
 S.forEach(e=>{path.push({id:e.id,b:0});const n=Math.max(0,...[...e.querySelectorAll('[data-b]')].map(x=>+x.dataset.b));for(let b=1;b<=n;b++)path.push({id:e.id,b})});
 let idx=0,focused=null;
 const frames={yt:'t9',proto:'fP',nvf:'nv8'};
-/* backup screens (data-extra) sit outside the talk: D opens them, Esc returns */
-const isExtra=i=>byId[path[i].id].hasAttribute('data-extra');
+/* backup projects (data-extra="group") sit outside the talk: D or B opens one, Esc returns */
+const group=i=>byId[path[i].id].dataset.extra||'';const isExtra=i=>!!group(i);
 const main=path.filter((_,i)=>!isExtra(i)).length;let back='s02';
-function step(d){const n=idx+d;if(path[n]&&isExtra(n)!==isExtra(idx))return;go(n)}
+function step(d){const n=idx+d;if(path[n]&&group(n)!==group(idx))return;go(n)}
 function apply(i){const cur=path[i],order=S.map(e=>e.id),ci=order.indexOf(cur.id);focused=null;
   S.forEach((e,k)=>e.querySelectorAll('[data-b]').forEach(x=>{x.classList.toggle('on',k<ci||(k==ci&&+x.dataset.b<=cur.b));if(x.classList.contains('solo'))x.classList.toggle('past',k<ci||(k==ci&&+x.dataset.b<cur.b))}));
   const scr=byId[cur.id];travel(cur.id);
   document.body.style.backgroundColor=getComputedStyle(scr).getPropertyValue('--bg').trim();
-  document.body.classList.toggle('dark',['fe','tw','bb'].some(c=>scr.classList.contains(c)));
+  document.body.classList.toggle('dark',['fe','tw','bb','br'].some(c=>scr.classList.contains(c)));
   for(const[fid,sid]of Object.entries(frames)){const f=document.getElementById(fid);if(cur.id==sid){if(!f.getAttribute('src'))f.src=f.dataset.src}else if(f.getAttribute('src'))f.removeAttribute('src')}
   {const a=document.getElementById('fpA');if(a)a.style.opacity=(cur.id=='fP'&&cur.b>=2)?0:1;document.getElementById('fpOpen').href='https://rushabhm-blip.github.io/Snakebite_dataviz_India/'+(cur.id=='fP'&&cur.b>=2?'#snakes-neighbourhood-component':'');
   const on=cur.id=='fP'&&cur.b==1,fr=document.getElementById('fsFrame'),box=document.getElementById('fs');box.classList.toggle('on',on);document.body.classList.toggle('infs',on);
   if(on&&!fr.getAttribute('src'))fr.src=fr.dataset.src;if(cur.id!='fP'&&fr.getAttribute('src'))fr.removeAttribute('src')}
   if(cur.id!='a15')document.getElementById('saathVid').pause();
-  const from=isExtra(i)?main:0,len=isExtra(i)?path.length-main:main;
+  const g=group(i),from=g?path.findIndex((_,k)=>group(k)==g):0,len=g?path.filter((_,k)=>group(k)==g).length:main;
   document.getElementById('where').textContent=scr.dataset.name+'  ·  '+(i-from+1)+' / '+len;
   document.getElementById('prog').style.width=((i-from)/(len-1)*100)+'%';
   try{history.replaceState(null,'','#'+cur.id)}catch(_){}
@@ -721,7 +805,7 @@ addEventListener('keydown',e=>{
   else if(['ArrowLeft','PageUp','Backspace','ArrowUp'].includes(e.key)){e.preventDefault();step(-1)}
   else if(e.key=='Escape'&&document.body.classList.contains('infs'))go(idx+1);
   else if(e.key=='Escape'){if(focused){focused=null;fly(viewOf(path[idx].id))}else toScreen(isExtra(idx)?back:'s02')}
-  else if((e.key=='d'||e.key=='D')&&!e.ctrlKey&&!e.metaKey){if(!isExtra(idx))toScreen('nv1')}
+  else if('dDbB'.includes(e.key)&&!e.ctrlKey&&!e.metaKey){const id=e.key.toLowerCase()=='d'?'nv1':'br1';if(group(idx)!=id.slice(0,2))toScreen(id)}
   else if(e.key=='Home')go(0);else if(e.key=='End')go(main-1);
   else if(e.key=='f'||e.key=='F')(document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()).catch(()=>{});
 });

@@ -21,6 +21,7 @@ Locally, open `index.html` from a web server (images load by relative path), for
 - `→` / `Space` / click: next step (some screens step through their images first)
 - `←` previous · `Esc` back to the three projects · `F` full screen · `Home` / `End`
 - `D`: backup project, Neurovascular Journey (outside the talk; `Esc` returns to where you were)
+- `B`: backup project, Branching Beyond (same rules as `D`)
 - Add `#screen-id` to the URL to jump to a screen (for example `#a10` for the Saath journey)
 - Scroll to zoom, drag to pan
 
