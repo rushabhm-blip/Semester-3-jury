@@ -54,6 +54,18 @@ img{display:block}
 .q .tags{display:flex;justify-content:center;gap:10px;margin-top:36px}.q .tags span{font-size:19px;line-height:1;font-weight:600;color:var(--rc);border:2px solid var(--rc);border-radius:999px;padding:9px 16px;white-space:nowrap}
 .q p{font-size:36px;line-height:1.15;font-weight:700;margin-top:24px;text-wrap:balance}
 .q small{display:block;font-size:22px;color:#6b6b66;margin-top:14px;font-weight:500}
+/* four projects: three presented, the fourth set apart and quieter */
+#s02 .grp{position:absolute;top:50px;text-align:center;font-size:18px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#141414;border-bottom:3px solid #141414;padding-bottom:10px}
+#s02 .grp.more{color:#6b6b66;border-color:#c9c9c2}
+#s02 .div{position:absolute;left:1198px;top:50px;height:720px;border-left:2px dashed #c9c9c2}
+#s02 .q{top:140px;width:370px}
+#s02 .q .ring{width:310px;height:310px}#s02 .q .ring .port{left:45px;top:111px;width:220px;height:124px}
+#s02 .q .tags{gap:8px;margin-top:34px}#s02 .q .tags span{font-size:16px;padding:8px 13px}
+#s02 .q p{font-size:30px}#s02 .q small{font-size:20px}#s02 .q .cr{font-size:17px}
+#s02 .nm-f{font-size:60px}#s02 .nm-f i{font-size:56px}#s02 .nm-s{font-size:78px}
+#s02 .q.more{width:310px}#s02 .q.more .ring{width:240px;height:240px;margin-top:35px;margin-bottom:35px}
+#s02 .q.more p{font-size:24px}#s02 .q.more small{font-size:18px}
+.nm-n{font:800 31px/1.1 Figtree,system-ui,sans-serif;color:#eaf2f8;background:radial-gradient(circle,rgba(5,11,20,.6) 25%,rgba(5,11,20,.15) 85%)}.nm-n i{font-weight:400}
 /* ---------- fear (forest + serif) ---------- */
 .fe{--bg:#0b1a12;--fg:#e8efe4;--red:#e0553f;--grn:#6fd39f;--amb:#e8b04a;--loc:#6fd39f;--lot:#0b1a12;background:radial-gradient(ellipse at 70% 30%,#14301f,#0b1a12 70%)}
 .fe .serif{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600}
@@ -144,9 +156,11 @@ body.infs #hud,body.infs #hint{display:none}
 </section>
 
 <section class="scr op" id="s02" data-in="s01 p-dots" data-name="Three questions">
-  <div class="q" style="left:100px"><div class="ring c1" style="--rc:#163a28" data-go-to="f1"><img src="img/v/f-diversity.jpg" alt="" style="object-position:62% 50%"><div class="nm nm-f">The Fear<i>Between Us</i></div><div class="port" id="p-q1"></div></div><div class="tags" style="--rc:#163a28"><span>Data visualization</span><span>Storytelling</span></div><p>Why do we fear what we don't understand?<small>The Fear Between Us<span class="cr"><b>Amit Kapoor, Prof. Chakradhar Saswade</b><br>2 weeks</span></small></p></div>
-  <div class="q" style="left:580px"><div class="ring c2" style="--rc:#111" data-go-to="t1"><img src="img/v/tw13.jpg" alt="" style="transform-origin:50% 45%"><div class="port" id="p-q2"></div></div><div class="tags" style="--rc:#111"><span>Multimodality</span><span>Gesture interaction</span></div><p>How do children meet history?<small>Time Wanderers<span class="cr"><b>Dr. Mamata Rao, Prof. Athul Dinesh</b><br>4 weeks</span></small></p></div>
-  <div class="q" style="left:1060px"><div class="ring c3" style="--rc:#2456c8" data-go-to="a1"><img src="img/v/room.jpg" alt="" style="object-position:55% 50%"><div class="nm nm-s">Saath</div><div class="port" id="p-q3"></div></div><div class="tags" style="--rc:#2456c8"><span>Immersive experience</span><span>AR/VR</span></div><p>How do you prepare for the unknown?<small>Saath<span class="cr"><b>Prof. Jagriti Galphade, Prof. Athul Dinesh</b><br>8 weeks</span></small></p></div>
+  <div class="grp" style="left:55px;width:1100px">Presenting today</div><div class="grp more" style="left:1240px;width:310px">Also done</div><div class="div"></div>
+  <div class="q" style="left:30px"><div class="ring c1" style="--rc:#163a28" data-go-to="f1"><img src="img/v/f-diversity.jpg" alt="" style="object-position:62% 50%"><div class="nm nm-f">The Fear<i>Between Us</i></div><div class="port" id="p-q1"></div></div><div class="tags" style="--rc:#163a28"><span>Data visualization</span><span>Storytelling</span></div><p>Why do we fear what we don't understand?<small>The Fear Between Us<span class="cr"><b>Amit Kapoor, Prof. Chakradhar Saswade</b><br>2 weeks</span></small></p></div>
+  <div class="q" style="left:420px"><div class="ring c2" style="--rc:#111" data-go-to="t1"><img src="img/v/tw13.jpg" alt="" style="transform-origin:50% 45%"><div class="port" id="p-q2"></div></div><div class="tags" style="--rc:#111"><span>Multimodality</span><span>Gesture interaction</span></div><p>How do children meet history?<small>Time Wanderers<span class="cr"><b>Dr. Mamata Rao, Prof. Athul Dinesh</b><br>4 weeks</span></small></p></div>
+  <div class="q" style="left:810px"><div class="ring c3" style="--rc:#2456c8" data-go-to="a1"><img src="img/v/room.jpg" alt="" style="object-position:55% 50%"><div class="nm nm-s">Saath</div><div class="port" id="p-q3"></div></div><div class="tags" style="--rc:#2456c8"><span>Immersive experience</span><span>AR/VR</span></div><p>How do you prepare for the unknown?<small>Saath<span class="cr"><b>Prof. Jagriti Galphade, Prof. Athul Dinesh</b><br>8 weeks</span></small></p></div>
+  <div class="q more" style="left:1240px"><div class="ring" style="--rc:#7a8793" data-go-to="nv1"><img src="img/v/bbb-head.jpg" alt=""><div class="nm nm-n">Neurovascular<i>Journey</i></div></div><div class="tags" style="--rc:#4d5a66"><span>Data visualization</span><span>3D</span></div><p>How do you see a barrier inside the brain?<small>Neurovascular Journey</small></p></div>
 </section>
 
 <!-- =================== 1 · THE FEAR BETWEEN US =================== -->
@@ -698,7 +712,7 @@ function apply(i){const cur=path[i],order=S.map(e=>e.id),ci=order.indexOf(cur.id
   try{history.replaceState(null,'','#'+cur.id)}catch(_){}
 }
 function go(n){idx=Math.max(0,Math.min(path.length-1,n));apply(idx);hint.style.opacity=0}
-function toScreen(id){const i=path.findIndex(p=>p.id==id);if(i>=0)go(i)}
+function toScreen(id){const i=path.findIndex(p=>p.id==id);if(i<0)return;if(isExtra(i)&&!isExtra(idx))back=path[idx].id;go(i)}
 
 /* ---------- input ---------- */
 addEventListener('keydown',e=>{
@@ -706,7 +720,7 @@ addEventListener('keydown',e=>{
   else if(['ArrowLeft','PageUp','Backspace','ArrowUp'].includes(e.key)){e.preventDefault();step(-1)}
   else if(e.key=='Escape'&&document.body.classList.contains('infs'))go(idx+1);
   else if(e.key=='Escape'){if(focused){focused=null;fly(viewOf(path[idx].id))}else toScreen(isExtra(idx)?back:'s02')}
-  else if((e.key=='d'||e.key=='D')&&!e.ctrlKey&&!e.metaKey){if(!isExtra(idx)){back=path[idx].id;toScreen('nv1')}}
+  else if((e.key=='d'||e.key=='D')&&!e.ctrlKey&&!e.metaKey){if(!isExtra(idx))toScreen('nv1')}
   else if(e.key=='Home')go(0);else if(e.key=='End')go(main-1);
   else if(e.key=='f'||e.key=='F')(document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()).catch(()=>{});
 });
