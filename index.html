@@ -42,6 +42,10 @@ img{display:block}
 .dots{display:flex;gap:34px;align-items:center;justify-content:center}
 .dots i{width:70px;height:70px;border-radius:50%}
 .c1{background:#163a28}.c2{background:#111}.c3{background:#2456c8}
+/* semester keywords: capsules that drop onto the title slide; colours follow the three dots */
+#caps{position:absolute;inset:0;pointer-events:none}
+#caps span{position:absolute;left:0;top:-200px;height:54px;padding:0 24px;border-radius:27px;white-space:nowrap;font-size:25px;line-height:54px;font-weight:600;color:#fff;will-change:transform}
+#caps .f{background:#163a28}#caps .t{background:#111}#caps .s{background:#2456c8}#caps .m{background:#dfe3e6;color:#1c2630}#caps .o{background:#fbfbf7;color:#141414;line-height:50px;border:2px solid #141414}
 .q{position:absolute;top:90px;width:440px;text-align:center}
 .q .ring{width:370px;height:370px;border-radius:50%;margin:0 auto;position:relative;overflow:hidden;box-shadow:0 0 0 8px #fbfbf7,0 0 0 11px var(--rc),0 30px 60px -30px rgba(0,0,0,.5);cursor:zoom-in}
 .q .ring img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s}
@@ -160,10 +164,11 @@ body.infs #hud,body.infs #hint{display:none}
 
 <!-- =================== OPENING =================== -->
 <section class="scr op" id="s01" data-at="0 0 1" data-name="Introduction">
-  <p class="kick abs" style="left:110px;top:110px">Semester 3 · Jury</p>
-  <h1 class="abs" style="left:104px;top:400px">Rushabh<br>Mahore</h1>
-  <p class="kick abs" style="left:110px;top:720px">Interaction Design · NID Bengaluru</p>
-  <div class="port dots" id="p-dots" style="left:1010px;top:357px;width:330px;height:186px"><i class="c1"></i><i class="c2"></i><i class="c3"></i></div>
+  <p class="kick abs" style="left:110px;top:70px">Semester 3 · Jury</p>
+  <h1 class="abs" style="left:104px;top:135px">Rushabh<br>Mahore</h1>
+  <p class="kick abs" style="left:110px;top:440px">Interaction Design · NID Bengaluru</p>
+  <div class="port dots" id="p-dots" style="left:1080px;top:189px;width:330px;height:186px"><i class="c1"></i><i class="c2"></i><i class="c3"></i></div>
+  <div id="caps" aria-label="Everything I worked on this semester"><span class="s">Mixed reality</span><span class="t">Multimodality</span><span class="m">Immersive VR</span><span class="f">Data storytelling</span><span class="s">Accessibility</span><span class="o">Gyaan Adda talks</span><span class="s">User interviews</span><span class="t">Gesture interaction</span><span class="m">3D prototyping</span><span class="f">Data visualisation</span><span class="s">Systems thinking</span><span class="t">Voice input</span><span class="m">Neurovascular</span><span class="s">Causal loops</span><span class="o">Chess</span><span class="f">Scroll story</span><span class="s">Iceberg model</span><span class="t">Storyboarding</span><span class="m">Fractals</span><span class="s">Information architecture</span><span class="f">Open data</span><span class="s">WebXR</span><span class="o">Table tennis</span><span class="t">Museum learning</span><span class="m">Fibonacci</span><span class="s">three.js</span><span class="f">Leaflet maps</span><span class="t">User testing</span><span class="m">Hand tracking</span><span class="s">Blender</span><span class="s">Figma</span><span class="o">Nature trips</span><span class="f">HTML · CSS · JS</span><span class="t">AI tools</span><span class="m">Maths in nature</span><span class="s">Meta Quest 3</span></div>
 </section>
 
 <section class="scr op" id="s02" data-in="s01 p-dots" data-name="Three questions">
@@ -702,6 +707,39 @@ body.infs #hud,body.infs #hint{display:none}
   c[3].forEach(s=>{const nx=x0+n*gap;n++;h+=`<div class="node" style="left:${nx-13}px;top:557px"></div><p class="nl" style="left:${nx-60}px;top:600px;width:120px">${s}</p>`})});
  document.getElementById('ia').innerHTML=h}
 
+/* ---------- falling capsules: each is a rigid row of circles under gravity ---------- */
+const drop=(()=>{
+  const els=[...document.querySelectorAll('#caps span')],R=27,FLOOR=878,LEFT=40,RIGHT=1560;
+  let B=[],raf=0,tick=0,live=false;const END=960;
+  function reset(){let r=131;const rnd=()=>(r=r*16807%2147483647)/2147483647;tick=0;
+    B=els.map((el,i)=>{const w=el.offsetWidth,half=Math.max(0,w/2-R),n=Math.ceil(half*2/(R*.8))+1;
+      const x=LEFT+w/2+((i*.618034+rnd()*.12)%1)*(RIGHT-LEFT-w),y=-80,a=(rnd()-.5)*1.3;
+      const pts=Array.from({length:n},(_,k)=>{const u=n>1?-half+2*half*k/(n-1):0,px=x+u*Math.cos(a),py=y+u*Math.sin(a);return{u,x:px,y:py,ox:px,oy:py}});
+      return{el,w,pts,x,y,a,reach:half+R,start:i*9}})}
+  function rigid(b){let x=0,y=0,c=0,d=0;for(const p of b.pts){x+=p.x;y+=p.y}x/=b.pts.length;y/=b.pts.length;
+    for(const p of b.pts){c+=p.u*(p.x-x);d+=p.u*(p.y-y)}
+    const a=c||d?Math.atan2(d,c):b.a,cs=Math.cos(a),sn=Math.sin(a);b.x=x;b.y=y;b.a=a;
+    for(const p of b.pts){p.x=x+p.u*cs;p.y=y+p.u*sn}}
+  function sim(){tick++;const on=B.filter(b=>tick>=b.start),damp=tick<END-240?.985:.9;
+    for(const b of on)for(const p of b.pts){const vx=(p.x-p.ox)*damp,vy=(p.y-p.oy)*damp;p.ox=p.x;p.oy=p.y;p.x+=vx;p.y+=Math.min(vy+.16,9)}
+    for(const b of on){const w=-(b.a-Math.PI*Math.round(b.a/Math.PI))*0.0016,c=Math.cos(w),n=Math.sin(w);for(const p of b.pts){const dx=p.x-b.x,dy=p.y-b.y;p.x=b.x+dx*c-dy*n;p.y=b.y+dx*n+dy*c}}
+    for(let it=0;it<5;it++){
+      for(let i=0;i<on.length;i++)for(let j=i+1;j<on.length;j++){const A=on[i],C=on[j];
+        if(Math.hypot(A.x-C.x,A.y-C.y)>A.reach+C.reach)continue;
+        for(const p of A.pts)for(const s of C.pts){const dx=s.x-p.x,dy=s.y-p.y,d2=dx*dx+dy*dy;if(d2>=4*R*R||!d2)continue;
+          const d=Math.sqrt(d2),k=(2*R-d)/d*.4;p.x-=dx*k;p.y-=dy*k;s.x+=dx*k;s.y+=dy*k}}
+      for(const b of on){for(const p of b.pts){if(p.y>FLOOR-R){p.y=FLOOR-R;p.ox+=(p.x-p.ox)*.25}
+        if(p.x<LEFT+R)p.x=LEFT+R;if(p.x>RIGHT-R)p.x=RIGHT-R}rigid(b)}}}
+  function draw(){for(const b of B)b.el.style.transform=`translate(${b.x-b.w/2}px,${b.y+200-R}px) rotate(${b.a-Math.PI*Math.round(b.a/Math.PI)}rad)`}
+  function finish(){cancelAnimationFrame(raf);while(tick<END)sim();draw()}
+  return on=>{if(on===live)return;live=on;
+    if(!on){if(B.length)finish();return}
+    cancelAnimationFrame(raf);reset();if(!B[0]||!B[0].w)return;
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches){finish();return}
+    let t0=performance.now();draw();
+    const frame=now=>{const due=Math.min(END,Math.floor((now-t0)/1000*120));let n=0;while(tick<due&&n++<8)sim();if(n>8)t0=now-tick/120*1000;draw();if(tick<END)raf=requestAnimationFrame(frame)};
+    raf=requestAnimationFrame(frame)}})();
+
 /* ---------- camera ---------- */
 const stage=document.getElementById('stage'),hint=document.getElementById('hint');
 const S=[...document.querySelectorAll('.scr')];const byId={};S.forEach(e=>byId[e.id]=e);
@@ -783,7 +821,7 @@ const main=path.filter((_,i)=>!isExtra(i)).length;let back='s02';
 function step(d){const n=idx+d;if(path[n]&&group(n)!==group(idx))return;go(n)}
 function apply(i){const cur=path[i],order=S.map(e=>e.id),ci=order.indexOf(cur.id);focused=null;
   S.forEach((e,k)=>e.querySelectorAll('[data-b]').forEach(x=>{x.classList.toggle('on',k<ci||(k==ci&&+x.dataset.b<=cur.b));if(x.classList.contains('solo'))x.classList.toggle('past',k<ci||(k==ci&&+x.dataset.b<cur.b))}));
-  const scr=byId[cur.id];travel(cur.id);
+  const scr=byId[cur.id];travel(cur.id);drop(cur.id=='s01');
   document.body.style.backgroundColor=getComputedStyle(scr).getPropertyValue('--bg').trim();
   document.body.classList.toggle('dark',['fe','tw','bb','br'].some(c=>scr.classList.contains(c)));
   for(const[fid,sid]of Object.entries(frames)){const f=document.getElementById(fid);if(cur.id==sid){if(!f.getAttribute('src'))f.src=f.dataset.src}else if(f.getAttribute('src'))f.removeAttribute('src')}
@@ -834,7 +872,7 @@ addEventListener('resize',()=>{if(!ready)return;clearTimeout(rz);rz=setTimeout((
 window.__deck={P,path,get cam(){return cam}};
 
 /* ---------- start ---------- */
-const boot=()=>{layout();const h=location.hash.slice(1),i=path.findIndex(p=>p.id==h);idx=i>0?i:0;
+const boot=()=>{layout();drop(true);drop(false);const h=location.hash.slice(1),i=path.findIndex(p=>p.id==h);idx=i>0?i:0;
   const v=viewOf(path[idx].id);cam={x:v.x,y:v.y,w:v.w};at=path[idx].id;render();setTimeout(()=>{ready=true;apply(idx)},120)};
 document.fonts&&document.fonts.ready?document.fonts.ready.then(boot):addEventListener('load',boot);
 }
